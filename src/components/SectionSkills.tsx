@@ -1,7 +1,9 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, MotionValue, useTransform } from "framer-motion";
 import { MouseEvent, useState } from "react";
+import ScrollTimeline from "./ScrollTimeline";
+import { createTimeline } from "@/utils/timeline";
 
 const CATEGORIES = [
   {
@@ -26,7 +28,12 @@ const CATEGORIES = [
   }
 ];
 
-function GlassCard({ category, index }: { category: typeof CATEGORIES[0], index: number }) {
+const timeline = createTimeline([
+  { id: "title", duration: 1 },
+  { id: "cards", duration: 3 },
+]);
+
+function GlassCard({ category, index, progress }: { category: typeof CATEGORIES[0], index: number, progress: MotionValue<number> }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -37,17 +44,20 @@ function GlassCard({ category, index }: { category: typeof CATEGORIES[0], index:
     mouseY.set(clientY - top);
   }
 
+  const [start, end] = timeline.getPhase("cards");
+  const cardStart = start + (index * 0.1 * (end - start));
+  const cardEnd = cardStart + 0.2 * (end - start);
+  
+  const opacity = useTransform(progress, [cardStart, cardEnd], [0, 1]);
+  const y = useTransform(progress, [cardStart, cardEnd], [30, 0]);
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
+      style={{ opacity, y, perspective: 1000 }}
       onMouseMove={handleMouseMove}
       onClick={() => setIsOpen(!isOpen)}
       whileHover={{ scale: 1.02, rotateX: 2, rotateY: -2 }}
       className="group relative rounded-3xl overflow-hidden bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] backdrop-blur-xl p-8 cursor-pointer transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-      style={{ perspective: 1000 }}
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-300 group-hover:opacity-100"
@@ -92,26 +102,38 @@ function GlassCard({ category, index }: { category: typeof CATEGORIES[0], index:
 
 export default function SectionSkills() {
   return (
-    <section className="min-h-screen bg-[#121212] py-32 px-6 md:px-12 lg:px-24 relative z-20">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="mb-24 text-center"
-        >
-          <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
-            Things I enjoy building.
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {CATEGORIES.map((cat, i) => (
-            <GlassCard key={cat.title} category={cat} index={i} />
-          ))}
-        </div>
-      </div>
-    </section>
+    <ScrollTimeline 
+      duration={timeline.totalDuration}
+      className="bg-[#121212] z-20"
+      stickyClassName="flex flex-col items-center justify-center p-6 md:p-12 lg:p-24"
+    >
+      {(progress) => <SkillsContent progress={progress} />}
+    </ScrollTimeline>
   );
 }
+
+function SkillsContent({ progress }: { progress: MotionValue<number> }) {
+  const [tTitleStart, tTitleEnd] = timeline.getPhase("title");
+  const titleOpacity = useTransform(progress, [tTitleStart, tTitleEnd], [0, 1]);
+  const titleY = useTransform(progress, [tTitleStart, tTitleEnd], [30, 0]);
+
+  return (
+    <div className="max-w-6xl w-full mx-auto relative h-full flex flex-col justify-center py-24 overflow-y-auto hide-scrollbar">
+      <motion.div
+        style={{ opacity: titleOpacity, y: titleY }}
+        className="mb-16 md:mb-24 text-center shrink-0"
+      >
+        <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
+          Things I enjoy building.
+        </h2>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-24">
+        {CATEGORIES.map((cat, i) => (
+          <GlassCard key={cat.title} category={cat} index={i} progress={progress} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
