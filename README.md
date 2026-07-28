@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Syed Mohammed Sultan — Cinematic Portfolio
 
-## Getting Started
+A high-performance, interactive personal portfolio built with a focus on storytelling, motion design, and engineering depth. Designed to feel more like an interactive film or product launch rather than a traditional resume.
 
-First, run the development server:
+## 🚀 Features
+
+- **Cinematic Scrollytelling**: A 150-frame image sequence powered by HTML5 `<canvas>` and `requestAnimationFrame`, mapped perfectly to the user's scroll progress for buttery-smooth scrubbing.
+- **Glassmorphic UI**: Beautiful, interactive glass panels with magnetic hover effects, noise textures, and subtle 3D transformations.
+- **Interactive Terminal Overlay**: A fully functional pseudo-terminal (press `~`) containing hidden commands, personal thoughts, and direct links.
+- **Micro-Interactions**: Custom morphing cursors, spring animations, dynamic parallax sections, and smooth transitions powered by Framer Motion.
+- **Easter Eggs**: Secret Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`), hidden tooltips, and terminal discoveries.
+- **High Performance**: Object-fit canvas logic, preloaded assets, GPU-accelerated transforms, and a zero-spinner custom frame-loader.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animation**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Rendering**: HTML5 Canvas API
+
+## 💻 Getting Started
+
+First, clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/sultanmaliki/portfolio.git
+cd portfolio
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📂 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```text
+├── public/
+│   ├── sequence/        # 150 WebP frames for the scroll animation
+│   └── resume.pdf       # Downloadable resume
+├── src/
+│   ├── app/
+│   │   ├── globals.css  # Global styles and CSS variables
+│   │   ├── layout.tsx   # Root layout wrapping the app
+│   │   └── page.tsx     # Main page stitching components together
+│   ├── components/
+│   │   ├── CustomCursor.tsx     # Global morphing cursor
+│   │   ├── KonamiCode.tsx       # Easter egg logic
+│   │   ├── NoiseBackground.tsx  # Grain overlay
+│   │   ├── Overlay.tsx          # Parallax intro text
+│   │   ├── ScrollyCanvas.tsx    # Scroll-linked canvas engine & preloader
+│   │   ├── SectionContact.tsx   # Footer and links
+│   │   ├── SectionCuriosity.tsx # Floating sticky notes
+│   │   ├── SectionHobbies.tsx   # Interactive icons
+│   │   ├── SectionQueryCraft.tsx# Product launch style showcase
+│   │   ├── SectionSkills.tsx    # Magnetic glass cards
+│   │   ├── SectionStory.tsx     # Typographic storytelling
+│   │   ├── SectionTimeline.tsx  # Horizontal scroll timeline
+│   │   └── Terminal.tsx         # Interactive global terminal
+```
 
-## Learn More
+## 🎨 Design Language
+- **Background**: Deep Dark (`#121212`)
+- **Accent**: Soft Blue (`#6EA8FF`)
+- **Typography**: `Inter` — Focus on huge whitespace, light font weights, and extreme contrast.
 
-To learn more about Next.js, take a look at the following resources:
+## 📝 License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
