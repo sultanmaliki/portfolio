@@ -7,51 +7,74 @@ interface OverlayProps {
 }
 
 export default function Overlay({ progress }: OverlayProps) {
-  // Section 1: 0% to 20%
-  const opacity1 = useTransform(progress, [0, 0.1, 0.2], [1, 1, 0]);
-  const y1 = useTransform(progress, [0, 0.2], [0, -100]);
+  // Section 1: Intro (0% to 15%)
+  const opacity1 = useTransform(progress, [0, 0.1, 0.15], [1, 1, 0]);
+  const y1 = useTransform(progress, [0, 0.15], [0, -100]);
 
-  // Section 2: 25% to 50%
-  const opacity2 = useTransform(progress, [0.2, 0.3, 0.4, 0.5], [0, 1, 1, 0]);
-  const y2 = useTransform(progress, [0.2, 0.5], [100, -100]);
+  // Section 2: Building Software (20% to 35%)
+  const opacity2 = useTransform(progress, [0.15, 0.2, 0.3, 0.35], [0, 1, 1, 0]);
+  const y2 = useTransform(progress, [0.15, 0.35], [50, -50]);
 
-  // Section 3: 55% to 80%
-  const opacity3 = useTransform(progress, [0.5, 0.6, 0.7, 0.8], [0, 1, 1, 0]);
-  const y3 = useTransform(progress, [0.5, 0.8], [100, -100]);
+  // Section 3: Curiosity (40% to 55%)
+  const opacity3 = useTransform(progress, [0.35, 0.4, 0.5, 0.55], [0, 1, 1, 0]);
+  const y3 = useTransform(progress, [0.35, 0.55], [50, -50]);
+
+  // Section 4: Scroll to explore (60% to 90%)
+  const opacity4 = useTransform(progress, [0.6, 0.65, 0.85, 0.9], [0, 1, 1, 0]);
 
   return (
     <div className="absolute inset-0 z-10 pointer-events-none">
       {/* Section 1 */}
       <motion.div
         style={{ opacity: opacity1, y: y1 }}
-        className="absolute inset-0 flex flex-col items-center justify-center text-center p-8"
+        className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 pointer-events-auto"
       >
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white drop-shadow-lg">
-          Nano Banana.
+        <h1 className="text-4xl md:text-6xl font-light tracking-tight text-[#F5F5F5] drop-shadow-2xl">
+          SYED MOHAMMED <span className="font-semibold text-white group relative cursor-help">
+            SULTAN
+            <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white/10 border border-white/10 backdrop-blur-md px-3 py-1.5 text-xs font-light tracking-wide rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+              Still figuring things out.
+            </span>
+          </span>
         </h1>
-        <p className="mt-4 text-xl md:text-2xl text-gray-300 font-light tracking-wide drop-shadow-md">
-          Creative Developer.
+        <p className="mt-6 text-lg md:text-xl text-[#F5F5F5]/70 font-light tracking-widest uppercase text-sm">
+          Computer Science Graduate <span className="mx-3 opacity-50">|</span> Full Stack Java Developer
         </p>
       </motion.div>
 
       {/* Section 2 */}
       <motion.div
         style={{ opacity: opacity2, y: y2 }}
-        className="absolute inset-0 flex flex-col items-start justify-center text-left p-8 md:p-24"
+        className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 md:p-24"
       >
-        <h2 className="text-4xl md:text-6xl font-semibold tracking-tight text-white max-w-2xl drop-shadow-lg leading-tight">
-          I build digital <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">experiences</span>.
+        <h2 className="text-4xl md:text-6xl font-light tracking-tight text-[#F5F5F5] max-w-3xl leading-tight">
+          Building software<br/>that people remember.
         </h2>
       </motion.div>
 
       {/* Section 3 */}
       <motion.div
         style={{ opacity: opacity3, y: y3 }}
-        className="absolute inset-0 flex flex-col items-end justify-center text-right p-8 md:p-24"
+        className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 md:p-24"
       >
-        <h2 className="text-4xl md:text-6xl font-semibold tracking-tight text-white max-w-2xl drop-shadow-lg leading-tight">
-          Bridging <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">design</span> and engineering.
+        <h2 className="text-4xl md:text-6xl font-light tracking-tight text-[#F5F5F5] max-w-3xl leading-tight">
+          Curiosity<br/>became<br/>my greatest tool.
         </h2>
+      </motion.div>
+      
+      {/* Final */}
+      <motion.div
+        style={{ opacity: opacity4 }}
+        className="absolute inset-0 flex flex-col items-center justify-end pb-32 text-center p-8"
+      >
+        <div className="flex flex-col items-center gap-4">
+          <span className="text-[#F5F5F5]/60 text-sm tracking-[0.2em] uppercase font-light">Scroll to explore</span>
+          <motion.div 
+            animate={{ y: [0, 10, 0] }} 
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="w-[1px] h-12 bg-gradient-to-b from-[#F5F5F5]/60 to-transparent"
+          />
+        </div>
       </motion.div>
     </div>
   );

@@ -14,7 +14,9 @@ export default function ScrollyCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [loadedCount, setLoadedCount] = useState(0);
+
+  const imagesLoaded = loadedCount === FRAME_COUNT;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -26,16 +28,14 @@ export default function ScrollyCanvas() {
 
   useEffect(() => {
     const loadedImages: HTMLImageElement[] = [];
-    let loadedCount = 0;
+    let currentLoaded = 0;
 
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
       img.src = currentFrame(i);
       img.onload = () => {
-        loadedCount++;
-        if (loadedCount === FRAME_COUNT) {
-          setImagesLoaded(true);
-        }
+        currentLoaded++;
+        setLoadedCount(currentLoaded);
       };
       loadedImages.push(img);
     }
@@ -57,7 +57,6 @@ export default function ScrollyCanvas() {
       const img = images[index];
       if (!img) return;
       
-      // Handle resizing canvas dynamically to match window size
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
@@ -88,16 +87,23 @@ export default function ScrollyCanvas() {
 
   return (
     <div ref={containerRef} className="relative h-[500vh] bg-[#121212]">
-      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden">
+      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden bg-[#121212]">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full"
         />
         {/* Loading State Overlay */}
         {!imagesLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#121212] z-50">
-            <div className="text-white text-xl animate-pulse font-light tracking-widest">
-              LOADING EXPERIENCE...
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#121212] z-50">
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }}
+              className="text-white text-sm font-light tracking-[0.3em] mb-6 uppercase"
+            >
+              Loading Experience
+            </motion.div>
+            <div className="text-[#6EA8FF] text-5xl font-extralight tracking-tight">
+              {loadedCount} <span className="text-[#F5F5F5]/30 text-3xl">/ {FRAME_COUNT}</span>
             </div>
           </div>
         )}

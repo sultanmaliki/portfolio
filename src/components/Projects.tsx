@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight, GitBranch } from "lucide-react";
 
 const PROJECTS = [
   {
@@ -70,7 +70,7 @@ export default function Projects() {
                   <h3 className="text-2xl font-semibold text-white tracking-tight">{project.title}</h3>
                   <div className="flex gap-3 text-gray-400">
                     <a href={project.github} className="hover:text-white transition-colors">
-                      <Github size={20} />
+                      <GitBranch size={20} />
                     </a>
                     <a href={project.link} className="hover:text-white transition-colors">
                       <ArrowUpRight size={20} />
