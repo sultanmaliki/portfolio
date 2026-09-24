@@ -1,0 +1,96 @@
+[
+  {
+    "name": "setbeat",
+    "description": "SetBeat: a gesture-driven gym timer for Android that rides your music. Now-playing companion with a beat-reactive waveform. Kotlin, Jetpack Compose, Media3. No internet, no accounts.",
+    "html_url": "https://github.com/sultanmaliki/setbeat",
+    "homepage": null,
+    "language": "Kotlin",
+    "topics": [
+      "android",
+      "audio-visualizer",
+      "countdown-timer",
+      "gestures",
+      "gym",
+      "jetpack-compose",
+      "kotlin",
+      "media3",
+      "now-playing",
+      "privacy",
+      "setbeat",
+      "stopwatch",
+      "workout-timer"
+    ],
+    "stargazers_count": 0,
+    "pushed_at": "2026-09-24T05:01:22Z"
+  },
+  {
+    "name": "LinkedOut",
+    "description": "LinkedOut is an employee-first career platform that challenges traditional hiring by helping professionals discover, evaluate, and review companies through transparent workplace insights. Built with a production-grade monorepo architecture using Next.js, NestJS, PostgreSQL, and modern cloud-native tooling.",
+    "html_url": "https://github.com/sultanmaliki/LinkedOut",
+    "homepage": null,
+    "language": "TypeScript",
+    "topics": [],
+    "stargazers_count": 2,
+    "pushed_at": "2026-09-20T15:19:10Z"
+  },
+  {
+    "name": "Liebe",
+    "description": null,
+    "html_url": "https://github.com/sultanmaliki/Liebe",
+    "homepage": null,
+    "language": "Java",
+    "topics": [],
+    "stargazers_count": 1,
+    "pushed_at": "2026-07-05T18:37:50Z"
+  },
+  {
+    "name": "hospital-management-system",
+    "description": "JDBC-based Hospital Management System with DAO architecture and MySQL integration.",
+    "html_url": "https://github.com/sultanmaliki/hospital-management-system",
+    "homepage": null,
+    "language": "Java",
+    "topics": [],
+    "stargazers_count": 1,
+    "pushed_at": "2026-05-05T18:15:54Z"
+  },
+  {
+    "name": "QueryCraft-AI",
+    "description": "⚡ QueryCraft: An AI-powered database assistant. Chat with your data in plain English to generate, explain, and execute SQL and NoSQL queries instantly.",
+    "html_url": "https://github.com/sultanmaliki/QueryCraft-AI",
+    "homepage": null,
+    "language": "TypeScript",
+    "topics": [],
+    "stargazers_count": 2,
+    "pushed_at": "2026-03-15T14:53:20Z"
+  },
+  {
+    "name": "academy-connect",
+    "description": null,
+    "html_url": "https://github.com/sultanmaliki/academy-connect",
+    "homepage": null,
+    "language": "TypeScript",
+    "topics": [],
+    "stargazers_count": 1,
+    "pushed_at": "2025-12-25T11:12:43Z"
+  },
+  {
+    "name": "Project-Management-Web-App",
+    "description": "A project management tool featuring a Python/FastAPI backend and a Next.js frontend. The application includes CRUD operations for projects and tasks , role-based user management , and a bonus AI feature for generating user stories using the GROQ API.",
+    "html_url": "https://github.com/sultanmaliki/Project-Management-Web-App",
+    "homepage": null,
+    "language": "TypeScript",
+    "topics": [],
+    "stargazers_count": 1,
+    "pushed_at": "2025-10-18T06:56:11Z"
+  },
+  {
+    "name": "Custom-Language-Translator",
+    "description": "A customizable Neural Machine Translation (NMT) pipeline built with TensorFlow and Keras. Supports TSV datasets, preprocessing, training with Seq2Seq + attention, beam search inference, and an interactive Gradio web app. Includes tokenizer handling, checkpoints, and flexible deployment for multilingual translation.",
+    "html_url": "https://github.com/sultanmaliki/Custom-Language-Translator",
+    "homepage": null,
+    "language": "Python",
+    "topics": [],
+    "stargazers_count": 1,
+    "pushed_at": "2025-08-27T09:10:26Z"
+  }
+]

@@ -2,6 +2,7 @@ import ScrollyCanvas from "@/components/ScrollyCanvas";
 import SectionStory from "@/components/SectionStory";
 import SectionSkills from "@/components/SectionSkills";
 import SectionQueryCraft from "@/components/SectionQueryCraft";
+import Projects from "@/components/Projects";
 import SectionTimeline from "@/components/SectionTimeline";
 import SectionCuriosity from "@/components/SectionCuriosity";
 import SectionHobbies from "@/components/SectionHobbies";
@@ -31,6 +32,9 @@ export default function Home() {
       {/* 3. QueryCraft - The Product */}
       <SectionQueryCraft />
       
+      {/* 3b. Projects - live from GitHub */}
+      <Projects />
+
       {/* 4. Interactive Timeline */}
       <SectionTimeline />
       

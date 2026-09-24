@@ -1,0 +1,51 @@
+name: Sync portfolio
+
+# Keeps the build-time GitHub snapshot (src/data/repos.json) fresh.
+# Cloudflare Pages is Git-connected: when this workflow commits a changed repos.json to
+# main, Cloudflare's push webhook rebuilds and deploys the site. If nothing changed, nothing
+# is committed and no deploy happens. (Visitors always see live data anyway, because the
+# Projects section refreshes from the GitHub API in the browser.)
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-portfolio
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # `prebuild` runs scripts/fetch-repos.mjs, which rewrites src/data/repos.json.
+      # It never fails the build: on an API error the committed file is kept.
+      - name: Build (fetches repos, then exports the site)
+        run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit updated snapshot
+        run: |
+          if git diff --quiet -- src/data/repos.json; then
+            echo "repos.json unchanged; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/repos.json
+          git commit -m "chore: sync GitHub repos snapshot"
+          git push
