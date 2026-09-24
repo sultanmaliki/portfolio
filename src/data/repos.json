@@ -34,16 +34,6 @@
     "pushed_at": "2026-09-20T15:19:10Z"
   },
   {
-    "name": "Liebe",
-    "description": null,
-    "html_url": "https://github.com/sultanmaliki/Liebe",
-    "homepage": null,
-    "language": "Java",
-    "topics": [],
-    "stargazers_count": 1,
-    "pushed_at": "2026-07-05T18:37:50Z"
-  },
-  {
     "name": "hospital-management-system",
     "description": "JDBC-based Hospital Management System with DAO architecture and MySQL integration.",
     "html_url": "https://github.com/sultanmaliki/hospital-management-system",

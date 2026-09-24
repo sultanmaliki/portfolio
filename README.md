@@ -60,7 +60,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── SectionContact.tsx   # Footer and links
 │   │   ├── SectionCuriosity.tsx # Floating sticky notes
 │   │   ├── SectionHobbies.tsx   # Interactive icons
-│   │   ├── SectionQueryCraft.tsx# Product launch style showcase
 │   │   ├── SectionSkills.tsx    # Magnetic glass cards
 │   │   ├── SectionStory.tsx     # Typographic storytelling
 │   │   ├── SectionTimeline.tsx  # Horizontal scroll timeline

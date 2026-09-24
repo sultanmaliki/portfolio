@@ -1,7 +1,6 @@
 import ScrollyCanvas from "@/components/ScrollyCanvas";
 import SectionStory from "@/components/SectionStory";
 import SectionSkills from "@/components/SectionSkills";
-import SectionQueryCraft from "@/components/SectionQueryCraft";
 import Projects from "@/components/Projects";
 import SectionTimeline from "@/components/SectionTimeline";
 import SectionCuriosity from "@/components/SectionCuriosity";
@@ -29,10 +28,7 @@ export default function Home() {
       {/* 2. Glass Panels - Skills */}
       <SectionSkills />
       
-      {/* 3. QueryCraft - The Product */}
-      <SectionQueryCraft />
-      
-      {/* 3b. Projects - live from GitHub */}
+      {/* 3. Projects - live from GitHub (QueryCraft is listed here like any other repo) */}
       <Projects />
 
       {/* 4. Interactive Timeline */}
