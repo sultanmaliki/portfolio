@@ -29,7 +29,6 @@ export const metadata: Metadata = {
     "TypeScript",
     "AI",
     "Framer Motion",
-    "Bangalore",
     "Software Engineer",
   ],
 

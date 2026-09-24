@@ -8,18 +8,22 @@ export default function SectionContact() {
     {
       label: "GitHub",
       href: "https://github.com/sultanmaliki",
+      external: true,
     },
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/syedmohammedsultan",
+      external: true,
     },
     {
       label: "Email",
       href: "mailto:ssultanmaliki47@gmail.com",
+      external: false,
     },
     {
       label: "Resume",
-      href: "resume.pdf", // Place resume.pdf inside the /public folder
+      href: "/resume.pdf", // Lives in /public
+      external: true,
     },
   ];
 
@@ -47,6 +51,7 @@ export default function SectionContact() {
               <a
                 key={link.label}
                 href={link.href}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="group flex items-center gap-2 text-xl md:text-3xl font-light text-[#F5F5F5]/60 hover:text-white transition-colors"
               >
                 {link.label}
@@ -59,7 +64,7 @@ export default function SectionContact() {
 
       <div className="max-w-5xl mx-auto w-full flex items-center justify-between pt-16 border-t border-[rgba(255,255,255,0.05)] text-[#F5F5F5]/30 text-sm font-light">
         <p>&copy; {new Date().getFullYear()} Syed Mohammed Sultan.</p>
-        <p className="hover:text-[#F5F5F5]/80 transition-colors">Press <kbd className="px-2 py-1 bg-white/5 rounded mx-1">~</kbd> for terminal</p>
+        <p className="hover:text-[#F5F5F5]/80 transition-colors [@media(pointer:coarse)]:hidden">Press <kbd className="px-2 py-1 bg-white/5 rounded mx-1">~</kbd> for terminal</p>
       </div>
     </section>
   );

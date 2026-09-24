@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useTransform, MotionValue } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
+import { useScrollTransform } from "@/utils/scroll";
 import ScrollTimeline from "./ScrollTimeline";
 import { createTimeline } from "@/utils/timeline";
 
@@ -33,23 +34,23 @@ export default function SectionStory() {
 function StoryContent({ progress }: { progress: MotionValue<number> }) {
   // Phrase 1 (fade in/out, move up)
   const [p1s, p1e] = timeline.getPhase("phrase1");
-  const opacity1 = useTransform(progress, fadeRange(p1s, p1e), [0, 1, 1, 0]);
-  const y1 = useTransform(progress, [p1s, p1e], [30, -30]);
+  const opacity1 = useScrollTransform(progress, fadeRange(p1s, p1e), [0, 1, 1, 0]);
+  const y1 = useScrollTransform(progress, [p1s, p1e], [30, -30]);
 
   // Phrase 2
   const [p2s, p2e] = timeline.getPhase("phrase2");
-  const opacity2 = useTransform(progress, fadeRange(p2s, p2e), [0, 1, 1, 0]);
-  const y2 = useTransform(progress, [p2s, p2e], [30, -30]);
+  const opacity2 = useScrollTransform(progress, fadeRange(p2s, p2e), [0, 1, 1, 0]);
+  const y2 = useScrollTransform(progress, [p2s, p2e], [30, -30]);
 
   // Phrase 3
   const [p3s, p3e] = timeline.getPhase("phrase3");
-  const opacity3 = useTransform(progress, fadeRange(p3s, p3e), [0, 1, 1, 0]);
-  const y3 = useTransform(progress, [p3s, p3e], [30, -30]);
+  const opacity3 = useScrollTransform(progress, fadeRange(p3s, p3e), [0, 1, 1, 0]);
+  const y3 = useScrollTransform(progress, [p3s, p3e], [30, -30]);
 
   // Story Reveal
   const [s1s, s1e] = timeline.getPhase("story");
-  const opacityStory = useTransform(progress, fadeRange(s1s, s1e), [0, 1, 1, 0]);
-  const yStory = useTransform(progress, [s1s, s1e], [50, -50]);
+  const opacityStory = useScrollTransform(progress, fadeRange(s1s, s1e), [0, 1, 1, 0]);
+  const yStory = useScrollTransform(progress, [s1s, s1e], [50, -50]);
 
   return (
     <div className="max-w-3xl w-full mx-auto relative h-full flex items-center justify-center text-center">

@@ -4,18 +4,18 @@ A high-performance, interactive personal portfolio built with a focus on storyte
 
 ## 🚀 Features
 
-- **Cinematic Scrollytelling**: A 150-frame image sequence powered by HTML5 `<canvas>` and `requestAnimationFrame`, mapped perfectly to the user's scroll progress for buttery-smooth scrubbing.
+- **Cinematic Scrollytelling**: A 150-frame image sequence drawn to an HTML5 `<canvas>`, mapped to scroll progress. Frames load in a coarse-to-fine order (fewer frames on small screens and Save-Data) so the page is usable quickly.
 - **Glassmorphic UI**: Beautiful, interactive glass panels with magnetic hover effects, noise textures, and subtle 3D transformations.
 - **Interactive Terminal Overlay**: A fully functional pseudo-terminal (press `~`) containing hidden commands, personal thoughts, and direct links.
 - **Micro-Interactions**: Custom morphing cursors, spring animations, dynamic parallax sections, and smooth transitions powered by Framer Motion.
 - **Easter Eggs**: Secret Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`), hidden tooltips, and terminal discoveries.
-- **High Performance**: Object-fit canvas logic, preloaded assets, GPU-accelerated transforms, and a zero-spinner custom frame-loader.
+- **High Performance**: Object-fit canvas logic, DPR-aware canvas sizing, staged frame preloading, GPU-accelerated transforms, and a custom frame-loader.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, static export)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
 - **Animation**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Rendering**: HTML5 Canvas API
@@ -54,6 +54,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── KonamiCode.tsx       # Easter egg logic
 │   │   ├── NoiseBackground.tsx  # Grain overlay
 │   │   ├── Overlay.tsx          # Parallax intro text
+│   │   ├── ScrollTimeline.tsx   # Sticky scroll container that exposes progress (0–1)
 │   │   ├── ScrollyCanvas.tsx    # Scroll-linked canvas engine & preloader
 │   │   ├── SectionContact.tsx   # Footer and links
 │   │   ├── SectionCuriosity.tsx # Floating sticky notes
@@ -63,6 +64,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── SectionStory.tsx     # Typographic storytelling
 │   │   ├── SectionTimeline.tsx  # Horizontal scroll timeline
 │   │   └── Terminal.tsx         # Interactive global terminal
+│   └── utils/
+│       └── timeline.ts          # Splits a section's scroll range into named phases
+├── LICENSE
 ```
 
 ## 🎨 Design Language

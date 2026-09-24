@@ -12,7 +12,7 @@ export default function Terminal() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "~" || e.key === "`") {
+      if ((e.key === "~" || e.key === "`") && !e.ctrlKey && !e.metaKey && !e.altKey) {
         e.preventDefault();
         setIsOpen((prev) => !prev);
       }
@@ -74,14 +74,14 @@ export default function Terminal() {
       case "curiosity":
         output = (
           <div className="italic">
-            "I don't build because I have to. I build because I wonder what happens if I do."
+            {"\"I don't build because I have to. I build because I wonder what happens if I do.\""}
           </div>
         );
         break;
       case "nature":
         output = (
           <div className="italic">
-            "If software disappeared tomorrow... I'd probably be growing tomatoes somewhere."
+            {"\"If software disappeared tomorrow... I'd probably be growing tomatoes somewhere.\""}
           </div>
         );
         break;
@@ -90,19 +90,19 @@ export default function Terminal() {
         setInput("");
         return;
       case "querycraft":
-        window.open("https://github.com/sultanmaliki/QueryCraft-AI", "_blank");
+        window.open("https://github.com/sultanmaliki/QueryCraft-AI", "_blank", "noopener,noreferrer");
         output = "Opening QueryCraft repository...";
         break;
       case "github":
-        window.open("https://github.com/sultanmaliki", "_blank");
+        window.open("https://github.com/sultanmaliki", "_blank", "noopener,noreferrer");
         output = "Opening GitHub profile...";
         break;
       case "linkedin":
-        window.open("https://www.linkedin.com/in/syedmohammedsultan", "_blank");
+        window.open("https://www.linkedin.com/in/syedmohammedsultan", "_blank", "noopener,noreferrer");
         output = "Opening LinkedIn profile...";
         break;
       case "resume":
-        window.open("/resume.pdf", "_blank");
+        window.open("/resume.pdf", "_blank", "noopener,noreferrer");
         output = "Opening resume...";
         break;
       case "contact":
@@ -130,6 +130,9 @@ export default function Terminal() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 50, scale: 0.95 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Interactive terminal"
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
         >
@@ -140,7 +143,12 @@ export default function Terminal() {
             {/* Header */}
             <div className="h-10 border-b border-white/10 flex items-center px-4 justify-between bg-white/5">
               <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500/80 cursor-pointer hover:bg-red-500" onClick={() => setIsOpen(false)} />
+                <button
+                  type="button"
+                  aria-label="Close terminal"
+                  className="w-3 h-3 rounded-full bg-red-500/80 cursor-pointer hover:bg-red-500"
+                  onClick={() => setIsOpen(false)}
+                />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
               </div>
@@ -149,11 +157,11 @@ export default function Terminal() {
             </div>
 
             {/* Content */}
-            <div ref={containerRef} className="flex-1 p-4 overflow-y-auto" onClick={() => inputRef.current?.focus()}>
+            <div ref={containerRef} role="log" aria-live="polite" className="flex-1 p-4 overflow-y-auto" onClick={() => inputRef.current?.focus()}>
               <div className="mb-4 text-[#6EA8FF]">
-                Welcome to Sultan's Interactive Terminal v1.0.0
+                Welcome to Sultan&apos;s Interactive Terminal v1.0.0
                 <br />
-                Type 'help' to see available commands.
+                Type &apos;help&apos; to see available commands.
               </div>
 
               {history.map((h, i) => (
@@ -176,6 +184,7 @@ export default function Terminal() {
                 <input
                   ref={inputRef}
                   type="text"
+                  aria-label="Terminal command"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => {

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, MotionValue, useTransform } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
+import { useScrollTransform } from "@/utils/scroll";
 
 interface OverlayProps {
   progress: MotionValue<number>;
@@ -8,19 +9,19 @@ interface OverlayProps {
 
 export default function Overlay({ progress }: OverlayProps) {
   // Section 1: Intro (0% to 15%)
-  const opacity1 = useTransform(progress, [0, 0.1, 0.15], [1, 1, 0]);
-  const y1 = useTransform(progress, [0, 0.15], [0, -100]);
+  const opacity1 = useScrollTransform(progress, [0, 0.1, 0.15], [1, 1, 0]);
+  const y1 = useScrollTransform(progress, [0, 0.15], [0, -100]);
 
   // Section 2: Building Software (20% to 35%)
-  const opacity2 = useTransform(progress, [0.15, 0.2, 0.3, 0.35], [0, 1, 1, 0]);
-  const y2 = useTransform(progress, [0.15, 0.35], [50, -50]);
+  const opacity2 = useScrollTransform(progress, [0.15, 0.2, 0.3, 0.35], [0, 1, 1, 0]);
+  const y2 = useScrollTransform(progress, [0.15, 0.35], [50, -50]);
 
   // Section 3: Curiosity (40% to 55%)
-  const opacity3 = useTransform(progress, [0.35, 0.4, 0.5, 0.55], [0, 1, 1, 0]);
-  const y3 = useTransform(progress, [0.35, 0.55], [50, -50]);
+  const opacity3 = useScrollTransform(progress, [0.35, 0.4, 0.5, 0.55], [0, 1, 1, 0]);
+  const y3 = useScrollTransform(progress, [0.35, 0.55], [50, -50]);
 
   // Section 4: Scroll to explore (60% to 90%)
-  const opacity4 = useTransform(progress, [0.6, 0.65, 0.85, 0.9], [0, 1, 1, 0]);
+  const opacity4 = useScrollTransform(progress, [0.6, 0.65, 0.85, 0.9], [0, 1, 1, 0]);
 
   return (
     <div className="absolute inset-0 z-10 pointer-events-none">

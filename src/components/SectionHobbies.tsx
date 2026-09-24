@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useTransform, MotionValue } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
+import { useScrollTransform } from "@/utils/scroll";
 import { Camera, Droplets, Gamepad2 } from "lucide-react";
 import ScrollTimeline from "./ScrollTimeline";
 import { createTimeline } from "@/utils/timeline";
@@ -61,10 +62,53 @@ export default function SectionHobbies() {
   );
 }
 
+type Hobby = (typeof HOBBIES)[number];
+
+function HobbyIcon({ hobby, progress }: { hobby: Hobby; progress: MotionValue<number> }) {
+  const [start, end] = timeline.getPhase(hobby.id);
+  // Scale up and brighten while active
+  const range = [start - 0.1, start, end, end + 0.1];
+  const scale = useScrollTransform(progress, range, [1, 1.1, 1.1, 1]);
+  const color = useScrollTransform(progress, range, [
+    "rgba(245,245,245,0.6)",
+    "rgba(255,255,255,1)",
+    "rgba(255,255,255,1)",
+    "rgba(245,245,245,0.6)",
+  ]);
+
+  return (
+    <motion.li
+      style={{ scale, color }}
+      className="flex flex-col items-center gap-4 transition-colors"
+    >
+      <div className="w-16 h-16 rounded-full border border-[rgba(255,255,255,0.1)] flex items-center justify-center bg-[rgba(255,255,255,0.02)] backdrop-blur-md">
+        <hobby.icon size={24} strokeWidth={1.5} aria-hidden />
+      </div>
+      <span className="text-sm tracking-wider font-light text-center">{hobby.label}</span>
+    </motion.li>
+  );
+}
+
+function HobbyPanel({ hobby, progress }: { hobby: Hobby; progress: MotionValue<number> }) {
+  const [start, end] = timeline.getPhase(hobby.id);
+  const range = [start, start + 0.1, end - 0.1, end];
+  const opacity = useScrollTransform(progress, range, [0, 1, 1, 0]);
+  const y = useScrollTransform(progress, range, [20, 0, 0, -20]);
+
+  return (
+    <motion.div
+      style={{ opacity, y }}
+      className="absolute p-6 md:p-12 rounded-3xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] backdrop-blur-lg"
+    >
+      {hobby.content}
+    </motion.div>
+  );
+}
+
 function HobbiesContent({ progress }: { progress: MotionValue<number> }) {
   const [iStart, iEnd] = timeline.getPhase("intro");
-  const introOpacity = useTransform(progress, [iStart, iEnd], [0, 1]);
-  const introY = useTransform(progress, [iStart, iEnd], [20, 0]);
+  const introOpacity = useScrollTransform(progress, [iStart, iEnd], [0, 1]);
+  const introY = useScrollTransform(progress, [iStart, iEnd], [20, 0]);
 
   return (
     <div className="max-w-4xl mx-auto px-6 text-center w-full">
@@ -75,54 +119,18 @@ function HobbiesContent({ progress }: { progress: MotionValue<number> }) {
         Outside the screen.
       </motion.h2>
 
-      <div className="flex justify-center gap-16 md:gap-32">
-        {HOBBIES.map((hobby) => {
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const [start, end] = timeline.getPhase(hobby.id);
-          // Scale up when active
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const scale = useTransform(progress, [start - 0.1, start, end, end + 0.1], [1, 1.1, 1.1, 1]);
-          // Color highlight when active
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const color = useTransform(progress, [start - 0.1, start, end, end + 0.1], ["rgba(245,245,245,0.4)", "rgba(255,255,255,1)", "rgba(255,255,255,1)", "rgba(245,245,245,0.4)"]);
-
-          return (
-            <motion.div
-              key={hobby.id}
-              style={{ scale, color }}
-              className="flex flex-col items-center gap-4 transition-colors"
-            >
-              <div className="w-16 h-16 rounded-full border border-[rgba(255,255,255,0.1)] flex items-center justify-center bg-[rgba(255,255,255,0.02)] backdrop-blur-md">
-                <hobby.icon size={24} strokeWidth={1.5} />
-              </div>
-              <span className="text-sm tracking-wider font-light">{hobby.label}</span>
-            </motion.div>
-          );
-        })}
-      </div>
+      <ul className="flex justify-center gap-6 sm:gap-16 md:gap-32 list-none">
+        {HOBBIES.map((hobby) => (
+          <HobbyIcon key={hobby.id} hobby={hobby} progress={progress} />
+        ))}
+      </ul>
 
       {/* Dynamic Content Area */}
       <div className="h-64 mt-24 flex items-center justify-center relative">
-        {HOBBIES.map((hobby) => {
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const [start, end] = timeline.getPhase(hobby.id);
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const opacity = useTransform(progress, [start, start + 0.1, end - 0.1, end], [0, 1, 1, 0]);
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const y = useTransform(progress, [start, start + 0.1, end - 0.1, end], [20, 0, 0, -20]);
-
-          return (
-            <motion.div
-              key={hobby.id}
-              style={{ opacity, y }}
-              className="absolute p-12 rounded-3xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] backdrop-blur-lg"
-            >
-              {hobby.content}
-            </motion.div>
-          );
-        })}
+        {HOBBIES.map((hobby) => (
+          <HobbyPanel key={hobby.id} hobby={hobby} progress={progress} />
+        ))}
       </div>
     </div>
   );
 }
-

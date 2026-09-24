@@ -1,5 +1,3 @@
-import { MotionValue } from "framer-motion";
-
 export type TimelinePhase = {
   id: string;
   duration: number; // Relative duration of this phase (e.g., 1, 2, 0.5)

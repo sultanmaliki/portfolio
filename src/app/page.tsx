@@ -11,11 +11,6 @@ import CustomCursor from "@/components/CustomCursor";
 import NoiseBackground from "@/components/NoiseBackground";
 import KonamiCode from "@/components/KonamiCode";
 
-export const metadata = {
-  title: "Syed Mohammed Sultan | Creative Developer",
-  description: "Portfolio of Syed Mohammed Sultan. Exploring motion, AI, and immersive web experiences.",
-};
-
 export default function Home() {
   return (
     <main className="bg-[#121212] min-h-screen text-[#F5F5F5] selection:bg-[#6EA8FF] selection:text-black">

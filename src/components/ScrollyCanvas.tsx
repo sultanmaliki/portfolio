@@ -38,11 +38,12 @@ function CanvasStage({
 
       // Fall back to the nearest frame that actually loaded.
       const images = imagesRef.current;
-      let img = images[idx];
-      for (let d = 1; (!img || !img.naturalWidth) && d < FRAME_COUNT; d++) {
-        img = images[idx - d] ?? images[idx + d];
+      const loaded = (i: number) => (images[i]?.naturalWidth ? images[i] : undefined);
+      let img = loaded(idx);
+      for (let d = 1; !img && d < FRAME_COUNT; d++) {
+        img = loaded(idx - d) ?? loaded(idx + d);
       }
-      if (!img || !img.naturalWidth) return;
+      if (!img) return;
 
       const w = canvas.width;
       const h = canvas.height;
@@ -77,37 +78,71 @@ function CanvasStage({
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
 }
 
+const LAST_FRAME = FRAME_COUNT - 1;
+
+type Connection = { saveData?: boolean };
+
+/**
+ * Decides which frames gate the loader ("gate") and which stream in afterwards ("rest").
+ * The draw loop snaps to the nearest loaded frame, so a sparse set still maps
+ * scroll progress onto the full 0..FRAME_COUNT-1 range correctly.
+ */
+function planFrames() {
+  const saveData =
+    (navigator as Navigator & { connection?: Connection }).connection?.saveData === true;
+  const small = window.matchMedia("(max-width: 767px)").matches;
+
+  const stride = saveData ? 3 : small ? 2 : 3;
+  const gate: number[] = [];
+  for (let i = 0; i < FRAME_COUNT; i += stride) gate.push(i);
+  if (gate[gate.length - 1] !== LAST_FRAME) gate.push(LAST_FRAME);
+
+  const rest: number[] = [];
+  if (!saveData && !small) {
+    const inGate = new Set(gate);
+    for (let i = 0; i < FRAME_COUNT; i++) if (!inGate.has(i)) rest.push(i);
+  }
+  return { gate, rest };
+}
+
 export default function ScrollyCanvas() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
-  const [settled, setSettled] = useState(0);
-  const ready = settled === FRAME_COUNT;
+  const [load, setLoad] = useState({ done: 0, total: 0 });
+  const ready = load.total > 0 && load.done >= load.total;
+  const percent = load.total ? Math.round((load.done / load.total) * 100) : 0;
 
   useEffect(() => {
     let cancelled = false;
+    const { gate, rest } = planFrames();
+    const total = gate.length;
     let done = 0;
-    const list: HTMLImageElement[] = [];
 
-    // Count errors too, so one missing frame can never hang the loader.
-    const onSettle = () => {
-      if (cancelled) return;
-      done++;
-      setSettled(done);
+    const list: HTMLImageElement[] = new Array<HTMLImageElement>(FRAME_COUNT);
+    imagesRef.current = list;
+
+    const loadFrame = (index: number, onSettle?: () => void) => {
+      const img = new Image();
+      img.onload = img.onerror = () => {
+        img.onload = img.onerror = null;
+        if (!cancelled) onSettle?.();
+      };
+      img.src = currentFrame(index);
+      list[index] = img;
     };
 
-    for (let i = 0; i < FRAME_COUNT; i++) {
-      const img = new Image();
-      img.onload = onSettle;
-      img.onerror = onSettle;
-      img.src = currentFrame(i);
-      list.push(img);
-    }
-    imagesRef.current = list;
+    // Count errors too, so one missing frame can never hang the loader.
+    const onGateSettle = () => {
+      done++;
+      setLoad({ done, total });
+      // Once the coarse pass is in, stream the remaining frames in the background.
+      if (done === total) rest.forEach((i) => loadFrame(i));
+    };
+    gate.forEach((i) => loadFrame(i, onGateSettle));
 
     return () => {
       cancelled = true;
       list.forEach((img) => {
-        img.onload = null;
-        img.onerror = null;
+        if (img) img.onload = img.onerror = null;
       });
     };
   }, []);
@@ -123,7 +158,10 @@ export default function ScrollyCanvas() {
           <CanvasStage progress={progress} imagesRef={imagesRef} ready={ready} />
 
           {!ready && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#121212] z-50">
+            <div
+              role="status"
+              className="absolute inset-0 flex flex-col items-center justify-center bg-[#121212] z-50"
+            >
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -132,7 +170,8 @@ export default function ScrollyCanvas() {
                 Loading Experience
               </motion.div>
               <div className="text-[#6EA8FF] text-5xl font-extralight tracking-tight">
-                {settled} <span className="text-[#F5F5F5]/30 text-3xl">/ {FRAME_COUNT}</span>
+                {percent}
+                <span className="text-[#F5F5F5]/50 text-3xl"> %</span>
               </div>
             </div>
           )}
