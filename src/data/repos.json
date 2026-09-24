@@ -1,5 +1,33 @@
 [
   {
+    "name": "LinkedOut",
+    "description": "LinkedOut is an employee-first career platform that challenges traditional hiring by helping professionals discover, evaluate, and review companies through transparent workplace insights. Built with a production-grade monorepo architecture using Next.js, NestJS, PostgreSQL, and modern cloud-native tooling.",
+    "html_url": "https://github.com/sultanmaliki/LinkedOut",
+    "homepage": "https://linkedout.raifkarani.in/",
+    "language": "TypeScript",
+    "topics": [
+      "hiring-platform",
+      "job-search",
+      "jwt-authentication",
+      "linkedin",
+      "nestjs",
+      "nextjs",
+      "project"
+    ],
+    "stargazers_count": 2,
+    "pushed_at": "2026-09-24T10:13:08Z"
+  },
+  {
+    "name": "Project-Management-Web-App",
+    "description": "A project management tool featuring a Python/FastAPI backend and a Next.js frontend. The application includes CRUD operations for projects and tasks , role-based user management , and a bonus AI feature for generating user stories using the GROQ API.",
+    "html_url": "https://github.com/sultanmaliki/Project-Management-Web-App",
+    "homepage": null,
+    "language": "TypeScript",
+    "topics": [],
+    "stargazers_count": 1,
+    "pushed_at": "2026-09-24T06:44:06Z"
+  },
+  {
     "name": "setbeat",
     "description": "SetBeat: a gesture-driven gym timer for Android that rides your music. Now-playing companion with a beat-reactive waveform. Kotlin, Jetpack Compose, Media3. No internet, no accounts.",
     "html_url": "https://github.com/sultanmaliki/setbeat",
@@ -24,16 +52,6 @@
     "pushed_at": "2026-09-24T05:01:22Z"
   },
   {
-    "name": "LinkedOut",
-    "description": "LinkedOut is an employee-first career platform that challenges traditional hiring by helping professionals discover, evaluate, and review companies through transparent workplace insights. Built with a production-grade monorepo architecture using Next.js, NestJS, PostgreSQL, and modern cloud-native tooling.",
-    "html_url": "https://github.com/sultanmaliki/LinkedOut",
-    "homepage": null,
-    "language": "TypeScript",
-    "topics": [],
-    "stargazers_count": 2,
-    "pushed_at": "2026-09-20T15:19:10Z"
-  },
-  {
     "name": "hospital-management-system",
     "description": "JDBC-based Hospital Management System with DAO architecture and MySQL integration.",
     "html_url": "https://github.com/sultanmaliki/hospital-management-system",
@@ -52,16 +70,6 @@
     "topics": [],
     "stargazers_count": 2,
     "pushed_at": "2026-03-15T14:53:20Z"
-  },
-  {
-    "name": "Project-Management-Web-App",
-    "description": "A project management tool featuring a Python/FastAPI backend and a Next.js frontend. The application includes CRUD operations for projects and tasks , role-based user management , and a bonus AI feature for generating user stories using the GROQ API.",
-    "html_url": "https://github.com/sultanmaliki/Project-Management-Web-App",
-    "homepage": null,
-    "language": "TypeScript",
-    "topics": [],
-    "stargazers_count": 1,
-    "pushed_at": "2025-10-18T06:56:11Z"
   },
   {
     "name": "Custom-Language-Translator",
