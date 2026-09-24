@@ -59,7 +59,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── ScrollyCanvas.tsx    # Scroll-linked canvas engine & preloader
 │   │   ├── SectionContact.tsx   # Footer and links
 │   │   ├── SectionCuriosity.tsx # Floating sticky notes
-│   │   ├── SectionHobbies.tsx   # Interactive icons
 │   │   ├── SectionSkills.tsx    # Magnetic glass cards
 │   │   ├── SectionStory.tsx     # Typographic storytelling
 │   │   ├── SectionTimeline.tsx  # Horizontal scroll timeline

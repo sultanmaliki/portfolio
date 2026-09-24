@@ -4,7 +4,6 @@ import SectionSkills from "@/components/SectionSkills";
 import Projects from "@/components/Projects";
 import SectionTimeline from "@/components/SectionTimeline";
 import SectionCuriosity from "@/components/SectionCuriosity";
-import SectionHobbies from "@/components/SectionHobbies";
 import SectionContact from "@/components/SectionContact";
 import Terminal from "@/components/Terminal";
 import CustomCursor from "@/components/CustomCursor";
@@ -37,10 +36,7 @@ export default function Home() {
       {/* 5. Curiosity Board */}
       <SectionCuriosity />
       
-      {/* 6. Hobbies - Outside the screen */}
-      <SectionHobbies />
-      
-      {/* 7. Contact */}
+      {/* 6. Contact */}
       <SectionContact />
       
     </main>
