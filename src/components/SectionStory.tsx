@@ -11,6 +11,13 @@ const timeline = createTimeline([
   { id: "story", duration: 3 },
 ]);
 
+// Timeline phases are fractions of the whole section, so fades must scale with
+// the phase width; fixed offsets make the range non-monotonic and crash WAAPI.
+const fadeRange = (start: number, end: number): number[] => {
+  const fade = (end - start) * 0.15;
+  return [start, start + fade, end - fade, end];
+};
+
 export default function SectionStory() {
   return (
     <ScrollTimeline 
@@ -26,22 +33,22 @@ export default function SectionStory() {
 function StoryContent({ progress }: { progress: MotionValue<number> }) {
   // Phrase 1 (fade in/out, move up)
   const [p1s, p1e] = timeline.getPhase("phrase1");
-  const opacity1 = useTransform(progress, [p1s, p1s + 0.1, p1e - 0.1, p1e], [0, 1, 1, 0]);
+  const opacity1 = useTransform(progress, fadeRange(p1s, p1e), [0, 1, 1, 0]);
   const y1 = useTransform(progress, [p1s, p1e], [30, -30]);
 
   // Phrase 2
   const [p2s, p2e] = timeline.getPhase("phrase2");
-  const opacity2 = useTransform(progress, [p2s, p2s + 0.1, p2e - 0.1, p2e], [0, 1, 1, 0]);
+  const opacity2 = useTransform(progress, fadeRange(p2s, p2e), [0, 1, 1, 0]);
   const y2 = useTransform(progress, [p2s, p2e], [30, -30]);
 
   // Phrase 3
   const [p3s, p3e] = timeline.getPhase("phrase3");
-  const opacity3 = useTransform(progress, [p3s, p3s + 0.1, p3e - 0.1, p3e], [0, 1, 1, 0]);
+  const opacity3 = useTransform(progress, fadeRange(p3s, p3e), [0, 1, 1, 0]);
   const y3 = useTransform(progress, [p3s, p3e], [30, -30]);
 
   // Story Reveal
   const [s1s, s1e] = timeline.getPhase("story");
-  const opacityStory = useTransform(progress, [s1s, s1s + 0.1, s1e - 0.1, s1e], [0, 1, 1, 0]);
+  const opacityStory = useTransform(progress, fadeRange(s1s, s1e), [0, 1, 1, 0]);
   const yStory = useTransform(progress, [s1s, s1e], [50, -50]);
 
   return (
