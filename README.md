@@ -98,7 +98,7 @@ Pin repos to the top by adding names to `featured` in `src/data/config.ts`.
 ## 🎨 Design Language
 - **Background**: Deep Dark (`#121212`)
 - **Accent**: Soft Blue (`#6EA8FF`)
-- **Typography**: `Inter` — Focus on huge whitespace, light font weights, and extreme contrast.
+- **Typography**: `Inter` (self-hosted variable font, OFL) — Focus on huge whitespace, light font weights, and extreme contrast.
 
 ## 📝 License
 
