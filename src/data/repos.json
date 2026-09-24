@@ -1,5 +1,15 @@
 [
   {
+    "name": "Project-Management-Web-App",
+    "description": "A project management tool featuring a Python/FastAPI backend and a Next.js frontend. The application includes CRUD operations for projects and tasks , role-based user management , and a bonus AI feature for generating user stories using the GROQ API.",
+    "html_url": "https://github.com/sultanmaliki/Project-Management-Web-App",
+    "homepage": null,
+    "language": "TypeScript",
+    "topics": [],
+    "stargazers_count": 1,
+    "pushed_at": "2026-09-24T17:35:17Z"
+  },
+  {
     "name": "LinkedOut",
     "description": "LinkedOut is an employee-first career platform that challenges traditional hiring by helping professionals discover, evaluate, and review companies through transparent workplace insights. Built with a production-grade monorepo architecture using Next.js, NestJS, PostgreSQL, and modern cloud-native tooling.",
     "html_url": "https://github.com/sultanmaliki/LinkedOut",
@@ -16,16 +26,6 @@
     ],
     "stargazers_count": 2,
     "pushed_at": "2026-09-24T10:13:08Z"
-  },
-  {
-    "name": "Project-Management-Web-App",
-    "description": "A project management tool featuring a Python/FastAPI backend and a Next.js frontend. The application includes CRUD operations for projects and tasks , role-based user management , and a bonus AI feature for generating user stories using the GROQ API.",
-    "html_url": "https://github.com/sultanmaliki/Project-Management-Web-App",
-    "homepage": null,
-    "language": "TypeScript",
-    "topics": [],
-    "stargazers_count": 1,
-    "pushed_at": "2026-09-24T06:44:06Z"
   },
   {
     "name": "setbeat",
