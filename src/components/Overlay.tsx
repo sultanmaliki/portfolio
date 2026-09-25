@@ -20,6 +20,9 @@ export default function Overlay({ progress }: OverlayProps) {
   const opacity3 = useScrollTransform(progress, [0.35, 0.4, 0.5, 0.55], [0, 1, 1, 0]);
   const y3 = useScrollTransform(progress, [0.35, 0.55], [50, -50]);
 
+  // Scroll cue for the very start; gone once the visitor has begun to scroll
+  const cueOpacity = useScrollTransform(progress, [0, 0.04], [1, 0]);
+
   // Section 4: Scroll to explore (60% to 90%)
   const opacity4 = useScrollTransform(progress, [0.6, 0.65, 0.85, 0.9], [0, 1, 1, 0]);
 
@@ -39,8 +42,24 @@ export default function Overlay({ progress }: OverlayProps) {
           </span>
         </h1>
         <p className="mt-6 text-lg md:text-xl text-[#F5F5F5]/70 font-light tracking-widest uppercase text-sm">
-          Computer Science Graduate <span className="mx-3 opacity-50">|</span> Full Stack Java Developer
+          <span className="block sm:inline">Computer Science Graduate</span>
+          <span aria-hidden className="mx-3 hidden opacity-50 sm:inline">|</span>
+          <span className="block sm:inline">Full Stack Java Developer</span>
         </p>
+      </motion.div>
+
+      {/* Scroll cue (start of the page only) */}
+      <motion.div
+        aria-hidden
+        style={{ opacity: cueOpacity }}
+        className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3"
+      >
+        <span className="text-xs font-light uppercase tracking-[0.3em] text-[#F5F5F5]/70">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="h-10 w-px bg-gradient-to-b from-[#F5F5F5]/70 to-transparent"
+        />
       </motion.div>
 
       {/* Section 2 */}

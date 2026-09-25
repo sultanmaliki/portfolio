@@ -9,7 +9,7 @@ export default function SectionExperience() {
     <section
       id="experience"
       aria-labelledby="experience-heading"
-      className="relative z-20 bg-[#121212] px-6 py-24 md:px-12 lg:px-24"
+      className="relative z-20 scroll-mt-16 bg-[#121212] px-6 py-24 md:px-12 lg:px-24"
     >
       <div className="mx-auto max-w-6xl">
         <motion.div

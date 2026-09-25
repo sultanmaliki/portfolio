@@ -72,6 +72,7 @@ function RepoCard({ repo }: { repo: Repo }) {
               href={repo.html_url}
               target="_blank"
               rel="noopener noreferrer"
+              translate="no"
               className="rounded transition-colors hover:text-[#6EA8FF]"
             >
               {repo.name}
@@ -132,7 +133,7 @@ function RepoCard({ repo }: { repo: Repo }) {
           )}
           <span className="inline-flex items-center gap-1.5">
             <Star size={14} aria-hidden />
-            <span aria-hidden>{repo.stargazers_count}</span>
+            <span aria-hidden className="tabular-nums">{repo.stargazers_count}</span>
             <span className="sr-only">
               {repo.stargazers_count} {repo.stargazers_count === 1 ? "star" : "stars"}
             </span>
@@ -184,7 +185,7 @@ export default function Projects() {
     <section
       id="projects"
       aria-labelledby="projects-heading"
-      className="relative z-20 bg-[#121212] px-6 py-24 md:px-12 lg:px-24"
+      className="relative z-20 scroll-mt-16 bg-[#121212] px-6 py-24 md:px-12 lg:px-24"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div

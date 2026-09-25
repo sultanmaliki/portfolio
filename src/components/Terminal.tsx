@@ -24,6 +24,13 @@ export default function Terminal() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
+  // Lets the site nav (and anything else) open the terminal without the ~ key
+  useEffect(() => {
+    const toggle = () => setIsOpen((prev) => !prev);
+    window.addEventListener("portfolio:toggle-terminal", toggle);
+    return () => window.removeEventListener("portfolio:toggle-terminal", toggle);
+  }, []);
+
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
@@ -74,14 +81,14 @@ export default function Terminal() {
       case "curiosity":
         output = (
           <div className="italic">
-            {"\"I don't build because I have to. I build because I wonder what happens if I do.\""}
+            {"“I don’t build because I have to. I build because I wonder what happens if I do.”"}
           </div>
         );
         break;
       case "nature":
         output = (
           <div className="italic">
-            {"\"If software disappeared tomorrow... I'd probably be growing tomatoes somewhere.\""}
+            {"“If software disappeared tomorrow… I’d probably be growing tomatoes somewhere.”"}
           </div>
         );
         break;
@@ -91,23 +98,23 @@ export default function Terminal() {
         return;
       case "querycraft":
         window.open("https://github.com/sultanmaliki/QueryCraft-AI", "_blank", "noopener,noreferrer");
-        output = "Opening QueryCraft repository...";
+        output = "Opening QueryCraft repository…";
         break;
       case "github":
         window.open("https://github.com/sultanmaliki", "_blank", "noopener,noreferrer");
-        output = "Opening GitHub profile...";
+        output = "Opening GitHub profile…";
         break;
       case "linkedin":
         window.open("https://www.linkedin.com/in/syedmohammedsultan", "_blank", "noopener,noreferrer");
-        output = "Opening LinkedIn profile...";
+        output = "Opening LinkedIn profile…";
         break;
       case "resume":
         window.open("/resume.pdf", "_blank", "noopener,noreferrer");
-        output = "Opening resume...";
+        output = "Opening resume…";
         break;
       case "contact":
         window.location.href = "mailto:ssultanmaliki47@gmail.com";
-        output = "Opening mail client...";
+        output = "Opening mail client…";
         break;
       case "":
         break;
@@ -157,11 +164,11 @@ export default function Terminal() {
             </div>
 
             {/* Content */}
-            <div ref={containerRef} role="log" aria-live="polite" className="flex-1 p-4 overflow-y-auto" onClick={() => inputRef.current?.focus()}>
+            <div ref={containerRef} role="log" aria-live="polite" className="flex-1 p-4 overflow-y-auto overscroll-contain" onClick={() => inputRef.current?.focus()}>
               <div className="mb-4 text-[#6EA8FF]">
-                Welcome to Sultan&apos;s Interactive Terminal v1.0.0
+                Welcome to Sultan&rsquo;s Interactive Terminal v1.0.0
                 <br />
-                Type &apos;help&apos; to see available commands.
+                Type &lsquo;help&rsquo; to see available commands.
               </div>
 
               {history.map((h, i) => (

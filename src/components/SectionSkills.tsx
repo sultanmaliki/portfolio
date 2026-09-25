@@ -2,7 +2,7 @@
 
 import { motion, useMotionTemplate, useMotionValue, MotionValue } from "framer-motion";
 import { useScrollTransform } from "@/utils/scroll";
-import { MouseEvent, useState } from "react";
+import type { MouseEvent } from "react";
 import ScrollTimeline from "./ScrollTimeline";
 import { createTimeline } from "@/utils/timeline";
 
@@ -37,7 +37,6 @@ const timeline = createTimeline([
 function GlassCard({ category, index, progress }: { category: typeof CATEGORIES[0], index: number, progress: MotionValue<number> }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const [isOpen, setIsOpen] = useState(false);
 
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
     const { left, top } = currentTarget.getBoundingClientRect();
@@ -48,30 +47,20 @@ function GlassCard({ category, index, progress }: { category: typeof CATEGORIES[
   const [start, end] = timeline.getPhase("cards");
   const cardStart = start + (index * 0.1 * (end - start));
   const cardEnd = cardStart + 0.2 * (end - start);
-  
+
   const opacity = useScrollTransform(progress, [cardStart, cardEnd], [0, 1]);
   const y = useScrollTransform(progress, [cardStart, cardEnd], [30, 0]);
 
   return (
-    <motion.div
+    <motion.article
       style={{ opacity, y, perspective: 1000 }}
       onMouseMove={handleMouseMove}
-      role="button"
-      tabIndex={0}
-      aria-expanded={isOpen}
-      aria-label={`${category.title}: ${isOpen ? "hide" : "show"} technologies`}
-      onClick={() => setIsOpen(!isOpen)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          setIsOpen((open) => !open);
-        }
-      }}
       whileHover={{ scale: 1.02, rotateX: 2, rotateY: -2 }}
-      className="group relative rounded-3xl overflow-hidden bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] backdrop-blur-xl p-4 md:p-8 cursor-pointer transition-colors hover:bg-[rgba(255,255,255,0.04)]"
+      className="group relative flex flex-col rounded-3xl overflow-hidden bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] backdrop-blur-xl p-3 [@media(max-width:359px)]:p-2 md:p-8 transition-colors hover:bg-[rgba(255,255,255,0.04)]"
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-300 group-hover:opacity-100"
+        aria-hidden
+        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(
@@ -82,33 +71,23 @@ function GlassCard({ category, index, progress }: { category: typeof CATEGORIES[
           `,
         }}
       />
-      
-      <div className="relative z-10 flex flex-col h-full justify-between min-h-[120px] md:min-h-[160px]">
+
+      <div className="relative z-10 flex h-full flex-col gap-3 md:gap-8">
         <div>
           <h3 className="text-base md:text-xl font-light text-white tracking-tight">{category.title}</h3>
-          <p className="text-xs md:text-sm text-[#F5F5F5]/60 mt-1 font-light uppercase tracking-widest">{category.subtitle}</p>
+          <p className="text-xs md:text-sm text-[#F5F5F5]/60 mt-1 font-light uppercase tracking-widest [@media(max-height:640px)]:hidden">{category.subtitle}</p>
         </div>
-        
-        <motion.div 
-          initial={false}
-          aria-hidden={!isOpen}
-          animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0, marginTop: isOpen ? 24 : 0 }}
-          className="overflow-hidden flex flex-wrap gap-2"
-        >
+
+        {/* Skills are the content people scan for, so they are always visible */}
+        <ul aria-label={`${category.title} technologies`} className="mt-auto flex list-none flex-wrap gap-1.5 md:gap-2">
           {category.tech.map((t) => (
-            <span key={t} className="px-3 py-1 text-xs font-medium text-[#F5F5F5]/80 bg-[rgba(255,255,255,0.05)] rounded-full border border-[rgba(255,255,255,0.1)]">
+            <li key={t} className="px-2 py-0.5 text-[11px] [@media(max-width:359px)]:px-1.5 [@media(max-width:359px)]:text-[10px] md:px-3 md:py-1 md:text-xs font-medium text-[#F5F5F5]/80 bg-[rgba(255,255,255,0.05)] rounded-full border border-[rgba(255,255,255,0.1)]">
               {t}
-            </span>
+            </li>
           ))}
-        </motion.div>
-        
-        {!isOpen && (
-          <div aria-hidden className="text-xs text-[#F5F5F5]/50 mt-4 md:mt-8 group-hover:text-[#F5F5F5]/70 transition-colors">
-            Tap or click to reveal tech
-          </div>
-        )}
+        </ul>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
 
@@ -118,7 +97,7 @@ export default function SectionSkills() {
       id="skills"
       duration={timeline.totalDuration}
       className="bg-[#121212] z-20"
-      stickyClassName="flex flex-col items-center justify-center p-6 md:p-12 lg:p-24"
+      stickyClassName="flex flex-col items-center justify-center p-4 md:p-12 lg:p-24"
     >
       {(progress) => <SkillsContent progress={progress} />}
     </ScrollTimeline>
@@ -131,20 +110,22 @@ function SkillsContent({ progress }: { progress: MotionValue<number> }) {
   const titleY = useScrollTransform(progress, [tTitleStart, tTitleEnd], [30, 0]);
 
   return (
-    <div className="max-w-6xl w-full mx-auto relative h-full flex flex-col justify-center py-8 md:py-24 overflow-y-auto hide-scrollbar">
+    <div className="max-w-6xl w-full mx-auto relative h-full flex flex-col py-2 md:py-12 overflow-y-auto hide-scrollbar">
+      <div className="my-auto">
       <motion.div
         style={{ opacity: titleOpacity, y: titleY }}
-        className="mb-8 md:mb-24 text-center shrink-0"
+        className="mb-4 md:mb-12 text-center shrink-0"
       >
-        <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">
+        <h2 className="text-3xl [@media(max-width:359px)]:text-2xl md:text-5xl font-light text-white tracking-tight">
           Things I enjoy building.
         </h2>
       </motion.div>
 
-      <div className="grid grid-cols-2 gap-3 md:gap-6 pb-8 md:pb-24">
+      <div className="grid grid-cols-2 gap-2 md:gap-6 pb-4 md:pb-12">
         {CATEGORIES.map((cat, i) => (
           <GlassCard key={cat.title} category={cat} index={i} progress={progress} />
         ))}
+      </div>
       </div>
     </div>
   );

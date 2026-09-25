@@ -183,9 +183,9 @@ export default function ScrollyCanvas() {
                 animate={{ opacity: 1 }}
                 className="text-white text-sm font-light tracking-[0.3em] mb-6 uppercase"
               >
-                Loading Experience
+                Loading Experience&hellip;
               </motion.div>
-              <div className="text-[#6EA8FF] text-5xl font-extralight tracking-tight">
+              <div className="text-[#6EA8FF] text-5xl font-extralight tracking-tight tabular-nums">
                 {percent}
                 <span className="text-[#F5F5F5]/50 text-3xl"> %</span>
               </div>

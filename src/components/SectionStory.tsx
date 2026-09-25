@@ -59,19 +59,19 @@ function StoryContent({ progress }: { progress: MotionValue<number> }) {
       {/* Intro Thoughts */}
       <motion.div style={{ opacity: opacity1, y: y1 }} className="absolute inset-0 flex items-center justify-center">
         <h2 className="text-3xl md:text-5xl font-light text-[#F5F5F5] tracking-tight">
-          &quot;I don&apos;t spend every hour coding.&quot;
+          &ldquo;I don&rsquo;t spend every hour coding.&rdquo;
         </h2>
       </motion.div>
 
       <motion.div style={{ opacity: opacity2, y: y2 }} className="absolute inset-0 flex items-center justify-center">
         <h2 className="text-3xl md:text-5xl font-light text-[#F5F5F5]/70 tracking-tight">
-          &quot;But when an idea captures my curiosity...&quot;
+          &ldquo;But when an idea captures my curiosity&hellip;&rdquo;
         </h2>
       </motion.div>
 
       <motion.div style={{ opacity: opacity3, y: y3 }} className="absolute inset-0 flex items-center justify-center">
         <h2 className="text-3xl md:text-5xl font-light text-[#6EA8FF] tracking-tight drop-shadow-[0_0_15px_rgba(110,168,255,0.3)]">
-          &quot;...time quietly disappears.&quot;
+          &ldquo;&hellip;time quietly disappears.&rdquo;
         </h2>
       </motion.div>
 
@@ -88,7 +88,7 @@ function StoryContent({ progress }: { progress: MotionValue<number> }) {
           Beautiful interfaces, interactive experiences, and the invisible logic powering them made me want to build things myself.
         </p>
         <p>
-          Ironically, I didn&apos;t truly enjoy programming in classrooms.
+          Ironically, I didn&rsquo;t truly enjoy programming in classrooms.
         </p>
         <p>
           I discovered that passion while coding simply because I was bored.
