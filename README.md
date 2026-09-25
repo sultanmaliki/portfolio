@@ -58,12 +58,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── ScrollTimeline.tsx   # Sticky scroll container that exposes progress (0–1)
 │   │   ├── ScrollyCanvas.tsx    # Scroll-linked canvas engine & preloader
 │   │   ├── SectionContact.tsx   # Footer and links
+│   │   ├── SectionExperience.tsx# Work experience, rendered from src/data/experience.ts
 │   │   ├── SectionCuriosity.tsx # Floating sticky notes
 │   │   ├── SectionSkills.tsx    # Magnetic glass cards
 │   │   ├── SectionStory.tsx     # Typographic storytelling
 │   │   ├── SectionTimeline.tsx  # Horizontal scroll timeline
 │   │   └── Terminal.tsx         # Interactive global terminal
 │   ├── data/
+│   │   ├── experience.ts        # Work experience entries (newest first)
 │   │   ├── config.ts            # GitHub username, excluded repos, `featured` pins
 │   │   └── repos.json           # Generated snapshot (committed; refreshed by the sync workflow)
 │   ├── lib/
