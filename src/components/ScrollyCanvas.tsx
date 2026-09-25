@@ -79,36 +79,40 @@ function CanvasStage({
 }
 
 const LAST_FRAME = FRAME_COUNT - 1;
+const GATE_STRIDE = 5; // coarse first pass that gates the loader (~31 frames)
+const GATE_TIMEOUT_MS = 3500; // never keep the page behind the loader longer than this
 
 type Connection = { saveData?: boolean };
 
 /**
- * Decides which frames gate the loader ("gate") and which stream in afterwards ("rest").
- * The draw loop snaps to the nearest loaded frame, so a sparse set still maps
- * scroll progress onto the full 0..FRAME_COUNT-1 range correctly.
+ * Splits the sequence into a small coarse "gate" set that unblocks the page quickly and
+ * the "rest" that streams in afterwards, up to the final density for this device.
+ * The draw loop snaps to the nearest loaded frame, so a sparse set still maps scroll
+ * progress onto the full 0..FRAME_COUNT-1 range correctly.
  */
 function planFrames() {
   const saveData =
     (navigator as Navigator & { connection?: Connection }).connection?.saveData === true;
   const small = window.matchMedia("(max-width: 767px)").matches;
 
-  const stride = saveData ? 3 : small ? 2 : 3;
+  // Final density: every frame on desktop, every 2nd on phones, every 3rd on Save-Data.
+  const finalStride = saveData ? 3 : small ? 2 : 1;
+
   const gate: number[] = [];
-  for (let i = 0; i < FRAME_COUNT; i += stride) gate.push(i);
+  for (let i = 0; i < FRAME_COUNT; i += GATE_STRIDE) gate.push(i);
   if (gate[gate.length - 1] !== LAST_FRAME) gate.push(LAST_FRAME);
 
+  const inGate = new Set(gate);
   const rest: number[] = [];
-  if (!saveData && !small) {
-    const inGate = new Set(gate);
-    for (let i = 0; i < FRAME_COUNT; i++) if (!inGate.has(i)) rest.push(i);
-  }
+  for (let i = 0; i < FRAME_COUNT; i += finalStride) if (!inGate.has(i)) rest.push(i);
   return { gate, rest };
 }
 
 export default function ScrollyCanvas() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
-  const [load, setLoad] = useState({ done: 0, total: 0 });
+  const [load, setLoad] = useState({ done: 0, total: 0, capped: false });
   const ready = load.total > 0 && load.done >= load.total;
+  const showLoader = !ready && !load.capped;
   const percent = load.total ? Math.round((load.done / load.total) * 100) : 0;
 
   useEffect(() => {
@@ -133,14 +137,20 @@ export default function ScrollyCanvas() {
     // Count errors too, so one missing frame can never hang the loader.
     const onGateSettle = () => {
       done++;
-      setLoad({ done, total });
+      setLoad((prev) => ({ ...prev, done, total }));
       // Once the coarse pass is in, stream the remaining frames in the background.
       if (done === total) rest.forEach((i) => loadFrame(i));
     };
     gate.forEach((i) => loadFrame(i, onGateSettle));
 
+    // On a very slow connection, reveal the page anyway rather than blocking it.
+    const cap = window.setTimeout(() => {
+      if (!cancelled) setLoad((prev) => ({ ...prev, capped: true }));
+    }, GATE_TIMEOUT_MS);
+
     return () => {
       cancelled = true;
+      window.clearTimeout(cap);
       list.forEach((img) => {
         if (img) img.onload = img.onerror = null;
       });
@@ -157,7 +167,7 @@ export default function ScrollyCanvas() {
         <>
           <CanvasStage progress={progress} imagesRef={imagesRef} ready={ready} />
 
-          {!ready && (
+          {showLoader && (
             <div
               role="status"
               className="absolute inset-0 flex flex-col items-center justify-center bg-[#121212] z-50"
