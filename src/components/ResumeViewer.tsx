@@ -322,7 +322,7 @@ function ViewerDialog({ onClose }: { onClose: () => void }) {
 
 /**
  * Built-in PDF reader. Any link can open it with openResume() / handleResumeClick from
- * "@/lib/resume"; the event indirection is the same one the terminal uses.
+ * "@/lib/resume"; the event keeps the triggers (nav, contact) decoupled from this component.
  */
 export default function ResumeViewer() {
   const [open, setOpen] = useState(false);

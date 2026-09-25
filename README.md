@@ -6,9 +6,9 @@ A high-performance, interactive personal portfolio built with a focus on storyte
 
 - **Cinematic Scrollytelling**: A 150-frame image sequence drawn to an HTML5 `<canvas>`, mapped to scroll progress. Desktop gets the 1080p set, phones the 720p set; frames load coarse-to-fine (fewer on small screens and data-saver) so the page is usable quickly.
 - **Glassmorphic UI**: Beautiful, interactive glass panels with magnetic hover effects, noise textures, and subtle 3D transformations.
-- **Interactive Terminal Overlay**: A fully functional pseudo-terminal (press `~`) containing hidden commands, personal thoughts, and direct links.
+- **Built-in Resume Reader**: The resume opens in an on-page PDF reader (pdf.js, loaded on demand) with zoom, selectable text, clickable links and a Download PDF button, instead of a bare browser PDF tab.
 - **Micro-Interactions**: Custom morphing cursors, spring animations, dynamic parallax sections, and smooth transitions powered by Framer Motion.
-- **Easter Eggs**: Secret Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`), hidden tooltips, and terminal discoveries.
+- **Easter Eggs**: Secret Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`), and hidden tooltips.
 - **Accessible & Responsive**: Section nav, skip link, keyboard-operable cards, visible focus, reduced-motion support, and layouts checked from 320px phones to 1920px desktops.
 - **High Performance**: Object-fit canvas logic, DPR-aware canvas sizing, staged frame preloading, GPU-accelerated transforms, and a custom frame-loader.
 
@@ -72,7 +72,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── SectionSkills.tsx    # Magnetic glass cards
 │   │   ├── SectionStory.tsx     # Typographic storytelling
 │   │   ├── SectionTimeline.tsx  # Horizontal scroll timeline
-│   │   └── Terminal.tsx         # Interactive global terminal
+│   │   └── ResumeViewer.tsx     # Built-in PDF reader (opened via src/lib/resume.ts)
 │   ├── data/
 │   │   ├── experience.ts        # Work experience entries (newest first)
 │   │   ├── education.ts         # Education and certifications

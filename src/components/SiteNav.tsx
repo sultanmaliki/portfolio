@@ -93,17 +93,6 @@ export default function SiteNav() {
               Resume
             </a>
           </li>
-          {/* Touch and mouse route into the terminal (it otherwise needs the ~ key) */}
-          <li className="hidden sm:block">
-            <button
-              type="button"
-              aria-label="Open terminal"
-              onClick={() => window.dispatchEvent(new Event("portfolio:toggle-terminal"))}
-              className="rounded border border-white/15 px-2 py-1 font-mono text-xs text-[#F5F5F5]/80 transition-colors hover:border-white/40 hover:text-white"
-            >
-              <span aria-hidden>&gt;_</span>
-            </button>
-          </li>
         </ul>
       </div>
     </motion.nav>

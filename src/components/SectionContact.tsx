@@ -69,7 +69,6 @@ export default function SectionContact() {
 
       <div className="max-w-5xl mx-auto w-full flex items-center justify-between pt-16 border-t border-[rgba(255,255,255,0.05)] text-[#F5F5F5]/60 text-sm font-light">
         <p>&copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> Syed Mohammed Sultan.</p>
-        <p className="hover:text-[#F5F5F5]/80 transition-colors [@media(pointer:coarse)]:hidden">Press <kbd className="px-2 py-1 bg-white/5 rounded mx-1">~</kbd> for terminal</p>
       </div>
     </section>
   );
