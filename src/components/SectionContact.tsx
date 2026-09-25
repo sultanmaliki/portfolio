@@ -28,7 +28,7 @@ export default function SectionContact() {
   ];
 
   return (
-    <section className="min-h-screen bg-[#121212] py-32 px-6 flex flex-col justify-between relative z-20">
+    <section id="contact" className="min-h-screen bg-[#121212] py-32 px-6 flex flex-col justify-between relative z-20">
       <div className="max-w-5xl mx-auto w-full flex-1 flex flex-col justify-center">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -42,8 +42,11 @@ export default function SectionContact() {
               meaningful.
             </span>
           </h2>
-          <p className="text-xl md:text-2xl text-[#F5F5F5]/60 font-light max-w-2xl leading-relaxed mb-24">
-            I&apos;m currently looking for opportunities where curiosity, engineering, and thoughtful products come together.
+          <p className="text-xl md:text-2xl text-[#F5F5F5]/60 font-light max-w-2xl leading-relaxed mb-12">
+            I&apos;m looking for entry-level software engineering roles where curiosity, engineering, and thoughtful products come together.
+          </p>
+          <p className="text-base md:text-lg text-[#F5F5F5]/60 font-light mb-16">
+            Based in Bhatkal, Karnataka. Open to relocating to Bangalore.
           </p>
 
           <div className="flex flex-wrap gap-8">
@@ -62,7 +65,7 @@ export default function SectionContact() {
         </motion.div>
       </div>
 
-      <div className="max-w-5xl mx-auto w-full flex items-center justify-between pt-16 border-t border-[rgba(255,255,255,0.05)] text-[#F5F5F5]/30 text-sm font-light">
+      <div className="max-w-5xl mx-auto w-full flex items-center justify-between pt-16 border-t border-[rgba(255,255,255,0.05)] text-[#F5F5F5]/60 text-sm font-light">
         <p>&copy; {new Date().getFullYear()} Syed Mohammed Sultan.</p>
         <p className="hover:text-[#F5F5F5]/80 transition-colors [@media(pointer:coarse)]:hidden">Press <kbd className="px-2 py-1 bg-white/5 rounded mx-1">~</kbd> for terminal</p>
       </div>

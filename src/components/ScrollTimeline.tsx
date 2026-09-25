@@ -4,6 +4,7 @@ import { useScroll, MotionValue } from "framer-motion";
 import { useRef, ReactNode } from "react";
 
 interface ScrollTimelineProps {
+  id?: string; // Anchor target for the site nav
   duration: number; // The absolute duration representing the logical length of this section's timeline
   pixelsPerUnit?: number; // How many pixels of scroll 1 unit of duration equals
   className?: string;
@@ -13,6 +14,7 @@ interface ScrollTimelineProps {
 }
 
 export default function ScrollTimeline({
+  id,
   duration,
   pixelsPerUnit = 1000,
   className = "",
@@ -35,6 +37,7 @@ export default function ScrollTimeline({
 
   return (
     <div
+      id={id}
       ref={containerRef}
       className={`relative ${className}`}
       style={{ height: computedHeightStyle }}

@@ -152,7 +152,7 @@ export default function Terminal() {
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
               </div>
-              <div className="text-white/40 text-xs">sultan@portfolio:~</div>
+              <div className="text-white/60 text-xs">sultan@portfolio:~</div>
               <div className="w-12" />
             </div>
 

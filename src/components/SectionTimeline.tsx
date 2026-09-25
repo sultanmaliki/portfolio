@@ -8,13 +8,14 @@ const TIMELINE = [
   { year: "2021", desc: "Started Programming" },
   { year: "2022", desc: "Computer Science" },
   { year: "2025", desc: "Built QueryCraft" },
-  { year: "2026", desc: "Graduated" },
-  { year: "Now", desc: "Exploring motion, AI and immersive web experiences." },
+  { year: "Feb 2026", desc: "Full Stack Developer Intern (Java & AI) at Vstand4U" },
+  { year: "2026", desc: "Graduated in Computer Science Engineering (VTU)" },
+  { year: "Now", desc: "Open to entry-level software engineering roles, and exploring AI and immersive web experiences." },
 ];
 
 export default function SectionTimeline() {
   return (
-    <ScrollTimeline duration={3} className="bg-[#121212] z-20" stickyClassName="flex flex-col justify-center">
+    <ScrollTimeline id="timeline" duration={3} className="bg-[#121212] z-20" stickyClassName="flex flex-col justify-center">
       {(progress) => <TimelineContent progress={progress} />}
     </ScrollTimeline>
   );
@@ -55,7 +56,7 @@ function TimelineContent({ progress }: { progress: MotionValue<number> }) {
         className="flex w-max items-center gap-32 px-6 md:px-12 lg:px-24 list-none"
       >
         {TIMELINE.map((item, index) => (
-          <li key={item.year} className="flex flex-col items-start w-[300px] shrink-0">
+          <li key={item.year} className="flex flex-col items-start w-[min(300px,calc(100vw-3rem))] shrink-0">
             <div className="flex items-center mb-8 w-full">
               <div className="w-4 h-4 rounded-full bg-[#6EA8FF] shadow-[0_0_15px_rgba(110,168,255,0.5)]" />
               {index !== TIMELINE.length - 1 && (

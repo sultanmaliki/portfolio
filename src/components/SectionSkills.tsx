@@ -15,17 +15,17 @@ const CATEGORIES = [
   {
     title: "Backend Systems",
     subtitle: "Robust Architecture",
-    tech: ["Java", "Spring Boot", "Node.js", "Python", "MongoDB", "MySQL", "PostgreSQL", "SQLite"],
+    tech: ["Java", "Spring (learning)", "Node.js", "Express", "NestJS", "REST APIs", "JWT auth", "MySQL", "PostgreSQL", "MongoDB"],
   },
   {
     title: "Artificial Intelligence",
     subtitle: "LLM Integration",
-    tech: ["OpenAI APIs", "Gemini", "Ollama"],
+    tech: ["OpenAI APIs", "Gemini", "Ollama", "Prompt engineering"],
   },
   {
-    title: "Motion & Tools",
-    subtitle: "Interactive Websites",
-    tech: ["Git", "Docker", "Linux", "Canvas", "WebGL"],
+    title: "Mobile & Tools",
+    subtitle: "Android & Workflow",
+    tech: ["Kotlin", "Jetpack Compose", "Git", "Docker", "Linux", "Jest", "Canvas"],
   }
 ];
 
@@ -115,6 +115,7 @@ function GlassCard({ category, index, progress }: { category: typeof CATEGORIES[
 export default function SectionSkills() {
   return (
     <ScrollTimeline 
+      id="skills"
       duration={timeline.totalDuration}
       className="bg-[#121212] z-20"
       stickyClassName="flex flex-col items-center justify-center p-6 md:p-12 lg:p-24"

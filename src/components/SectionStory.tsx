@@ -22,6 +22,7 @@ const fadeRange = (start: number, end: number): number[] => {
 export default function SectionStory() {
   return (
     <ScrollTimeline 
+      id="story"
       duration={timeline.totalDuration}
       className="bg-[#121212] z-20"
       stickyClassName="flex items-center justify-center p-6 md:p-12 lg:p-24"
@@ -77,7 +78,7 @@ function StoryContent({ progress }: { progress: MotionValue<number> }) {
       {/* The Story Reveal */}
       <motion.div
         style={{ opacity: opacityStory, y: yStory }}
-        className="absolute inset-0 flex flex-col justify-center text-left space-y-8 text-lg md:text-2xl text-[#F5F5F5]/80 font-light leading-relaxed max-w-2xl mx-auto"
+        className="absolute inset-0 flex flex-col justify-center text-left space-y-3 sm:space-y-6 md:space-y-8 text-[15px] sm:text-lg md:text-2xl text-[#F5F5F5]/80 font-light leading-relaxed max-w-2xl mx-auto"
       >
         <p>
           My journey into programming started in 2021 during pre-university.
@@ -92,7 +93,7 @@ function StoryContent({ progress }: { progress: MotionValue<number> }) {
         <p>
           I discovered that passion while coding simply because I was bored.
         </p>
-        <p className="pt-8">
+        <p className="pt-2 sm:pt-4 md:pt-8">
           Curiosity eventually became habit.<br />
           Habit became experimentation.<br />
           Experimentation became <span className="text-white font-medium">engineering.</span>

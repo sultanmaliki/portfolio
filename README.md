@@ -9,6 +9,7 @@ A high-performance, interactive personal portfolio built with a focus on storyte
 - **Interactive Terminal Overlay**: A fully functional pseudo-terminal (press `~`) containing hidden commands, personal thoughts, and direct links.
 - **Micro-Interactions**: Custom morphing cursors, spring animations, dynamic parallax sections, and smooth transitions powered by Framer Motion.
 - **Easter Eggs**: Secret Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`), hidden tooltips, and terminal discoveries.
+- **Accessible & Responsive**: Section nav, skip link, keyboard-operable cards, visible focus, reduced-motion support, and layouts checked from 320px phones to 1920px desktops.
 - **High Performance**: Object-fit canvas logic, DPR-aware canvas sizing, staged frame preloading, GPU-accelerated transforms, and a custom frame-loader.
 
 ## 🛠️ Tech Stack
@@ -43,21 +44,28 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ```text
 ├── public/
 │   ├── sequence/        # 150 WebP frames for the scroll animation
-│   └── resume.pdf       # Downloadable resume
+│   ├── resume.pdf       # Downloadable resume
+│   ├── og.jpg           # 1200×630 social preview image
+│   ├── robots.txt / sitemap.xml
+│   └── _headers         # Cloudflare Pages: cache + security headers
 ├── src/
 │   ├── app/
 │   │   ├── globals.css  # Global styles and CSS variables
-│   │   ├── layout.tsx   # Root layout wrapping the app
+│   │   ├── layout.tsx   # Root layout: metadata, JSON-LD, no-JS fallback
+│   │   ├── not-found.tsx # Custom 404
 │   │   └── page.tsx     # Main page stitching components together
 │   ├── components/
 │   │   ├── CustomCursor.tsx     # Global morphing cursor
 │   │   ├── KonamiCode.tsx       # Easter egg logic
 │   │   ├── NoiseBackground.tsx  # Grain overlay
+│   │   ├── SiteNav.tsx          # Section navigation (appears after the intro)
+│   │   ├── Providers.tsx        # Framer Motion reduced-motion config
 │   │   ├── Overlay.tsx          # Parallax intro text
 │   │   ├── Projects.tsx         # GitHub repos: build-time snapshot + live refresh
 │   │   ├── ScrollTimeline.tsx   # Sticky scroll container that exposes progress (0–1)
 │   │   ├── ScrollyCanvas.tsx    # Scroll-linked canvas engine & preloader
 │   │   ├── SectionContact.tsx   # Footer and links
+│   │   ├── SectionEducation.tsx # Degree + certifications, from src/data/education.ts
 │   │   ├── SectionExperience.tsx# Work experience, rendered from src/data/experience.ts
 │   │   ├── SectionCuriosity.tsx # Floating sticky notes
 │   │   ├── SectionSkills.tsx    # Magnetic glass cards
@@ -66,6 +74,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   └── Terminal.tsx         # Interactive global terminal
 │   ├── data/
 │   │   ├── experience.ts        # Work experience entries (newest first)
+│   │   ├── education.ts         # Education and certifications
 │   │   ├── config.ts            # GitHub username, excluded repos, `featured` pins
 │   │   └── repos.json           # Generated snapshot (committed; refreshed by the sync workflow)
 │   ├── lib/

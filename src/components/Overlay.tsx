@@ -34,7 +34,7 @@ export default function Overlay({ progress }: OverlayProps) {
           SYED MOHAMMED <span className="font-semibold text-white group relative cursor-help">
             SULTAN
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white/10 border border-white/10 backdrop-blur-md px-3 py-1.5 text-xs font-light tracking-wide rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
-              Still figuring things out.
+              Open to opportunities.
             </span>
           </span>
         </h1>

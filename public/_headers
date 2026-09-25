@@ -1,0 +1,18 @@
+# Cloudflare Pages custom headers (copied to the export root as out/_headers)
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Content-hashed build assets never change
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 150 scroll frames (~5 MB): cache for a month so repeat visits are instant
+/sequence/*
+  Cache-Control: public, max-age=2592000
+
+/og.jpg
+  Cache-Control: public, max-age=86400

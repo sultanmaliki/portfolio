@@ -24,6 +24,7 @@ const timeline = createTimeline([
 export default function SectionCuriosity() {
   return (
     <ScrollTimeline
+      id="curiosity"
       duration={timeline.totalDuration}
       className="bg-[#121212] z-20"
       stickyClassName="flex flex-col items-center justify-center p-6 md:p-12 lg:p-24"
