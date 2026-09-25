@@ -37,7 +37,11 @@ if __name__ == "__main__":
         for name, q in (("hd", q_hd), ("md", q_md)):
             os.makedirs(os.path.join(STAGE, name), exist_ok=True)
         n = 0
-        for i, f in enumerate(files):
+        only = {int(x) for x in os.environ["ONLY"].split(",")} if os.environ.get("ONLY") else None  # partial re-run
+        for f in files:
+            i = int(os.path.basename(f)[6:9])  # frame number from the filename (files may be a partial set)
+            if only is not None and i not in only:
+                continue
             need = [k for k in SETS if not os.path.exists(os.path.join(STAGE, k, out_name(i)))]
             if not need:
                 continue

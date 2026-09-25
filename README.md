@@ -43,8 +43,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ```text
 ├── public/
-│   ├── sequence-720/    # 150 WebP frames, 1280×720 (phones, tablets, data-saver)
-│   ├── sequence-hd/     # the same 150 frames at 1920×1080 (desktop)
+│   ├── sequence-720-v2/ # 150 WebP frames, 1280×720 (phones, tablets, data-saver)
+│   ├── sequence-hd-v2/  # the same 150 frames at 1920×1080 (desktop)
 │   ├── resume.pdf       # Downloadable resume
 │   ├── og.jpg           # 1200×630 social preview image
 │   ├── robots.txt / sitemap.xml

@@ -12,11 +12,11 @@
 
 # 150 scroll frames per set (720p + 1080p): cache for a month so repeat visits are instant.
 # These URLs are NOT content-hashed: if you ever replace the frames, rename the folder
-# (e.g. sequence-720 -> sequence-720-v2, and update ScrollyCanvas) so cached copies can't go stale.
-/sequence-720/*
+# (e.g. sequence-720-v2 -> sequence-720-v3, and update ScrollyCanvas) so cached copies can't go stale.
+/sequence-720-v2/*
   Cache-Control: public, max-age=2592000
 
-/sequence-hd/*
+/sequence-hd-v2/*
   Cache-Control: public, max-age=2592000
 
 /og.jpg

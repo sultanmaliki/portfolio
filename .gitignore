@@ -56,3 +56,4 @@ Thumbs.db
 
 # Frame pipeline working files (intermediates are large; see tools/frame-pipeline/README.md)
 /frames-work/
+__pycache__/

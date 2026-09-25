@@ -9,8 +9,11 @@ EXE = os.path.join(WORK, "esrgan", "realesrgan-ncnn-vulkan.exe")
 MODELS = os.path.join(WORK, "esrgan", "models")
 os.makedirs(UP, exist_ok=True)
 
+# ONLY="0,1,2,38" re-processes just those frame indices (partial re-run after fixing specific frames)
+ONLY = {int(x) for x in os.environ["ONLY"].split(",")} if os.environ.get("ONLY") else None
 todo = [f for f in sorted(glob.glob(os.path.join(CLEAN, "*.png")))
-        if not os.path.exists(os.path.join(UP, os.path.basename(f)))]
+        if not os.path.exists(os.path.join(UP, os.path.basename(f)))
+        and (ONLY is None or int(os.path.basename(f)[6:9]) in ONLY)]
 print(f"{len(todo)} frames to upscale", flush=True)
 
 CHUNK = 30  # small chunks: a stop/crash loses at most one chunk of work
