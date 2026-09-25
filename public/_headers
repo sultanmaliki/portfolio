@@ -10,8 +10,10 @@
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
 
-# 150 scroll frames per set (720p + 1080p): cache for a month so repeat visits are instant
-/sequence/*
+# 150 scroll frames per set (720p + 1080p): cache for a month so repeat visits are instant.
+# These URLs are NOT content-hashed: if you ever replace the frames, rename the folder
+# (e.g. sequence-720 -> sequence-720-v2, and update ScrollyCanvas) so cached copies can't go stale.
+/sequence-720/*
   Cache-Control: public, max-age=2592000
 
 /sequence-hd/*

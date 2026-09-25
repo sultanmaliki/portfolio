@@ -10,7 +10,7 @@ const MAX_DPR = 2;
 
 // Two frame sets: 1080p for desktop, 720p for phones/tablets and constrained connections.
 const HD_DIR = "/sequence-hd";
-const STANDARD_DIR = "/sequence";
+const STANDARD_DIR = "/sequence-720";
 
 const frameUrl = (dir: string, index: number) =>
   `${dir}/frame_${index.toString().padStart(3, "0")}_delay-0.067s.webp`;
