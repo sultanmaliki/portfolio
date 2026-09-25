@@ -10,3 +10,6 @@ export const EXCLUDED_REPOS: readonly string[] = [GITHUB_USERNAME, "portfolio"];
 
 /** Repo names to pin first, in this order. Everything else follows by last push. */
 export const featured: readonly string[] = [];
+
+/** Public contact address shown in the Contact section (with a copy button). */
+export const CONTACT_EMAIL = "ssultanmaliki47@gmail.com";

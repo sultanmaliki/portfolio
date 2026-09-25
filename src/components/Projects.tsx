@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, GitBranch, Star } from "lucide-react";
+import { ArrowUpRight, Check, GitBranch, Globe, Star } from "lucide-react";
 import snapshot from "@/data/repos.json";
 import { GITHUB_USERNAME } from "@/data/config";
+import { featuredProjects, type FeaturedProject } from "@/data/projects";
 import { linkHandler } from "@/lib/links";
-import { REPOS_ENDPOINT, parseRepos, safeHomepage, sortRepos, type Repo } from "@/lib/github";
+import { REPOS_ENDPOINT, parseRepos, safeHomepage, sortRepos, withVerifiedHomepages, type Repo } from "@/lib/github";
 
 const CACHE_KEY = "portfolio:github-repos:v1";
 const CACHE_TTL_MS = 10 * 60 * 1000;
@@ -63,6 +64,72 @@ async function loadLiveRepos(signal: AbortSignal): Promise<Repo[] | null> {
 
 const formatPushed = (iso: string) =>
   new Date(iso).toLocaleDateString("en", { month: "short", year: "numeric", timeZone: "UTC" });
+
+function FeaturedCard({ project, repo }: { project: FeaturedProject; repo: Repo }) {
+  const live = safeHomepage(repo.homepage);
+
+  return (
+    <li className="group relative flex flex-col rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-colors duration-300 focus-within:border-[#6EA8FF]/60 hover:border-[#6EA8FF]/40 md:p-8">
+      <p className="mb-3 text-xs font-light uppercase tracking-widest text-[#6EA8FF]">{project.kind}</p>
+      <h3 className="mb-3 text-2xl font-semibold tracking-tight text-white">{project.title}</h3>
+      <p className="mb-5 font-light leading-relaxed text-[#F5F5F5]/70">{project.summary}</p>
+
+      <ul className="mb-5 list-none space-y-3 text-sm font-light leading-relaxed text-[#F5F5F5]/70">
+        {project.highlights.map((point) => (
+          <li key={point} className="flex gap-3">
+            <Check aria-hidden size={16} className="mt-0.5 shrink-0 text-[#6EA8FF]" />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+
+      {project.facts && project.facts.length > 0 && (
+        <ul aria-label="Highlights" className="mb-5 flex list-none flex-wrap gap-2">
+          {project.facts.map((fact) => (
+            <li key={fact} className="rounded-full border border-[#6EA8FF]/30 bg-[#6EA8FF]/10 px-3 py-1 text-xs font-medium text-[#6EA8FF]">
+              {fact}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <ul aria-label="Tech stack" className="mb-6 flex list-none flex-wrap gap-2">
+        {project.stack.map((tech) => (
+          <li key={tech} className="rounded-full border border-white/5 bg-white/5 px-3 py-1 text-xs font-medium text-[#F5F5F5]/80">
+            {tech}
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-auto flex flex-wrap items-center gap-3">
+        <a
+          href={repo.html_url}
+          onClick={linkHandler({ url: repo.html_url, repo })}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-[#F5F5F5]"
+        >
+          <GitBranch size={16} aria-hidden />
+          View code
+          <span className="sr-only"> for {project.title}</span>
+        </a>
+        {live && (
+          <a
+            href={live}
+            onClick={linkHandler({ url: live, embed: true, title: `${project.title} live demo`, repo })}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-[#6EA8FF]/40 px-5 py-2.5 text-sm text-[#6EA8FF] transition-colors hover:bg-[#6EA8FF]/10"
+          >
+            <Globe size={16} aria-hidden />
+            Live demo
+            <span className="sr-only"> of {project.title}</span>
+          </a>
+        )}
+      </div>
+    </li>
+  );
+}
 
 function RepoCard({ repo }: { repo: Repo }) {
   const homepage = safeHomepage(repo.homepage);
@@ -182,11 +249,19 @@ export default function Projects() {
     const controller = new AbortController();
     loadLiveRepos(controller.signal).then((live) => {
       if (controller.signal.aborted) return;
-      if (live) setRepos(sortRepos(live));
+      if (live) setRepos(sortRepos(withVerifiedHomepages(live, SNAPSHOT)));
       setRefreshing(false);
     });
     return () => controller.abort();
   }, []);
+
+  // Featured entries only show while their repo is still public; the rest of the list follows.
+  const featured = featuredProjects.flatMap((project) => {
+    const repo = repos.find((r) => r.name.toLowerCase() === project.repo.toLowerCase());
+    return repo ? [{ project, repo }] : [];
+  });
+  const featuredNames = new Set(featured.map(({ repo }) => repo.name));
+  const others = repos.filter((r) => !featuredNames.has(r.name));
 
   const showSkeleton = refreshing && repos.length === 0;
 
@@ -205,10 +280,10 @@ export default function Projects() {
           className="mb-16"
         >
           <h2 id="projects-heading" className="mb-4 text-4xl font-light tracking-tight text-white md:text-5xl">
-            Straight from my GitHub.
+            Projects.
           </h2>
           <p className="max-w-2xl text-lg font-light text-[#F5F5F5]/70 md:text-xl">
-            Everything I&apos;ve made public, kept in sync automatically. New repos show up here on their own.
+            Featured work first, then everything else I&apos;ve made public. The list stays in sync with GitHub.
           </p>
         </motion.div>
 
@@ -219,15 +294,28 @@ export default function Projects() {
             ))}
           </ul>
         ) : repos.length > 0 ? (
-          <ul
-            aria-busy={refreshing}
-            aria-label="GitHub projects"
-            className="grid list-none grid-cols-1 gap-6 md:grid-cols-2 md:gap-8"
-          >
-            {repos.map((repo) => (
-              <RepoCard key={repo.name} repo={repo} />
-            ))}
-          </ul>
+          <div aria-busy={refreshing}>
+            {featured.length > 0 && (
+              <ul aria-label="Featured projects" className="mb-16 grid list-none grid-cols-1 gap-6 lg:grid-cols-3 md:gap-8">
+                {featured.map(({ project, repo }) => (
+                  <FeaturedCard key={repo.name} project={project} repo={repo} />
+                ))}
+              </ul>
+            )}
+
+            {others.length > 0 && (
+              <>
+                <h3 className="mb-6 text-sm font-light uppercase tracking-widest text-[#F5F5F5]/60">
+                  {featured.length > 0 ? "More from GitHub" : "From GitHub"}
+                </h3>
+                <ul aria-label="More GitHub projects" className="grid list-none grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+                  {others.map((repo) => (
+                    <RepoCard key={repo.name} repo={repo} />
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
         ) : (
           <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur-md md:p-12">
             <p className="mb-6 text-lg font-light text-[#F5F5F5]/70">

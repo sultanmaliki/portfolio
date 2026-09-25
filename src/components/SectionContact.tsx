@@ -1,11 +1,38 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Check, Copy } from "lucide-react";
+import { CONTACT_EMAIL } from "@/data/config";
 import { RESUME_URL, handleResumeClick } from "@/lib/resume";
 import { linkHandler } from "@/lib/links";
 
 export default function SectionContact() {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  // Not everyone has a mail app set up, so the address can be copied as well as clicked.
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
+    } catch {
+      const field = document.createElement("textarea");
+      field.value = CONTACT_EMAIL;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.opacity = "0";
+      document.body.appendChild(field);
+      field.select();
+      const ok = document.execCommand("copy");
+      field.remove();
+      if (!ok) return;
+    }
+    setCopied(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setCopied(false), 2000);
+  }
+
   const LINKS = [
     {
       label: "GitHub",
@@ -21,7 +48,7 @@ export default function SectionContact() {
     },
     {
       label: "Email",
-      href: "mailto:ssultanmaliki47@gmail.com",
+      href: `mailto:${CONTACT_EMAIL}`,
       external: false,
     },
     {
@@ -67,11 +94,31 @@ export default function SectionContact() {
               </a>
             ))}
           </div>
+
+          <div className="mt-10 flex flex-wrap items-center gap-3 text-sm font-light text-[#F5F5F5]/60 md:text-base">
+            <span translate="no" className="break-all">{CONTACT_EMAIL}</span>
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1 text-xs text-[#F5F5F5]/80 transition-colors hover:border-white/40 hover:text-white"
+            >
+              {copied ? <Check aria-hidden size={13} className="text-emerald-400" /> : <Copy aria-hidden size={13} />}
+              {copied ? "Copied" : "Copy"}
+              <span className="sr-only"> email address</span>
+            </button>
+            <span role="status" aria-live="polite" className="sr-only">
+              {copied ? "Email address copied to clipboard" : ""}
+            </span>
+          </div>
         </motion.div>
       </div>
 
-      <div className="max-w-5xl mx-auto w-full flex items-center justify-between pt-16 border-t border-[rgba(255,255,255,0.05)] text-[#F5F5F5]/60 text-sm font-light">
+      <div className="max-w-5xl mx-auto w-full mt-20 flex items-center justify-between pt-8 border-t border-[rgba(255,255,255,0.05)] text-[#F5F5F5]/60 text-sm font-light">
         <p>&copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> Syed Mohammed Sultan.</p>
+        <a href="#top" className="group inline-flex items-center gap-1.5 rounded transition-colors hover:text-white">
+          Back to top
+          <ArrowUp aria-hidden size={14} className="transition-transform group-hover:-translate-y-0.5" />
+        </a>
       </div>
     </section>
   );

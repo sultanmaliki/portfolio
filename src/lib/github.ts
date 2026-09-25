@@ -22,8 +22,9 @@ const nullableString = (value: unknown): string | null =>
 
 /**
  * Validates a raw GitHub API payload and applies the site's filter: no forks, no archived
- * repos, nothing in EXCLUDED_REPOS. Returns null when the payload isn't a repo list at all
- * (e.g. a rate-limit error object), so callers can keep what they already have.
+ * repos, nothing in EXCLUDED_REPOS, and nothing without a description (a bare card looks
+ * unfinished). Returns null when the payload isn't a repo list at all (e.g. a rate-limit
+ * error object), so callers can keep what they already have.
  * Keep the filter in sync with scripts/fetch-repos.mjs.
  */
 export function parseRepos(payload: unknown): Repo[] | null {
@@ -36,6 +37,7 @@ export function parseRepos(payload: unknown): Repo[] | null {
     if (typeof name !== "string" || typeof html_url !== "string" || typeof pushed_at !== "string") continue;
     if (fork === true || archived === true) continue;
     if (EXCLUDED_REPOS.some((excluded) => excluded.toLowerCase() === name.toLowerCase())) continue;
+    if (nullableString(item.description) === null) continue;
 
     repos.push({
       name,
@@ -72,4 +74,14 @@ export function safeHomepage(homepage: string | null): string | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * The browser-side refresh comes straight from the GitHub API, but the build-time snapshot has
+ * already dropped homepages that no longer respond. For repos the snapshot knows, keep its
+ * (verified) homepage; homepages of repos it has never seen are trusted until the next sync.
+ */
+export function withVerifiedHomepages(live: readonly Repo[], snapshot: readonly Repo[]): Repo[] {
+  const verified = new Map(snapshot.map((r) => [r.name.toLowerCase(), r.homepage]));
+  return live.map((r) => (verified.has(r.name.toLowerCase()) ? { ...r, homepage: verified.get(r.name.toLowerCase()) ?? null } : r));
 }

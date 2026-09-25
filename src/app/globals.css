@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Low-height screens (phones held sideways): pinned sections must fit without inner scrolling */
+@custom-variant short (@media (max-height: 500px));
+@custom-variant land (@media (max-height: 500px) and (min-width: 700px));
+
 :root {
   --background: #121212;
   --foreground: #ffffff;

@@ -1,0 +1,18 @@
+version: 2
+
+# Weekly, grouped update PRs. CI (lint, types, unit + e2e tests, build) runs on each one,
+# so a green PR is safe to merge.
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, MotionValue } from "framer-motion";
+import { motion, MotionValue, useTransform } from "framer-motion";
 import { useScrollTransform } from "@/utils/scroll";
+import { handleResumeClick } from "@/lib/resume";
 
 interface OverlayProps {
   progress: MotionValue<number>;
@@ -11,6 +12,10 @@ export default function Overlay({ progress }: OverlayProps) {
   // Section 1: Intro (0% to 15%)
   const opacity1 = useScrollTransform(progress, [0, 0.1, 0.15], [1, 1, 0]);
   const y1 = useScrollTransform(progress, [0, 0.15], [0, -100]);
+  // Once faded out, the buttons must stop catching clicks and keyboard focus. The heading stays in
+  // the accessibility tree (screen readers still get the page's h1 after it has faded visually).
+  const introPointer = useTransform(opacity1, (v) => (v > 0.4 ? "auto" : "none"));
+  const introVisibility = useTransform(opacity1, (v) => (v > 0.02 ? "visible" : "hidden"));
 
   // Section 2: Building Software (20% to 35%)
   const opacity2 = useScrollTransform(progress, [0.15, 0.2, 0.3, 0.35], [0, 1, 1, 0]);
@@ -31,28 +36,64 @@ export default function Overlay({ progress }: OverlayProps) {
       {/* Section 1 */}
       <motion.div
         style={{ opacity: opacity1, y: y1 }}
-        className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 pointer-events-auto"
+        className="absolute inset-0 flex flex-col items-center justify-center text-center p-8"
       >
-        <h1 className="text-4xl md:text-6xl font-light tracking-tight text-[#F5F5F5] drop-shadow-2xl">
-          SYED MOHAMMED <span className="font-semibold text-white group relative cursor-help">
-            SULTAN
-            <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white/10 border border-white/10 backdrop-blur-md px-3 py-1.5 text-xs font-light tracking-wide rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
-              Open to opportunities.
-            </span>
-          </span>
+        <h1 className="text-4xl [@media(max-width:359px)]:text-3xl md:text-6xl font-light tracking-tight text-[#F5F5F5] drop-shadow-2xl">
+          SYED MOHAMMED <span className="font-semibold text-white">SULTAN</span>
         </h1>
-        <p className="mt-6 text-lg md:text-xl text-[#F5F5F5]/70 font-light tracking-widest uppercase text-sm">
+        <p className="mt-6 text-[#F5F5F5]/70 font-light tracking-widest uppercase text-sm md:text-xl">
           <span className="block sm:inline">Computer Science Graduate</span>
           <span aria-hidden className="mx-3 hidden opacity-50 sm:inline">|</span>
           <span className="block sm:inline">Full Stack Java Developer</span>
         </p>
+
+        {/* The one thing a recruiter needs first: availability, then the three places they will go */}
+        <motion.div
+          style={{ pointerEvents: introPointer, visibility: introVisibility }}
+          className="flex flex-col items-center"
+        >
+          <p className="mt-8 inline-flex max-w-full items-center gap-2.5 rounded-2xl border border-white/15 bg-black/40 px-4 py-2 text-xs text-[#F5F5F5]/90 backdrop-blur-md sm:rounded-full sm:text-sm short:hidden">
+            <span aria-hidden className="relative flex h-2 w-2 shrink-0">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            <span>
+              <span className="block sm:inline">Open to entry-level roles</span>
+              <span aria-hidden className="mx-2 hidden opacity-40 sm:inline">&middot;</span>
+              <span className="block sm:inline">Relocating to Bangalore</span>
+            </span>
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3 short:mt-4">
+            <a
+              href="#projects"
+              className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black shadow-xl sm:px-6 transition-colors hover:bg-[#F5F5F5]"
+            >
+              View projects
+            </a>
+            <a
+              href="/resume.pdf"
+              onClick={handleResumeClick}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/40 bg-black/30 px-5 py-2.5 text-sm text-white sm:px-6 backdrop-blur-md transition-colors hover:bg-white/10"
+            >
+              Resume
+            </a>
+            <a
+              href="#contact"
+              className="rounded-full bg-black/30 px-4 py-2.5 text-sm text-[#F5F5F5]/90 backdrop-blur-md transition-colors hover:bg-black/50 hover:text-white"
+            >
+              Contact
+            </a>
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* Scroll cue (start of the page only) */}
       <motion.div
         aria-hidden
         style={{ opacity: cueOpacity }}
-        className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3"
+        className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 [@media(max-height:640px)]:hidden"
       >
         <span className="text-xs font-light uppercase tracking-[0.3em] text-[#F5F5F5]/70">Scroll</span>
         <motion.div

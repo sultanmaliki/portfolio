@@ -1,15 +1,5 @@
 [
   {
-    "name": "syedmohammedsultan-online-subdomains",
-    "description": null,
-    "html_url": "https://github.com/sultanmaliki/syedmohammedsultan-online-subdomains",
-    "homepage": null,
-    "language": null,
-    "topics": [],
-    "stargazers_count": 0,
-    "pushed_at": "2026-09-25T17:16:50Z"
-  },
-  {
     "name": "Project-Management-Web-App",
     "description": "A project management tool featuring a Python/FastAPI backend and a Next.js frontend. The application includes CRUD operations for projects and tasks , role-based user management , and a bonus AI feature for generating user stories using the GROQ API.",
     "html_url": "https://github.com/sultanmaliki/Project-Management-Web-App",

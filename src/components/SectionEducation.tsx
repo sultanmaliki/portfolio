@@ -37,7 +37,8 @@ export default function SectionEducation() {
               </p>
               <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md md:p-8">
                 <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">{entry.degree}</h3>
-                <p className="mt-1 mb-6 font-light text-[#6EA8FF]">{entry.institution}</p>
+                <p className={`mt-1 font-light text-[#6EA8FF] ${entry.cgpa ? "" : "mb-6"}`}>{entry.institution}</p>
+                {entry.cgpa && <p className="mb-6 mt-2 text-sm font-light text-[#F5F5F5]/70">CGPA {entry.cgpa}</p>}
                 <p className="mb-3 text-xs uppercase tracking-widest text-[#F5F5F5]/60">Coursework</p>
                 <ul className="flex list-none flex-wrap gap-2">
                   {entry.coursework.map((course) => (

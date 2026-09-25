@@ -39,12 +39,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 
   title: {
-    default: "Syed Mohammed Sultan",
+    default: "Syed Mohammed Sultan | Full Stack Developer (Java, Next.js, AI)",
     template: "%s | Syed Mohammed Sultan",
   },
 
   description:
-    "Computer Science graduate and Full Stack Java Developer building immersive web experiences with Next.js, Java, AI, and modern frontend technologies.",
+    "Computer Science graduate and full stack developer (Java, Next.js, NestJS, AI/LLM integration, Android). Open to entry-level software engineering roles, relocating to Bangalore.",
 
   keywords: [
     "Syed Mohammed Sultan",
@@ -74,9 +74,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Syed Mohammed Sultan",
+    title: "Syed Mohammed Sultan | Full Stack Developer",
     description:
-      "Computer Science graduate building immersive digital experiences with Java, AI, and modern web technologies.",
+      "Computer Science graduate and full stack developer. Java, Next.js, NestJS, AI/LLM integration and Android. Open to entry-level roles.",
     url: "https://portfolio.syedmohammedsultan.online/",
     siteName: "Syed Mohammed Sultan",
     images: [
@@ -91,9 +91,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Syed Mohammed Sultan",
+    title: "Syed Mohammed Sultan | Full Stack Developer",
     description:
-      "Computer Science graduate building immersive digital experiences.",
+      "Computer Science graduate and full stack developer. Open to entry-level roles.",
     images: ["/og.jpg"],
   },
 
@@ -102,9 +102,6 @@ export const metadata: Metadata = {
     follow: true,
   },
 
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 export default function RootLayout({
