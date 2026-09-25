@@ -85,3 +85,8 @@ button,
 .pdf-text-layer ::selection {
   background: rgba(110, 168, 255, 0.35);
 }
+
+/* Sections receive programmatic focus after an in-page jump; no ring on the container itself */
+[tabindex="-1"]:focus {
+  outline: none;
+}
