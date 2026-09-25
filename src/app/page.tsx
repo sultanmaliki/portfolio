@@ -10,6 +10,7 @@ import SectionCuriosity from "@/components/SectionCuriosity";
 import SectionContact from "@/components/SectionContact";
 import ResumeViewer from "@/components/ResumeViewer";
 import SmoothAnchors from "@/components/SmoothAnchors";
+import LinkViewer from "@/components/LinkViewer";
 import CustomCursor from "@/components/CustomCursor";
 import NoiseBackground from "@/components/NoiseBackground";
 import KonamiCode from "@/components/KonamiCode";
@@ -28,6 +29,7 @@ export default function Home() {
       <NoiseBackground />
       <KonamiCode />
       <ResumeViewer />
+      <LinkViewer />
       <SmoothAnchors />
 
       {/* 0. Scroll-linked cinematic intro */}

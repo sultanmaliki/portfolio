@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, ExternalLink, FileText, X, ZoomIn, ZoomOut } from "lucide-react";
 import type { PDFDocumentProxy } from "pdfjs-dist";
+import { linkHandler } from "@/lib/links";
 import { OPEN_RESUME_EVENT, RESUME_FILENAME, RESUME_URL } from "@/lib/resume";
 
 type PdfJs = typeof import("pdfjs-dist");
@@ -105,6 +106,7 @@ function PdfPage({ loaded, pageNumber, width }: { loaded: Loaded; pageNumber: nu
           href={l.url}
           target={l.url.startsWith("mailto:") ? undefined : "_blank"}
           rel="noopener noreferrer"
+          onClick={l.url.startsWith("mailto:") ? undefined : linkHandler({ url: l.url })}
           aria-label={l.url.replace(/^mailto:/i, "")}
           className="absolute rounded-sm outline-offset-2 hover:bg-[#6EA8FF]/15"
           style={{ left: l.left, top: l.top, width: l.width, height: l.height }}
@@ -163,6 +165,7 @@ function ViewerDialog({ onClose }: { onClose: () => void }) {
     scrollRef.current?.focus({ preventScroll: true });
 
     const onKeyDown = (e: KeyboardEvent) => {
+      if (document.querySelector("[data-link-viewer]")) return; // a link viewer opened on top owns the keyboard
       if (e.key === "Escape") {
         e.preventDefault();
         onClose();

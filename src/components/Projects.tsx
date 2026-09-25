@@ -5,12 +5,18 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, GitBranch, Star } from "lucide-react";
 import snapshot from "@/data/repos.json";
 import { GITHUB_USERNAME } from "@/data/config";
+import { linkHandler } from "@/lib/links";
 import { REPOS_ENDPOINT, parseRepos, safeHomepage, sortRepos, type Repo } from "@/lib/github";
 
 const CACHE_KEY = "portfolio:github-repos:v1";
 const CACHE_TTL_MS = 10 * 60 * 1000;
 const MAX_TOPICS = 5;
 const PROFILE_URL = `https://github.com/${GITHUB_USERNAME}`;
+const PROFILE_LINK = {
+  url: PROFILE_URL,
+  title: `GitHub: ${GITHUB_USERNAME}`,
+  description: "Everything I've built in public: source code, commit history and READMEs.",
+};
 
 // Build-time snapshot, validated with the same parser the live refresh uses.
 const SNAPSHOT: Repo[] = sortRepos(parseRepos(snapshot) ?? []);
@@ -70,6 +76,7 @@ function RepoCard({ repo }: { repo: Repo }) {
           <h3 className="min-w-0 break-words text-xl font-semibold tracking-tight text-white md:text-2xl">
             <a
               href={repo.html_url}
+              onClick={linkHandler({ url: repo.html_url, repo })}
               target="_blank"
               rel="noopener noreferrer"
               translate="no"
@@ -81,6 +88,7 @@ function RepoCard({ repo }: { repo: Repo }) {
           <div className="flex shrink-0 items-center gap-3 text-[#F5F5F5]/70">
             <a
               href={repo.html_url}
+              onClick={linkHandler({ url: repo.html_url, repo })}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${repo.name} source on GitHub`}
@@ -91,6 +99,7 @@ function RepoCard({ repo }: { repo: Repo }) {
             {homepage && (
               <a
                 href={homepage}
+                onClick={linkHandler({ url: homepage, embed: true, title: `${repo.name} live demo`, repo })}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${repo.name} live site`}
@@ -226,6 +235,7 @@ export default function Projects() {
             </p>
             <a
               href={PROFILE_URL}
+              onClick={linkHandler(PROFILE_LINK)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-colors hover:bg-[#F5F5F5]"
@@ -241,6 +251,7 @@ export default function Projects() {
             More on{" "}
             <a
               href={PROFILE_URL}
+              onClick={linkHandler(PROFILE_LINK)}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded underline underline-offset-4 transition-colors hover:text-white"

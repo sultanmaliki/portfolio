@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { experience } from "@/data/experience";
+import { linkHandler } from "@/lib/links";
 
 export default function SectionExperience() {
   return (
@@ -67,6 +68,7 @@ export default function SectionExperience() {
                 {entry.link && (
                   <a
                     href={entry.link.href}
+                    onClick={linkHandler({ url: entry.link.href, title: entry.link.label })}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-6 inline-flex items-center gap-1 rounded text-sm text-[#F5F5F5]/70 underline underline-offset-4 transition-colors hover:text-white"

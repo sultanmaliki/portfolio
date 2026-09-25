@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { RESUME_URL, handleResumeClick } from "@/lib/resume";
+import { linkHandler } from "@/lib/links";
 
 export default function SectionContact() {
   const LINKS = [
@@ -10,11 +11,13 @@ export default function SectionContact() {
       label: "GitHub",
       href: "https://github.com/sultanmaliki",
       external: true,
+      preview: { title: "GitHub: sultanmaliki", description: "Everything I've built in public: source code, commit history and READMEs." },
     },
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/syedmohammedsultan",
       external: true,
+      preview: { title: "Syed Mohammed Sultan on LinkedIn", description: "My professional profile: experience, education and the best way to get in touch." },
     },
     {
       label: "Email",
@@ -56,7 +59,7 @@ export default function SectionContact() {
                 key={link.label}
                 href={link.href}
                 {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                {...(link.href === RESUME_URL ? { onClick: handleResumeClick } : {})}
+                onClick={link.preview ? linkHandler({ url: link.href, ...link.preview }) : link.href === RESUME_URL ? handleResumeClick : undefined}
                 className="group flex items-center gap-2 text-xl md:text-3xl font-light text-[#F5F5F5]/60 hover:text-white transition-colors"
               >
                 {link.label}
