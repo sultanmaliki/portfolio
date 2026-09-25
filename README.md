@@ -83,6 +83,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   └── utils/
 │       ├── scroll.ts            # useScrollTransform: scroll ranges padded to 0–1
 │       └── timeline.ts          # Splits a section's scroll range into named phases
+├── tools/
+│   └── frame-pipeline/          # How the scroll frames were cleaned + upscaled (Real-ESRGAN); reproducible
 ├── scripts/
 │   └── fetch-repos.mjs          # `prebuild`: snapshots public repos into src/data/repos.json
 ├── .github/workflows/
