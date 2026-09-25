@@ -4,7 +4,7 @@ A high-performance, interactive personal portfolio built with a focus on storyte
 
 ## 🚀 Features
 
-- **Cinematic Scrollytelling**: A 150-frame image sequence drawn to an HTML5 `<canvas>`, mapped to scroll progress. Frames load in a coarse-to-fine order (fewer frames on small screens and Save-Data) so the page is usable quickly.
+- **Cinematic Scrollytelling**: A 150-frame image sequence drawn to an HTML5 `<canvas>`, mapped to scroll progress. Desktop gets the 1080p set, phones the 720p set; frames load coarse-to-fine (fewer on small screens and data-saver) so the page is usable quickly.
 - **Glassmorphic UI**: Beautiful, interactive glass panels with magnetic hover effects, noise textures, and subtle 3D transformations.
 - **Interactive Terminal Overlay**: A fully functional pseudo-terminal (press `~`) containing hidden commands, personal thoughts, and direct links.
 - **Micro-Interactions**: Custom morphing cursors, spring animations, dynamic parallax sections, and smooth transitions powered by Framer Motion.
@@ -43,7 +43,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ```text
 ├── public/
-│   ├── sequence/        # 150 WebP frames for the scroll animation
+│   ├── sequence/        # 150 WebP frames, 1280×720 (phones, tablets, data-saver)
+│   ├── sequence-hd/     # the same 150 frames at 1920×1080 (desktop)
 │   ├── resume.pdf       # Downloadable resume
 │   ├── og.jpg           # 1200×630 social preview image
 │   ├── robots.txt / sitemap.xml

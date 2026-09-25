@@ -8,8 +8,12 @@ import ScrollTimeline from "./ScrollTimeline";
 const FRAME_COUNT = 150;
 const MAX_DPR = 2;
 
-const currentFrame = (index: number) =>
-  `/sequence/frame_${index.toString().padStart(3, "0")}_delay-0.067s.webp`;
+// Two frame sets: 1080p for desktop, 720p for phones/tablets and constrained connections.
+const HD_DIR = "/sequence-hd";
+const STANDARD_DIR = "/sequence";
+
+const frameUrl = (dir: string, index: number) =>
+  `${dir}/frame_${index.toString().padStart(3, "0")}_delay-0.067s.webp`;
 
 function CanvasStage({
   progress,
@@ -82,7 +86,7 @@ const LAST_FRAME = FRAME_COUNT - 1;
 const GATE_STRIDE = 5; // coarse first pass that gates the loader (~31 frames)
 const GATE_TIMEOUT_MS = 3500; // never keep the page behind the loader longer than this
 
-type Connection = { saveData?: boolean };
+type Connection = { saveData?: boolean; effectiveType?: string };
 
 /**
  * Splits the sequence into a small coarse "gate" set that unblocks the page quickly and
@@ -91,9 +95,11 @@ type Connection = { saveData?: boolean };
  * progress onto the full 0..FRAME_COUNT-1 range correctly.
  */
 function planFrames() {
-  const saveData =
-    (navigator as Navigator & { connection?: Connection }).connection?.saveData === true;
+  const connection = (navigator as Navigator & { connection?: Connection }).connection;
+  // Treat a 2g/3g connection like Save-Data: fewer, lighter frames.
+  const saveData = connection?.saveData === true || /^(slow-2g|2g|3g)$/.test(connection?.effectiveType ?? "");
   const small = window.matchMedia("(max-width: 767px)").matches;
+  const dir = !saveData && window.matchMedia("(min-width: 1024px)").matches ? HD_DIR : STANDARD_DIR;
 
   // Final density: every frame on desktop, every 2nd on phones, every 3rd on Save-Data.
   const finalStride = saveData ? 3 : small ? 2 : 1;
@@ -105,7 +111,7 @@ function planFrames() {
   const inGate = new Set(gate);
   const rest: number[] = [];
   for (let i = 0; i < FRAME_COUNT; i += finalStride) if (!inGate.has(i)) rest.push(i);
-  return { gate, rest };
+  return { gate, rest, dir };
 }
 
 export default function ScrollyCanvas() {
@@ -117,7 +123,7 @@ export default function ScrollyCanvas() {
 
   useEffect(() => {
     let cancelled = false;
-    const { gate, rest } = planFrames();
+    const { gate, rest, dir } = planFrames();
     const total = gate.length;
     let done = 0;
 
@@ -130,7 +136,7 @@ export default function ScrollyCanvas() {
         img.onload = img.onerror = null;
         if (!cancelled) onSettle?.();
       };
-      img.src = currentFrame(index);
+      img.src = frameUrl(dir, index);
       list[index] = img;
     };
 

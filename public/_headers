@@ -10,8 +10,11 @@
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
 
-# 150 scroll frames (~5 MB): cache for a month so repeat visits are instant
+# 150 scroll frames per set (720p + 1080p): cache for a month so repeat visits are instant
 /sequence/*
+  Cache-Control: public, max-age=2592000
+
+/sequence-hd/*
   Cache-Control: public, max-age=2592000
 
 /og.jpg
