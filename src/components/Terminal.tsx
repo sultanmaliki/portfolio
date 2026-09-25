@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { openResume } from "@/lib/resume";
 
 export default function Terminal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,7 @@ export default function Terminal() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.key === "~" || e.key === "`") && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        if (document.querySelector("[data-resume-viewer]")) return; // the resume reader owns the screen
         e.preventDefault();
         setIsOpen((prev) => !prev);
       }
@@ -109,7 +111,8 @@ export default function Terminal() {
         output = "Opening LinkedIn profile…";
         break;
       case "resume":
-        window.open("/resume.pdf", "_blank", "noopener,noreferrer");
+        setIsOpen(false);
+        openResume();
         output = "Opening resume…";
         break;
       case "contact":

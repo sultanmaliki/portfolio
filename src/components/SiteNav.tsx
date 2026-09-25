@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { handleResumeClick } from "@/lib/resume";
 
 const LINKS = [
   { id: "skills", label: "Skills" },
@@ -84,6 +85,7 @@ export default function SiteNav() {
           <li>
             <a
               href="/resume.pdf"
+              onClick={handleResumeClick}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full border border-[#6EA8FF]/40 px-3 py-1.5 text-xs text-[#6EA8FF] transition-colors hover:bg-[#6EA8FF]/10 sm:text-sm"

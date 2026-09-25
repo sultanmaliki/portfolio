@@ -21,3 +21,7 @@
 
 /og.jpg
   Cache-Control: public, max-age=86400
+
+# Whoever saves the resume (built-in reader, raw PDF tab, "Save as") gets a proper file name
+/resume.pdf
+  Content-Disposition: inline; filename="Syed_Mohammed_Sultan_Resume.pdf"

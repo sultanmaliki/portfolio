@@ -9,6 +9,7 @@ import SectionTimeline from "@/components/SectionTimeline";
 import SectionCuriosity from "@/components/SectionCuriosity";
 import SectionContact from "@/components/SectionContact";
 import Terminal from "@/components/Terminal";
+import ResumeViewer from "@/components/ResumeViewer";
 import CustomCursor from "@/components/CustomCursor";
 import NoiseBackground from "@/components/NoiseBackground";
 import KonamiCode from "@/components/KonamiCode";
@@ -27,7 +28,8 @@ export default function Home() {
       <NoiseBackground />
       <KonamiCode />
       <Terminal />
-      
+      <ResumeViewer />
+
       {/* 0. Scroll-linked cinematic intro */}
       <ScrollyCanvas />
       

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { RESUME_URL, handleResumeClick } from "@/lib/resume";
 
 export default function SectionContact() {
   const LINKS = [
@@ -22,7 +23,7 @@ export default function SectionContact() {
     },
     {
       label: "Resume",
-      href: "/resume.pdf", // Lives in /public
+      href: RESUME_URL, // Lives in /public; a plain click opens the built-in reader
       external: true,
     },
   ];
@@ -55,6 +56,7 @@ export default function SectionContact() {
                 key={link.label}
                 href={link.href}
                 {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                {...(link.href === RESUME_URL ? { onClick: handleResumeClick } : {})}
                 className="group flex items-center gap-2 text-xl md:text-3xl font-light text-[#F5F5F5]/60 hover:text-white transition-colors"
               >
                 {link.label}

@@ -64,3 +64,24 @@ button,
     scroll-behavior: auto !important;
   }
 }
+
+/* Selectable text laid over the resume canvas (pdf.js text layer) */
+.pdf-text-layer {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  line-height: 1;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  transform-origin: 0 0;
+}
+.pdf-text-layer :is(span, br) {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0 0;
+}
+.pdf-text-layer ::selection {
+  background: rgba(110, 168, 255, 0.35);
+}
