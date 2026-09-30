@@ -1,5 +1,23 @@
 [
   {
+    "name": "LinkedOut",
+    "description": "LinkedOut is an employee-first career platform that challenges traditional hiring by helping professionals discover, evaluate, and review companies through transparent workplace insights. Built with a production-grade monorepo architecture using Next.js, NestJS, PostgreSQL, and modern cloud-native tooling.",
+    "html_url": "https://github.com/sultanmaliki/LinkedOut",
+    "homepage": "https://linkedout.raifkarani.in/",
+    "language": "TypeScript",
+    "topics": [
+      "hiring-platform",
+      "job-search",
+      "jwt-authentication",
+      "linkedin",
+      "nestjs",
+      "nextjs",
+      "project"
+    ],
+    "stargazers_count": 2,
+    "pushed_at": "2026-09-30T19:28:04Z"
+  },
+  {
     "name": "personal-rag",
     "description": "Fully local RAG assistant that indexes all your GitHub repos and your website into a citation-backed chat interface — no API keys, no cloud cost, runs entirely on your machine via Ollama + Chroma.",
     "html_url": "https://github.com/sultanmaliki/personal-rag",
@@ -20,7 +38,7 @@
       "sentence-transformers"
     ],
     "stargazers_count": 0,
-    "pushed_at": "2026-09-30T11:46:38Z"
+    "pushed_at": "2026-09-30T12:39:50Z"
   },
   {
     "name": "Custom-Language-Translator",
@@ -51,24 +69,6 @@
     "topics": [],
     "stargazers_count": 1,
     "pushed_at": "2026-09-24T17:35:17Z"
-  },
-  {
-    "name": "LinkedOut",
-    "description": "LinkedOut is an employee-first career platform that challenges traditional hiring by helping professionals discover, evaluate, and review companies through transparent workplace insights. Built with a production-grade monorepo architecture using Next.js, NestJS, PostgreSQL, and modern cloud-native tooling.",
-    "html_url": "https://github.com/sultanmaliki/LinkedOut",
-    "homepage": "https://linkedout.raifkarani.in/",
-    "language": "TypeScript",
-    "topics": [
-      "hiring-platform",
-      "job-search",
-      "jwt-authentication",
-      "linkedin",
-      "nestjs",
-      "nextjs",
-      "project"
-    ],
-    "stargazers_count": 2,
-    "pushed_at": "2026-09-24T10:13:08Z"
   },
   {
     "name": "setbeat",
