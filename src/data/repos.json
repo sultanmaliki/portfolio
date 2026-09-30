@@ -1,5 +1,28 @@
 [
   {
+    "name": "personal-rag",
+    "description": "Fully local RAG assistant that indexes all your GitHub repos and your website into a citation-backed chat interface — no API keys, no cloud cost, runs entirely on your machine via Ollama + Chroma.",
+    "html_url": "https://github.com/sultanmaliki/personal-rag",
+    "homepage": null,
+    "language": "Python",
+    "topics": [
+      "chromadb",
+      "fastapi",
+      "github-api",
+      "llm",
+      "local-llm",
+      "ollama",
+      "personal-knowledge-base",
+      "python",
+      "rag",
+      "retrieval-augmented-generation",
+      "semantic-search",
+      "sentence-transformers"
+    ],
+    "stargazers_count": 0,
+    "pushed_at": "2026-09-30T11:46:38Z"
+  },
+  {
     "name": "Custom-Language-Translator",
     "description": "A customizable Neural Machine Translation (NMT) pipeline built with TensorFlow and Keras. Supports TSV datasets, preprocessing, training with Seq2Seq + attention, beam search inference, and an interactive Gradio web app. Includes tokenizer handling, checkpoints, and flexible deployment for multilingual translation.",
     "html_url": "https://github.com/sultanmaliki/Custom-Language-Translator",
