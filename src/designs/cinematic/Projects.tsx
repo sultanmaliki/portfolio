@@ -103,14 +103,14 @@ function RepoCard({ repo }: { repo: Repo }) {
               {repo.name}
             </a>
           </h3>
-          <div className="flex shrink-0 items-center gap-3 text-[#F5F5F5]/70">
+          <div className="flex shrink-0 items-center gap-3 text-[#F5F5F5]/70 [@media(pointer:coarse)]:-mr-3 [@media(pointer:coarse)]:-mt-3 [@media(pointer:coarse)]:gap-0">
             <a
               href={repo.html_url}
               onClick={linkHandler({ url: repo.html_url, repo })}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${repo.name} source on GitHub`}
-              className="rounded transition-colors hover:text-[#6EA8FF]"
+              className="rounded transition-colors hover:text-[#6EA8FF] [@media(pointer:coarse)]:p-3"
             >
               <GitBranch size={20} aria-hidden />
             </a>
@@ -121,7 +121,7 @@ function RepoCard({ repo }: { repo: Repo }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${repo.name} live site`}
-                className="rounded transition-colors hover:text-[#6EA8FF]"
+                className="rounded transition-colors hover:text-[#6EA8FF] [@media(pointer:coarse)]:p-3"
               >
                 <ArrowUpRight size={20} aria-hidden />
               </a>

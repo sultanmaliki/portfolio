@@ -87,7 +87,10 @@ test.describe("design switcher", () => {
     await page.getByRole("button", { name: /Designs/ }).click();
     await page.getByRole("link", { name: new RegExp(to!.name) }).click();
     await expect(page).toHaveURL(new RegExp(`${designPath(to!.slug)}#projects$`));
-    await expect.poll(() => page.evaluate(() => document.getElementById("projects")!.getBoundingClientRect().top), { timeout: 10_000 }).toBeLessThan(500);
+    // The element can be missing for a moment while the router swaps the old design for the new one.
+    await expect
+      .poll(() => page.evaluate(() => document.getElementById("projects")?.getBoundingClientRect().top ?? Infinity), { timeout: 10_000 })
+      .toBeLessThan(500);
   });
 
   test("steps to the next and previous design", async ({ page }) => {

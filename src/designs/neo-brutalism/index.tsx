@@ -2,7 +2,7 @@
 
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { grotesk, mono } from "./fonts";
+import { neoGrotesk, neoMono } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -27,7 +27,7 @@ export default function NeoBrutalismDesign() {
   const { profile, story, skills, timeline, interests, experience, education, certifications, projects, moreRepos, contactLinks, copied, copy, resume, mail } = usePortfolio();
 
   return (
-    <main id="top" data-design="neo-brutalism" className={`${grotesk.variable} ${mono.variable} ${styles.page}`}>
+    <main id="top" data-design="neo-brutalism" className={`${neoGrotesk.variable} ${neoMono.variable} ${styles.page}`}>
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.top}>

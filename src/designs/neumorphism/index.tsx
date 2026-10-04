@@ -5,7 +5,7 @@ import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { useActiveSection } from "../shared/useActiveSection";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { rounded } from "./fonts";
+import { neuRounded } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -35,7 +35,7 @@ export default function NeumorphismDesign() {
     .join("");
 
   return (
-    <main id="top" data-design="neumorphism" className={`${rounded.variable} ${styles.page}`}>
+    <main id="top" data-design="neumorphism" className={`${neuRounded.variable} ${styles.page}`}>
       <SkipLink />
       <div className={styles.layout}>
         <aside className={styles.side}>

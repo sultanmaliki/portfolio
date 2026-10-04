@@ -442,11 +442,11 @@
   content: "";
 }
 
-/* Projects: a deck of cards that stack as you scroll (sticky, so no JavaScript) */
+/* Projects: one frosted card per project, each in normal flow so none can cover another */
 
 .stack {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 .stackCard {
@@ -454,6 +454,11 @@
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: 1.5rem 2.5rem;
   padding: clamp(1.25rem, 3vw, 2.25rem);
+  transition: translate 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stackCard:hover {
+  translate: 0 -3px;
 }
 
 .projectTitle {
@@ -565,14 +570,6 @@
 
 .contact .lead {
   max-width: 42rem;
-}
-
-/* Sticky stacking only where cards are short enough to pin without hiding their own bottom edge */
-@media (min-width: 62rem) and (min-height: 46rem) {
-  .stackCard {
-    position: sticky;
-    top: calc(5rem + var(--i) * 1.1rem);
-  }
 }
 
 @media (max-width: 62rem) {

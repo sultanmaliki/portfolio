@@ -3,7 +3,7 @@
 import { Fragment, useState } from "react";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { abril, bowlby, syne } from "./fonts";
+import { maxAbril, maxBowlby, maxSyne } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -35,7 +35,7 @@ export default function MaximalismDesign() {
   const nameWords = profile.name.split(" ");
 
   return (
-    <main id="top" data-design="maximalism" className={`${bowlby.variable} ${abril.variable} ${syne.variable} ${styles.page} ${calm ? styles.calm : ""}`}>
+    <main id="top" data-design="maximalism" className={`${maxBowlby.variable} ${maxAbril.variable} ${maxSyne.variable} ${styles.page} ${calm ? styles.calm : ""}`}>
       <SkipLink />
 
       <div className={styles.wrap}>

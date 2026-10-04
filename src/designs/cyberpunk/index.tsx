@@ -3,7 +3,7 @@
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { display, mono } from "./fonts";
+import { cyberpunkDisplay, cyberpunkMono } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -28,7 +28,7 @@ export default function CyberpunkDesign() {
   const { profile, story, skills, timeline, interests, experience, education, certifications, projects, moreRepos, contactLinks, copied, copy, resume, mail } = usePortfolio();
 
   return (
-    <main id="top" data-design="cyberpunk" className={`${display.variable} ${mono.variable} ${styles.page}`}>
+    <main id="top" data-design="cyberpunk" className={`${cyberpunkDisplay.variable} ${cyberpunkMono.variable} ${styles.page}`}>
       <SkipLink />
       <div aria-hidden className={styles.scanlines} />
 
@@ -73,8 +73,8 @@ export default function CyberpunkDesign() {
                 <dd>{profile.location.city}, {profile.location.region}</dd>
               </div>
               <div>
-                <dt>Relocating</dt>
-                <dd>{profile.location.relocatingTo}</dd>
+                <dt>Relocation</dt>
+                <dd>{profile.location.relocation}</dd>
               </div>
             </dl>
           </div>

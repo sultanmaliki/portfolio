@@ -3,7 +3,7 @@
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { serif } from "./fonts";
+import { wabiSerif } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -42,7 +42,7 @@ export default function WabiSabiDesign() {
   const [openingStatement, closingStatement] = profile.statements;
 
   return (
-    <main id="top" data-design="wabi-sabi" className={`${serif.variable} ${styles.page}`}>
+    <main id="top" data-design="wabi-sabi" className={`${wabiSerif.variable} ${styles.page}`}>
       <SkipLink />
       <div aria-hidden className={styles.grain} />
 

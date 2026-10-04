@@ -69,7 +69,7 @@ export default function SectionContact() {
 
       <div className="max-w-5xl mx-auto w-full mt-20 flex items-center justify-between pt-8 border-t border-[rgba(255,255,255,0.05)] text-[#F5F5F5]/60 text-sm font-light">
         <p>&copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> {profile.name}.</p>
-        <a href="#top" className="group inline-flex items-center gap-1.5 rounded transition-colors hover:text-white">
+        <a href="#top" className="group inline-flex items-center gap-1.5 rounded transition-colors hover:text-white [@media(pointer:coarse)]:min-h-11">
           Back to top
           <ArrowUp aria-hidden size={14} className="transition-transform group-hover:-translate-y-0.5" />
         </a>

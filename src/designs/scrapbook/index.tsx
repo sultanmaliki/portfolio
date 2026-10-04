@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { hand, serif, typewriter } from "./fonts";
+import { scrapHand, scrapSerif, scrapTypewriter } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -32,7 +32,7 @@ export default function ScrapbookDesign() {
   const { profile, story, skills, timeline, interests, experience, education, certifications, projects, moreRepos, contactLinks, copied, copy, resume, mail } = usePortfolio();
 
   return (
-    <main id="top" data-design="scrapbook" className={`${hand.variable} ${typewriter.variable} ${serif.variable} ${styles.page}`}>
+    <main id="top" data-design="scrapbook" className={`${scrapHand.variable} ${scrapTypewriter.variable} ${scrapSerif.variable} ${styles.page}`}>
       <SkipLink />
       <div className={styles.wrap}>
         <nav aria-label="Sections" className={styles.nav}>

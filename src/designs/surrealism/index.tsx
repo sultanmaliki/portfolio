@@ -5,7 +5,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { sans, serif } from "./fonts";
+import { dreamSans, dreamSerif } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -49,7 +49,7 @@ export default function SurrealismDesign() {
   const farY = useTransform(scrollYProgress, [0, 1], calm ? [0, 0] : [0, -70]);
 
   return (
-    <main id="top" data-design="surrealism" className={`${serif.variable} ${sans.variable} ${styles.page}`}>
+    <main id="top" data-design="surrealism" className={`${dreamSerif.variable} ${dreamSans.variable} ${styles.page}`}>
       <SkipLink />
 
       <header ref={heroRef} className={styles.hero}>

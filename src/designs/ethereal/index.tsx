@@ -6,7 +6,7 @@ import { ArrowUpRight, Check, Copy, FileText, Mail } from "lucide-react";
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { sans, serif } from "./fonts";
+import { etherealSans, etherealSerif } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -61,7 +61,7 @@ export default function EtherealDesign() {
   const { profile, story, skills, timeline, interests, experience, education, certifications, projects, moreRepos, contactLinks, copied, copy, resume, mail } = usePortfolio();
 
   return (
-    <main id="top" data-design="ethereal" className={`${sans.variable} ${serif.variable} ${styles.page}`}>
+    <main id="top" data-design="ethereal" className={`${etherealSans.variable} ${etherealSerif.variable} ${styles.page}`}>
       <SkipLink />
       <Mist />
 

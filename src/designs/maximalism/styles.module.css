@@ -187,6 +187,7 @@
 }
 
 .role {
+  max-width: calc(100% - clamp(10.5rem, 22vw, 15.5rem) - 1rem);
   margin: 1.75rem 0 1.25rem !important;
   color: var(--yellow);
   font-size: clamp(1.1rem, 2vw, 1.5rem);
@@ -847,7 +848,8 @@
     grid-template-columns: 1fr;
   }
 
-  .name {
+  .name,
+  .role {
     max-width: none;
   }
 

@@ -5,7 +5,7 @@ import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { showOnView } from "../shared/showOnView";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { body, hand } from "./fonts";
+import { sketchBody, sketchHand } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -89,7 +89,7 @@ export default function ConceptualSketchDesign() {
   const linkedOut = projects[0];
 
   return (
-    <main id="top" data-design="conceptual-sketch" className={`${hand.variable} ${body.variable} ${styles.page}`}>
+    <main id="top" data-design="conceptual-sketch" className={`${sketchHand.variable} ${sketchBody.variable} ${styles.page}`}>
       <SkipLink />
 
       {/* Shared pencil-wobble filter used by the sketched borders. Decorative. */}

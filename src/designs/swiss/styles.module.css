@@ -119,6 +119,15 @@
   text-decoration: underline;
 }
 
+/* Finger-sized targets on touch screens and phones */
+@media (pointer: coarse), (max-width: 40rem) {
+  .nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+}
+
 .gridToggle {
   grid-column: 11 / -1;
   justify-self: end;

@@ -4,7 +4,7 @@ import { ArrowUpRight, Check, Copy, FileText, Mail } from "lucide-react";
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { display, text } from "./fonts";
+import { clayDisplay, clayText } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -30,7 +30,7 @@ export default function ClaymorphismDesign() {
   const { profile, story, skills, timeline, interests, experience, education, certifications, projects, moreRepos, contactLinks, copied, copy, resume, mail } = usePortfolio();
 
   return (
-    <main id="top" data-design="claymorphism" className={`${display.variable} ${text.variable} ${styles.page}`}>
+    <main id="top" data-design="claymorphism" className={`${clayDisplay.variable} ${clayText.variable} ${styles.page}`}>
       <SkipLink />
 
       <div aria-hidden className={styles.blobs}>

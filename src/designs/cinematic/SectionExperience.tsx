@@ -71,7 +71,7 @@ export default function SectionExperience() {
                     onClick={linkHandler({ url: entry.link.href, title: entry.link.label })}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 inline-flex items-center gap-1 rounded text-sm text-[#F5F5F5]/70 underline underline-offset-4 transition-colors hover:text-white"
+                    className="mt-6 inline-flex items-center gap-1 rounded text-sm text-[#F5F5F5]/70 underline underline-offset-4 transition-colors hover:text-white [@media(pointer:coarse)]:min-h-11"
                   >
                     Code: {entry.link.label}
                     <ArrowUpRight size={14} aria-hidden />

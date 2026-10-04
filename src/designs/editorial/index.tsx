@@ -3,7 +3,7 @@
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { display, text } from "./fonts";
+import { editorialDisplay, editorialText } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -27,7 +27,7 @@ export default function EditorialDesign() {
   const [firstParagraph, ...restParagraphs] = story.paragraphs;
 
   return (
-    <main id="top" data-design="editorial" className={`${display.variable} ${text.variable} ${styles.page}`}>
+    <main id="top" data-design="editorial" className={`${editorialDisplay.variable} ${editorialText.variable} ${styles.page}`}>
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.cover}>

@@ -2,7 +2,7 @@
 
 import SkipLink from "../shared/SkipLink";
 import { usePortfolio } from "../shared/usePortfolio";
-import { sans } from "./fonts";
+import { minimalSans } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -24,7 +24,7 @@ export default function MinimalismDesign() {
   const { profile, story, skills, timeline, interests, experience, education, certifications, projects, moreRepos, contactLinks, copied, copy, resume, mail } = usePortfolio();
 
   return (
-    <main id="top" data-design="minimalism" className={`${sans.variable} ${styles.page}`}>
+    <main id="top" data-design="minimalism" className={`${minimalSans.variable} ${styles.page}`}>
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.header}>

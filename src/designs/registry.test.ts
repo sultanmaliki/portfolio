@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   DEFAULT_DESIGN,
@@ -57,6 +57,25 @@ describe("design registry", () => {
   it("documents every design in docs/DESIGNS.md", () => {
     const docs = readFileSync(file("docs/DESIGNS.md"), "utf8");
     for (const d of designs) expect(docs, `${d.name} missing from docs/DESIGNS.md`).toContain(`### ${d.name}`);
+  });
+});
+
+describe("design fonts", () => {
+  // next/font names the generated @font-face family after the exported constant. The production build
+  // merges every design's CSS into shared chunks, so two designs exporting the same name (say "display")
+  // override each other and one of them silently renders in the wrong typeface.
+  it("gives every font a name no other design uses", () => {
+    const names = new Map<string, string>();
+    for (const entry of readdirSync(file("src/designs/"), { withFileTypes: true })) {
+      const fontsFile = file(`src/designs/${entry.name}/fonts.ts`);
+      if (!entry.isDirectory() || !existsSync(fontsFile)) continue;
+      for (const [, name] of readFileSync(fontsFile, "utf8").matchAll(/export const (\w+) = localFont/g)) {
+        expect(names.has(name), `font "${name}" is exported by both ${names.get(name)} and ${entry.name}`).toBe(false);
+        names.set(name, entry.name);
+      }
+    }
+    expect(names.size).toBeGreaterThan(20);
+    expect(names.has("inter")).toBe(false); // the root layout's font
   });
 });
 

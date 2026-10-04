@@ -3,7 +3,7 @@
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { sans, serif } from "./fonts";
+import { luxurySans, luxurySerif } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -41,7 +41,7 @@ export default function LuxuryTypographyDesign() {
     .join("");
 
   return (
-    <main id="top" data-design="luxury-typography" className={`${serif.variable} ${sans.variable} ${styles.page}`}>
+    <main id="top" data-design="luxury-typography" className={`${luxurySerif.variable} ${luxurySans.variable} ${styles.page}`}>
       <SkipLink />
 
       <header className={styles.hero}>

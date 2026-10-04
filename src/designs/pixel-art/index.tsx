@@ -2,7 +2,7 @@
 
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { body, pixel } from "./fonts";
+import { pixelBody, pixelDisplay } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -83,7 +83,7 @@ export default function PixelArtDesign() {
   const { profile, story, skills, timeline, interests, experience, education, certifications, projects, moreRepos, contactLinks, copied, copy, resume, mail } = usePortfolio();
 
   return (
-    <main id="top" data-design="pixel-art" className={`${pixel.variable} ${body.variable} ${styles.page}`}>
+    <main id="top" data-design="pixel-art" className={`${pixelDisplay.variable} ${pixelBody.variable} ${styles.page}`}>
       <SkipLink />
       <div aria-hidden className={styles.stars} />
 

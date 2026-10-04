@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { grotesk } from "./fonts";
+import { swissGrotesk } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -30,7 +30,7 @@ export default function SwissDesign() {
   const [grid, setGrid] = useState(false);
 
   return (
-    <main id="top" data-design="swiss" className={`${grotesk.variable} ${styles.page}`}>
+    <main id="top" data-design="swiss" className={`${swissGrotesk.variable} ${styles.page}`}>
       <SkipLink />
 
       {/* Column guides, toggled from the header. Purely visual. */}

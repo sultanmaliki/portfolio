@@ -5,7 +5,7 @@ import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransf
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { mono, orbitron } from "./fonts";
+import { cybercoreMono, cybercoreOrbitron } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -56,7 +56,7 @@ export default function CybercoreDesign() {
   const publicProjects = projects.length + moreRepos.length;
 
   return (
-    <main id="top" data-design="cybercore" className={`${orbitron.variable} ${mono.variable} ${styles.page}`}>
+    <main id="top" data-design="cybercore" className={`${cybercoreOrbitron.variable} ${cybercoreMono.variable} ${styles.page}`}>
       <SkipLink />
       <div aria-hidden className={styles.gridLines} />
 

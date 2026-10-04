@@ -72,7 +72,7 @@ Shared chrome (the switcher, resume reader and link viewer) is dark glass on pur
 ## Conventions
 
 - **Styling:** one CSS Module per design (`styles.module.css`). The design root is `<main id="top" data-design="<slug>">` with the font variables and `styles.page`. Start the stylesheet with `.page :where(a) { color: inherit }` (zero specificity, so button classes can set their own colour) and a `:global(html:has([data-design="<slug>"])) { background: … }` rule so overscroll never flashes the site's dark default.
-- **Fonts:** self-host with `next/font/local` inside the design's folder (OFL/open licences only). Builds must work offline and the CSP only allows same-origin fonts. Use the Latin subset and prefer variable fonts. Pixel and period display faces are for headings and labels only; anything people read is set in a plain readable face.
+- **Fonts:** self-host with `next/font/local` inside the design's folder (OFL/open licences only). Builds must work offline and the CSP only allows same-origin fonts. Use the Latin subset and prefer variable fonts. **Name each exported font after the design** (`swissGrotesk`, not `grotesk`): next/font names the `@font-face` family after the exported constant, and the production build merges all designs' CSS into shared chunks, so two designs exporting `display` override each other. A unit test enforces unique names. Pixel and period display faces are for headings and labels only; anything people read is set in a plain readable face.
 - **Motion:** use `Reveal` for scroll reveals. It is CSS: hidden until a shared IntersectionObserver marks it `data-shown`, then a keyframe animation plays; reduced motion and print show it immediately. It animates `transform`, so give those elements their resting tilt with the individual `rotate`, `scale` and `translate` properties, never `transform`. Hover effects on revealed elements use `translate` for the same reason. Anything that loops must stop under `prefers-reduced-motion` (the global stylesheet already collapses CSS animations).
 - **Reduced motion belongs in CSS.** Do not render different markup depending on `useReducedMotion()`: the server cannot know the preference and React keeps the server's attributes during hydration, so a branch can leave elements stuck at their hidden "initial" style for exactly the visitors it was meant to help. Values that only feed motion (a parallax offset, a counter) may check it.
 - **Images and textures:** CSS and inline SVG only. Noise textures are tiny SVG data URIs (the CSP allows `data:` images). There are no raster assets to load.
@@ -124,7 +124,7 @@ A striped neon sun sinking behind a perspective grid (pure CSS; the grid drives 
 
 ### Glassmorphism
 
-Frosted panels over a drifting violet, pink and cyan field. Every panel has a dark tint under the white film so white text clears AA wherever the colour moves behind it; `prefers-reduced-transparency` swaps in solid panels. Projects are a card deck that stacks with `position: sticky` (only where the cards are short enough to pin). Plus Jakarta Sans.
+Frosted panels over a drifting violet, pink and cyan field. Every panel has a dark tint under the white film so white text clears AA wherever the colour moves behind it; `prefers-reduced-transparency` swaps in solid panels. Each project is its own frosted card in normal flow with a scroll-in reveal (an earlier sticky card stack covered cards with one another and was removed). Plus Jakarta Sans.
 
 ### Neumorphism
 

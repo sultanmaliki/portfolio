@@ -50,15 +50,15 @@ export const profile = {
 
   availability: {
     status: "Open to entry-level roles",
-    detail: "Relocating to Bangalore",
+    detail: "Open to global relocation",
   },
 
   location: {
     city: "Bhatkal",
     region: "Karnataka",
     country: "IN",
-    relocatingTo: "Bangalore",
-    sentence: "Based in Bhatkal, Karnataka. Open to relocating to Bangalore.",
+    relocation: "Open globally",
+    sentence: "Based in Bhatkal, Karnataka. Open to relocating globally for the right role and compensation.",
   },
 
   email: EMAIL,

@@ -5,7 +5,7 @@ import { ArrowUpRight, Check, Copy, FileText, Mail } from "lucide-react";
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { sans } from "./fonts";
+import { glassSans } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -28,7 +28,7 @@ export default function GlassmorphismDesign() {
   const { profile, story, skills, timeline, interests, experience, education, certifications, projects, moreRepos, contactLinks, copied, copy, resume, mail } = usePortfolio();
 
   return (
-    <main id="top" data-design="glassmorphism" className={`${sans.variable} ${styles.page}`}>
+    <main id="top" data-design="glassmorphism" className={`${glassSans.variable} ${styles.page}`}>
       <SkipLink />
 
       {/* Colour field the glass refracts. Decorative and fixed, so it never moves with the content. */}
@@ -147,7 +147,7 @@ export default function GlassmorphismDesign() {
           <h2 id="projects-h" className={styles.title}>Projects</h2>
           <div className={styles.stack}>
             {projects.map((project, i) => (
-              <article key={project.repo.name} className={`${styles.glass} ${styles.stackCard}`} style={{ "--i": i } as CSSProperties}>
+              <Reveal as="article" key={project.repo.name} delay={i * 0.05} className={`${styles.glass} ${styles.stackCard}`}>
                 <div>
                   <p className={styles.badge}>{project.kind}</p>
                   <h3 className={styles.projectTitle}>{project.title}</h3>
@@ -176,7 +176,7 @@ export default function GlassmorphismDesign() {
                     <li key={line}>{line}</li>
                   ))}
                 </ul>
-              </article>
+              </Reveal>
             ))}
           </div>
 

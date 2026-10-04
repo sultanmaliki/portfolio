@@ -4,7 +4,7 @@ import { ArrowUpRight, Check, Copy, FileText, Mail } from "lucide-react";
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { exo } from "./fonts";
+import { synthExo } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -40,7 +40,7 @@ export default function SynthwaveDesign() {
   const { profile, story, skills, timeline, interests, experience, education, certifications, projects, moreRepos, contactLinks, copied, copy, resume, mail } = usePortfolio();
 
   return (
-    <main id="top" data-design="synthwave" className={`${exo.variable} ${styles.page}`}>
+    <main id="top" data-design="synthwave" className={`${synthExo.variable} ${styles.page}`}>
       <SkipLink />
 
       <header className={styles.hero}>

@@ -617,8 +617,14 @@
   max-width: 42rem;
 }
 
+/* The big name needs the full width until it can sit beside the readout panel with room to spare */
+@media (max-width: 62rem) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 52rem) {
-  .heroGrid,
   .dossier,
   .skillGrid {
     grid-template-columns: 1fr;

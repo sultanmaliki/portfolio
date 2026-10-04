@@ -173,6 +173,9 @@ export default function DesignSwitcher() {
                   <li key={design.slug}>
                     <Link
                       href={hrefFor(design)}
+                      // Opening the panel would otherwise prefetch all designs at once, and the static export has no
+                      // segment payloads to serve for those requests (they 404 in the console).
+                      prefetch={false}
                       aria-current={isCurrent ? "page" : undefined}
                       onClick={() => setOpen(false)}
                       title={design.tagline}

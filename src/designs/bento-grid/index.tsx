@@ -5,7 +5,7 @@ import { ArrowUpRight, Briefcase, Check, Copy, FileText, GitBranch, Mail, MapPin
 import Reveal from "../shared/Reveal";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
-import { mono, sans } from "./fonts";
+import { bentoMono, bentoSans } from "./fonts";
 import styles from "./styles.module.css";
 
 const NAV = [
@@ -35,7 +35,7 @@ export default function BentoGridDesign() {
   const [paragraphsA, paragraphsB] = [story.paragraphs.slice(0, 2), story.paragraphs.slice(2)];
 
   return (
-    <main id="top" data-design="bento-grid" className={`${sans.variable} ${mono.variable} ${styles.page}`}>
+    <main id="top" data-design="bento-grid" className={`${bentoSans.variable} ${bentoMono.variable} ${styles.page}`}>
       <SkipLink />
       <div className={styles.wrap}>
         <nav aria-label="Sections" className={styles.nav}>
