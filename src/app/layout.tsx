@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Providers from "@/components/Providers";
+import SiteChrome from "@/components/SiteChrome";
+import { SITE_URL, portfolio, seo } from "@/data";
+import { jsonLdScript, personJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 // Self-hosted (Inter variable, latin, OFL) so builds never depend on fetching Google Fonts.
@@ -11,26 +14,11 @@ const inter = localFont({
   variable: "--font-inter",
 });
 
-const SITE_URL = "https://portfolio.syedmohammedsultan.online/";
+const { profile } = portfolio;
 
 export const viewport: Viewport = {
   themeColor: "#121212",
   colorScheme: "dark",
-};
-
-// Structured data so search engines can connect the site to the person.
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Syed Mohammed Sultan",
-  url: SITE_URL,
-  image: `${SITE_URL}og.jpg`,
-  jobTitle: "Full Stack Developer",
-  email: "mailto:ssultanmaliki47@gmail.com",
-  address: { "@type": "PostalAddress", addressLocality: "Bhatkal", addressRegion: "Karnataka", addressCountry: "IN" },
-  alumniOf: { "@type": "CollegeOrUniversity", name: "Anjuman Institute of Technology and Management (VTU)" },
-  knowsAbout: ["Java", "Next.js", "React", "TypeScript", "Node.js", "Kotlin", "LLM integration"],
-  sameAs: ["https://github.com/sultanmaliki", "https://www.linkedin.com/in/syedmohammedsultan"],
 };
 
 export const metadata: Metadata = {
@@ -39,61 +27,39 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 
   title: {
-    default: "Syed Mohammed Sultan | Full Stack Developer (Java, Next.js, AI)",
-    template: "%s | Syed Mohammed Sultan",
+    default: seo.title,
+    template: `%s | ${profile.name}`,
   },
 
-  description:
-    "Computer Science graduate and full stack developer (Java, Next.js, NestJS, AI/LLM integration, Android). Open to entry-level software engineering roles, relocating to Bangalore.",
+  description: seo.description,
 
-  keywords: [
-    "Syed Mohammed Sultan",
-    "Sultan",
-    "Portfolio",
-    "Full Stack Java Developer",
-    "Java",
-    "Next.js",
-    "React",
-    "TypeScript",
-    "AI",
-    "Framer Motion",
-    "Bhatkal",
-    "Karnataka",
-    "Bangalore",
-    "Software Engineer",
-  ],
+  keywords: seo.keywords,
 
-  authors: [
-    {
-      name: "Syed Mohammed Sultan",
-    },
-  ],
+  authors: [{ name: profile.name }],
 
-  creator: "Syed Mohammed Sultan",
+  creator: profile.name,
 
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Syed Mohammed Sultan | Full Stack Developer",
-    description:
-      "Computer Science graduate and full stack developer. Java, Next.js, NestJS, AI/LLM integration and Android. Open to entry-level roles.",
-    url: "https://portfolio.syedmohammedsultan.online/",
-    siteName: "Syed Mohammed Sultan",
+    title: seo.shortTitle,
+    description: seo.shareDescription,
+    url: SITE_URL,
+    siteName: profile.name,
     images: [
       {
         url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Syed Mohammed Sultan Portfolio",
+        alt: `${profile.name} Portfolio`,
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Syed Mohammed Sultan | Full Stack Developer",
-    description:
-      "Computer Science graduate and full stack developer. Open to entry-level roles.",
+    title: seo.shortTitle,
+    description: seo.twitterDescription,
     images: ["/og.jpg"],
   },
 
@@ -101,7 +67,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-
 };
 
 export default function RootLayout({
@@ -117,8 +82,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <script
           type="application/ld+json"
-          // "<" is escaped so the JSON can never close the script tag.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\u003c") }}
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(personJsonLd()) }}
         />
         <noscript>
           <div
@@ -138,18 +102,27 @@ export default function RootLayout({
               fontFamily: "system-ui, sans-serif",
             }}
           >
-            <h1 style={{ fontWeight: 300, margin: 0 }}>Syed Mohammed Sultan</h1>
-            <p style={{ margin: 0, opacity: 0.7 }}>Full Stack Java Developer &middot; Computer Science graduate</p>
+            <h1 style={{ fontWeight: 300, margin: 0 }}>{profile.name}</h1>
+            <p style={{ margin: 0, opacity: 0.7 }}>
+              {profile.tagline[1]} &middot; {profile.tagline[0]}
+            </p>
             <p style={{ margin: 0, opacity: 0.7 }}>This portfolio is an interactive scroll experience and needs JavaScript.</p>
             <p style={{ margin: 0 }}>
-              <a href="/resume.pdf" style={{ color: "#6EA8FF" }}>Resume</a> &middot;{" "}
-              <a href="https://github.com/sultanmaliki" style={{ color: "#6EA8FF" }}>GitHub</a> &middot;{" "}
-              <a href="https://www.linkedin.com/in/syedmohammedsultan" style={{ color: "#6EA8FF" }}>LinkedIn</a> &middot;{" "}
-              <a href="mailto:ssultanmaliki47@gmail.com" style={{ color: "#6EA8FF" }}>Email</a>
+              {profile.links.map((link, i) => (
+                <span key={link.id}>
+                  {i > 0 && <> &middot; </>}
+                  <a href={link.href} style={{ color: "#6EA8FF" }}>
+                    {link.label}
+                  </a>
+                </span>
+              ))}
             </p>
           </div>
         </noscript>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <SiteChrome />
+        </Providers>
       </body>
     </html>
   );

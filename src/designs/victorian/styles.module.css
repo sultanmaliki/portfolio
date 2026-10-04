@@ -1,0 +1,592 @@
+.page {
+  --parchment: #f1e6cf;
+  --paper-light: #f8f0de;
+  --burgundy: #4a1c26;
+  --brass: #c8a96a;
+  --brass-deep: #8a6a2a;
+  --ink: #2a1a14;
+  --muted: #5b4637;
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: clip;
+  background:
+    radial-gradient(ellipse at 50% 30%, #f8f0de 0%, var(--parchment) 55%, #e3d3ae 100%);
+  color: var(--ink);
+  font-family: var(--font-vic-text), Garamond, Georgia, serif;
+  font-size: 1.1875rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+:global(html:has([data-design="victorian"])) {
+  background: #e9dcbc;
+}
+
+.page::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .3 0 0 0 0 .15 0 0 0 .6 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  content: "";
+}
+
+.wrap {
+  position: relative;
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem) 6rem;
+}
+
+.page p {
+  margin: 0 0 0.9rem;
+}
+
+.page :where(a) {
+  color: inherit;
+}
+
+.page a:focus-visible,
+.page button:focus-visible {
+  outline: 3px solid var(--burgundy);
+  outline-offset: 3px;
+}
+
+.page ul,
+.page ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  margin: 0;
+  font-family: var(--font-vic-fell), "IM Fell English", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.note {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Ornament: a thin rule with a diamond in the middle */
+
+.rule {
+  position: relative;
+  height: 1px;
+  margin: 1.75rem auto;
+  background: linear-gradient(90deg, transparent, var(--brass-deep) 18%, var(--brass-deep) 82%, transparent);
+}
+
+.rule::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  translate: -50% -50%;
+  rotate: 45deg;
+  border: 1px solid var(--brass-deep);
+  background: var(--parchment);
+  content: "";
+}
+
+/* Title page */
+
+.titlePage {
+  padding: clamp(2rem, 6vw, 4rem) 0 2rem;
+  text-align: center;
+}
+
+.prelude {
+  margin-bottom: 1rem !important;
+  color: var(--muted);
+  font-family: var(--font-vic-fell), serif;
+  font-size: 1.25rem;
+  font-style: italic;
+}
+
+.name {
+  color: var(--burgundy);
+  font-size: clamp(2.75rem, 9vw, 5.75rem) !important;
+  letter-spacing: 0.01em;
+  line-height: 1.02 !important;
+  text-wrap: balance;
+}
+
+.subtitle {
+  margin: 1.25rem 0 0 !important;
+  font-family: var(--font-vic-fell), serif;
+  font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+  line-height: 1.3;
+}
+
+.notice {
+  max-width: 30rem;
+  margin: 0 auto 2rem;
+  padding: 0.75rem 1.5rem;
+  border: 3px double var(--burgundy);
+  background: var(--paper-light);
+}
+
+.notice p {
+  margin: 0;
+}
+
+.noticeHead {
+  font-family: var(--font-vic-fell), serif;
+  font-size: 1.4rem;
+  color: var(--burgundy);
+}
+
+.cardWrap {
+  margin-bottom: 2.5rem;
+}
+
+.callingCard {
+  position: relative;
+  display: inline-block;
+  min-width: min(100%, 21rem);
+  padding: 1.5rem 2.25rem 1.25rem;
+  border: 1px solid var(--brass-deep);
+  background: #fbf5e6;
+  box-shadow: 0 0 0 5px #fbf5e6, 0 0 0 6px var(--brass-deep), 0 14px 24px -14px rgba(42, 26, 20, 0.5);
+  rotate: -1deg;
+}
+
+.cardName {
+  margin: 0 !important;
+  font-family: var(--font-vic-fell), serif;
+  font-size: 1.75rem;
+  color: var(--burgundy);
+}
+
+.cardRole {
+  margin: 0.15rem 0 1rem !important;
+  font-style: italic;
+}
+
+.cardLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.5rem;
+  margin: 0 !important;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--brass-deep);
+  font-size: 1.0625rem;
+}
+
+.cardLinks a {
+  text-decoration: underline;
+  text-decoration-color: var(--brass-deep);
+  text-underline-offset: 0.25em;
+}
+
+.cardLinks a:hover {
+  color: var(--burgundy);
+}
+
+/* Table of contents with dotted leaders */
+
+.contents {
+  max-width: 34rem;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.contentsTitle {
+  margin-bottom: 0.75rem !important;
+  font-family: var(--font-vic-fell), serif;
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--burgundy);
+}
+
+.contents li {
+  margin: 0;
+}
+
+.contents a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.2rem 0;
+  text-decoration: none;
+  font-size: 1.15rem;
+}
+
+.contents a:hover {
+  color: var(--burgundy);
+}
+
+.numeral {
+  min-width: 2.5rem;
+  font-family: var(--font-vic-fell), serif;
+  color: var(--brass-deep);
+}
+
+.label {
+  flex: 1;
+  font-style: italic;
+}
+
+.contents a::after {
+  flex: 0 0 4rem;
+  height: 0.7em;
+  border-bottom: 2px dotted var(--brass-deep);
+  content: "";
+  order: 3;
+}
+
+/* Sections: a heading and a framed plate */
+
+.section {
+  padding-top: clamp(3rem, 7vw, 5rem);
+  scroll-margin-top: 1rem;
+}
+
+.title {
+  margin-bottom: 1.5rem !important;
+  color: var(--burgundy);
+  font-size: clamp(2rem, 5vw, 3rem) !important;
+  text-align: center;
+}
+
+.plate {
+  position: relative;
+  margin-bottom: 1.75rem;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  border: 3px double var(--burgundy);
+  background:
+    linear-gradient(var(--brass-deep), var(--brass-deep)) top left / 0.85rem 0.85rem no-repeat,
+    linear-gradient(var(--brass-deep), var(--brass-deep)) top right / 0.85rem 0.85rem no-repeat,
+    linear-gradient(var(--brass-deep), var(--brass-deep)) bottom left / 0.85rem 0.85rem no-repeat,
+    linear-gradient(var(--brass-deep), var(--brass-deep)) bottom right / 0.85rem 0.85rem no-repeat,
+    var(--paper-light);
+  box-shadow: 0 16px 26px -20px rgba(42, 26, 20, 0.55);
+}
+
+.lead {
+  font-size: 1.3rem;
+  line-height: 1.55;
+}
+
+.columns {
+  columns: 2 18rem;
+  column-gap: 2.25rem;
+  column-rule: 1px solid rgba(138, 106, 42, 0.45);
+  text-align: left;
+  hyphens: auto;
+}
+
+.columns p {
+  break-inside: avoid-column;
+}
+
+.dropcap::first-letter {
+  float: left;
+  margin: 0.05em 0.1em 0 0;
+  color: var(--burgundy);
+  font-family: var(--font-vic-fell), serif;
+  font-size: 4.2em;
+  line-height: 0.8;
+}
+
+.quote {
+  margin: 1.75rem 0;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--brass-deep);
+  border-bottom: 1px solid var(--brass-deep);
+  font-family: var(--font-vic-fell), serif;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-style: italic;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.quote p {
+  margin: 0 0 0.3rem;
+}
+
+.refrain {
+  margin: 0 !important;
+  font-size: 1.3rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.refrain em {
+  color: var(--burgundy);
+  font-weight: 700;
+}
+
+.ledger {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.ledgerRow {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dotted var(--brass-deep);
+}
+
+.ledgerRow:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.ledgerRow h3,
+.entryTitle {
+  color: var(--burgundy);
+  font-size: 1.6rem;
+}
+
+.workTitle {
+  color: var(--burgundy);
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+}
+
+.company {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.inlineList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0;
+  margin: 0.5rem 0 0.25rem !important;
+}
+
+.inlineList li {
+  display: flex;
+  align-items: center;
+}
+
+.inlineList li:not(:last-child)::after {
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin: 0 0.9rem;
+  rotate: 45deg;
+  background: var(--brass-deep);
+  content: "";
+}
+
+.pursuits {
+  justify-content: center;
+  font-style: italic;
+  font-size: 1.25rem;
+}
+
+.bullets {
+  margin: 1rem 0 !important;
+}
+
+.bullets li {
+  position: relative;
+  margin-bottom: 0.7rem;
+  padding-left: 1.5rem;
+}
+
+.bullets li::before {
+  position: absolute;
+  left: 0.15rem;
+  top: 0.65em;
+  width: 0.45rem;
+  height: 0.45rem;
+  rotate: 45deg;
+  background: var(--burgundy);
+  content: "";
+}
+
+.inline {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-color: var(--brass-deep);
+  text-underline-offset: 0.25em;
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin: 1.25rem 0 0 !important;
+}
+
+.cardButton {
+  display: inline-block;
+  padding: 0.5rem 1.4rem;
+  border: 1px solid var(--burgundy);
+  box-shadow: 0 0 0 3px var(--paper-light), 0 0 0 4px var(--burgundy);
+  color: var(--burgundy);
+  font: 400 1.05rem/1.2 var(--font-vic-fell), serif;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.cardButton:hover {
+  background: var(--burgundy);
+  color: var(--paper-light) !important;
+}
+
+.cardButtonSolid {
+  background: var(--burgundy);
+  color: var(--paper-light) !important;
+}
+
+.cardButtonSolid:hover {
+  background: var(--brass-deep);
+  border-color: var(--brass-deep);
+}
+
+.repoList {
+  margin-top: 1rem;
+}
+
+.repoList li {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 2.4fr);
+  gap: 0.25rem 1.25rem;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-bottom: 1px dotted var(--brass-deep);
+  overflow-wrap: anywhere;
+}
+
+.repoList a {
+  font-weight: 600;
+}
+
+.repoList small,
+.certs small {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.diploma {
+  text-align: center;
+}
+
+.diploma .inlineList {
+  justify-content: center;
+}
+
+.sub {
+  margin-bottom: 0.75rem !important;
+  color: var(--burgundy);
+  font-size: 1.4rem;
+}
+
+.certs li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.6rem;
+}
+
+.chronology li {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px dotted var(--brass-deep);
+}
+
+.chronology li:last-child {
+  border-bottom: 0;
+}
+
+.year {
+  color: var(--burgundy);
+  font-family: var(--font-vic-fell), serif;
+  font-size: 1.35rem;
+  font-style: italic;
+}
+
+.invitation {
+  background-color: var(--burgundy);
+  background:
+    linear-gradient(var(--brass), var(--brass)) top left / 0.85rem 0.85rem no-repeat,
+    linear-gradient(var(--brass), var(--brass)) top right / 0.85rem 0.85rem no-repeat,
+    linear-gradient(var(--brass), var(--brass)) bottom left / 0.85rem 0.85rem no-repeat,
+    linear-gradient(var(--brass), var(--brass)) bottom right / 0.85rem 0.85rem no-repeat,
+    var(--burgundy);
+  border-color: var(--brass);
+  color: var(--paper-light);
+  text-align: center;
+}
+
+.invitation .rule {
+  background: linear-gradient(90deg, transparent, var(--brass) 18%, var(--brass) 82%, transparent);
+}
+
+.invitation .rule::after {
+  border-color: var(--brass);
+  background: var(--burgundy);
+}
+
+.invitation .note {
+  color: #e6d6b4;
+}
+
+.invitation .linkRow {
+  justify-content: center;
+}
+
+.invitation .cardButton {
+  border-color: var(--brass);
+  box-shadow: 0 0 0 3px var(--burgundy), 0 0 0 4px var(--brass);
+  color: var(--brass);
+}
+
+.invitation .cardButton:hover,
+.invitation .cardButtonSolid {
+  background: var(--brass);
+  color: var(--burgundy) !important;
+}
+
+.invitation a:focus-visible,
+.invitation button:focus-visible {
+  outline-color: var(--paper-light);
+}
+
+.invite {
+  margin: 0 !important;
+  font-family: var(--font-vic-fell), serif;
+  font-size: clamp(2.2rem, 6vw, 3.75rem);
+  line-height: 1.08;
+}
+
+.invite span {
+  display: block;
+}
+
+.invite span:last-child {
+  color: var(--brass);
+  font-style: italic;
+}
+
+@media (max-width: 40rem) {
+  .repoList li {
+    grid-template-columns: 1fr;
+    gap: 0.05rem;
+  }
+
+  .chronology li {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .contents a::after {
+    flex-basis: 1.5rem;
+  }
+}

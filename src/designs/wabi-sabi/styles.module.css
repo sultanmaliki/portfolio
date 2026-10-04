@@ -1,0 +1,492 @@
+.page {
+  --plaster: #d8d2c4;
+  --ink: #34322d;
+  --muted: #47443c;
+  --rust: #6b3f27;
+  --rust-soft: rgba(122, 75, 50, 0.6);
+  --line: rgba(52, 50, 45, 0.4);
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: clip;
+  background:
+    radial-gradient(ellipse at 18% 8%, rgba(255, 255, 255, 0.2), transparent 52%),
+    radial-gradient(ellipse at 82% 62%, rgba(110, 92, 62, 0.12), transparent 56%),
+    var(--plaster);
+  color: var(--ink);
+  font-family: var(--font-wabi), Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+:global(html:has([data-design="wabi-sabi"])) {
+  background: #d8d2c4;
+}
+
+/* Paper and plaster grain: a static noise tile, nothing animates and nothing blends */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .22 0 0 0 0 .18 0 0 0 .9 -.28'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem) 8rem;
+}
+
+.page p {
+  margin: 0 0 1.1rem;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  text-decoration-color: var(--line);
+  transition: color 0.6s ease, text-decoration-color 0.6s ease;
+}
+
+.page a:hover {
+  color: var(--rust);
+  text-decoration-color: var(--rust);
+}
+
+.page a:focus-visible,
+.page button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.page ul,
+.page ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* Hero --------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  padding: 2rem 0 5rem;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.75rem;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.nav a {
+  text-decoration-color: transparent;
+}
+
+.nav a:hover {
+  text-decoration-color: var(--rust);
+}
+
+.enso {
+  position: absolute;
+  top: 8%;
+  right: 2%;
+  width: clamp(9rem, 26vw, 20rem);
+  color: var(--rust-soft);
+  rotate: -8deg;
+  pointer-events: none;
+}
+
+.enso path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 4s cubic-bezier(0.3, 0.1, 0.2, 1) 0.4s forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.heroBody {
+  position: relative;
+  margin: auto 0 0 clamp(0rem, 8vw, 6rem);
+  padding-top: 5rem;
+}
+
+.name {
+  font-size: clamp(3rem, 9.2vw, 8rem) !important;
+  letter-spacing: -0.03em;
+  line-height: 1 !important;
+}
+
+.name span {
+  display: block;
+}
+
+.name span:last-child {
+  margin-left: 0.7em;
+  font-style: italic;
+}
+
+.role {
+  margin: 2rem 0 0.25rem !important;
+  font-size: 1.375rem;
+}
+
+.status {
+  margin-bottom: 1.75rem !important;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 2rem;
+}
+
+.textButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  text-decoration-color: var(--line);
+  cursor: pointer;
+}
+
+.textButton:hover {
+  color: var(--rust);
+}
+
+/* Statements: one calm thing per screen */
+
+.statement {
+  max-width: 52rem;
+  margin: 0 0 0 clamp(0rem, 8vw, 6rem);
+  padding: clamp(5rem, 16vh, 9rem) 0;
+  rotate: -0.4deg;
+}
+
+.statement p {
+  margin: 0;
+  font-size: clamp(2rem, 5.2vw, 4.25rem);
+  font-style: italic;
+  line-height: 1.18;
+}
+
+.statement span {
+  display: block;
+}
+
+.statement span:nth-child(2) {
+  margin-left: 1.2em;
+}
+
+.statement span:nth-child(3) {
+  margin-left: 2.4em;
+}
+
+.statementEnd {
+  margin-left: clamp(0rem, 16vw, 12rem);
+}
+
+/* Sections */
+
+.section {
+  padding-top: clamp(4rem, 12vw, 8rem);
+  scroll-margin-top: 1rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem) !important;
+  color: var(--muted);
+  font-size: 1.375rem !important;
+  font-style: italic;
+}
+
+.title::before {
+  display: block;
+  width: 3.5rem;
+  height: 1px;
+  background: var(--muted);
+  rotate: -2deg;
+  content: "";
+}
+
+.lead {
+  max-width: 38rem;
+  font-size: 1.375rem;
+  line-height: 1.7;
+}
+
+.left {
+  max-width: 40rem;
+  margin-right: auto;
+}
+
+.right {
+  max-width: 40rem;
+  margin-left: auto;
+}
+
+.slow p {
+  margin-bottom: 2.5rem;
+}
+
+.quotes {
+  margin: 5rem 0 3rem;
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.quotes li {
+  margin-bottom: 1.25rem;
+}
+
+.quotes li:nth-child(2) {
+  margin-left: 2.5rem;
+}
+
+.quotes li:nth-child(3) {
+  margin-left: 5rem;
+}
+
+.refrain {
+  max-width: 36rem;
+  font-size: 1.375rem;
+}
+
+.refrain em {
+  color: var(--rust);
+}
+
+.skills {
+  display: grid;
+  gap: clamp(3rem, 7vw, 5rem);
+}
+
+.skills h3,
+.entry h3 {
+  font-size: 1.75rem;
+}
+
+.stones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 0.8rem;
+  margin: 1.1rem 0 0.25rem;
+}
+
+.stones li {
+  padding: 0.2rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 46% 54% 52% 48% / 62% 46% 54% 38%;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+}
+
+.stones li:nth-child(3n) {
+  border-radius: 54% 46% 44% 56% / 48% 60% 40% 52%;
+  rotate: 1deg;
+}
+
+.stones li:nth-child(3n + 1) {
+  border-radius: 40% 60% 56% 44% / 56% 42% 58% 44%;
+  rotate: -0.8deg;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 1.5rem 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.entry > .note {
+  padding-top: 0.45rem;
+}
+
+.lines li {
+  max-width: 40rem;
+  margin-bottom: 1.1rem;
+}
+
+.inline {
+  font-style: italic;
+}
+
+.project {
+  position: relative;
+  margin-bottom: clamp(4rem, 9vw, 7rem);
+}
+
+.crooked {
+  display: block;
+  width: 62%;
+  height: 2px;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, var(--muted) 0, var(--muted) 82%, transparent);
+  rotate: -0.7deg;
+}
+
+.projectTitle {
+  margin: 0.25rem 0 1rem !important;
+  font-size: clamp(2.25rem, 5vw, 3.75rem) !important;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: 3rem 0 1rem !important;
+  color: var(--muted);
+  font-size: 1.25rem !important;
+  font-style: italic;
+}
+
+.repoList li {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 2.4fr);
+  gap: 0.5rem 1.5rem;
+  align-items: baseline;
+  padding: 0.8rem 0;
+  border-bottom: 1px dashed var(--line);
+  overflow-wrap: anywhere;
+}
+
+.repoList small,
+.certs small {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-style: italic;
+}
+
+.certs li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.9rem;
+}
+
+.timeline {
+  position: relative;
+  max-width: 40rem;
+  margin-left: clamp(0rem, 10vw, 7rem) !important;
+  padding-left: 2.25rem !important;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.4rem;
+  width: 1px;
+  background: var(--muted);
+  rotate: 0.6deg;
+  content: "";
+}
+
+.timeline li {
+  display: grid;
+  gap: 0.1rem;
+  margin-bottom: 2rem;
+}
+
+.year {
+  color: var(--rust);
+  font-size: 1.375rem;
+  font-style: italic;
+}
+
+.drift {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem 3rem;
+  max-width: 48rem;
+  font-size: 1.5rem;
+  font-style: italic;
+}
+
+.drift li:nth-child(odd) {
+  translate: 0 0.7rem;
+}
+
+.drift li:nth-child(3n) {
+  translate: 0.8rem -0.4rem;
+}
+
+.contact {
+  padding-bottom: 2rem;
+}
+
+.contactTitle {
+  max-width: 14ch;
+  margin-bottom: 2.5rem !important;
+  font-size: clamp(2.5rem, 7vw, 5.5rem) !important;
+  font-style: italic;
+  letter-spacing: -0.03em;
+  line-height: 1.02 !important;
+}
+
+@media (max-width: 52rem) {
+  .enso {
+    opacity: 0.55;
+  }
+
+  .heroBody,
+  .statement,
+  .statementEnd,
+  .timeline {
+    margin-left: 0;
+  }
+
+  .entry {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .repoList li {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+
+  .statement span:nth-child(n + 2) {
+    margin-left: 0.6em;
+  }
+
+  .quotes li:nth-child(n + 2) {
+    margin-left: 1rem;
+  }
+}

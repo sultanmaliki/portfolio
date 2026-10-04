@@ -1,0 +1,535 @@
+.page {
+  --ink: #111111;
+  --paper: #ffffff;
+  --red: #e4002b;
+  --red-text: #c8001f;
+  --muted: #595959;
+  --rule: #111111;
+  --gap: clamp(1rem, 2vw, 1.75rem);
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-swiss), "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+}
+
+:global(html:has([data-design="swiss"])) {
+  background: #ffffff;
+}
+
+.page p {
+  margin: 0 0 1rem;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--ink);
+}
+
+.page a:hover {
+  color: var(--red-text);
+  text-decoration-color: var(--red);
+}
+
+.page a:focus-visible,
+.page button:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.page ul,
+.page ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wrap {
+  position: relative;
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 3vw, 2.5rem) 4rem;
+}
+
+/* Column guides ---------------------------------------------------------- */
+
+.guides {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  pointer-events: none;
+}
+
+.guidesOn {
+  display: block;
+}
+
+.guidesInner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  max-width: 90rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 3vw, 2.5rem);
+}
+
+.guidesInner span {
+  background: rgba(228, 0, 43, 0.09);
+  border-inline: 1px solid rgba(228, 0, 43, 0.35);
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.masthead {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  align-items: baseline;
+  padding: 1.25rem 0;
+  border-bottom: 4px solid var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.masthead p {
+  grid-column: 1 / span 3;
+  margin: 0;
+}
+
+.nav {
+  grid-column: 4 / span 7;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+
+.nav a {
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.gridToggle {
+  grid-column: 11 / -1;
+  justify-self: end;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.gridToggle[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Hero -------------------------------------------------------------------- */
+
+.hero {
+  padding: clamp(2.5rem, 7vw, 5rem) 0 clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.name {
+  margin: 0 0 clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.4rem, 11.4vw, 12rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+  overflow-wrap: anywhere;
+}
+
+.name span {
+  display: block;
+}
+
+.name span:last-child {
+  color: var(--red-text);
+}
+
+.heroRow {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: 1.5rem;
+  font-size: 1.1875rem;
+  line-height: 1.35;
+}
+
+.heroStatus {
+  grid-column: 1 / span 3;
+  padding-top: 1rem;
+  border-top: 6px solid var(--red);
+}
+
+.heroStatus p {
+  margin: 0;
+}
+
+.strong {
+  font-weight: 700;
+}
+
+.heroRoles {
+  grid-column: 4 / span 3;
+  padding-top: 1rem;
+  border-top: 6px solid var(--ink);
+}
+
+.heroLinks {
+  grid-column: 7 / -1;
+  padding-top: 1rem;
+  border-top: 6px solid var(--ink);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.heroLinks li {
+  margin-bottom: 0.25rem;
+}
+
+.heroLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+/* Sections ---------------------------------------------------------------- */
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(3rem, 7vw, 6rem);
+  border-top: 2px solid var(--ink);
+  scroll-margin-top: 0.5rem;
+}
+
+.head {
+  grid-column: 1 / span 3;
+  align-self: start;
+  position: sticky;
+  top: 1.25rem;
+}
+
+.head h2 {
+  margin: 0.5rem 0 0;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.num {
+  display: block;
+  width: fit-content;
+  padding-top: 0.5rem;
+  border-top: 6px solid var(--red);
+  color: var(--red-text);
+  font-size: clamp(3.25rem, 6vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+}
+
+.body {
+  grid-column: 4 / -1;
+  min-width: 0;
+}
+
+.display {
+  margin-bottom: 2rem !important;
+  font-size: clamp(1.375rem, 2.4vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+.cols {
+  columns: 2;
+  column-gap: var(--gap);
+}
+
+.cols p {
+  break-inside: avoid;
+}
+
+.quotes {
+  margin: 2.5rem 0 1rem;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.refrain {
+  max-width: 44rem;
+  font-size: 1.1875rem;
+}
+
+.refrain em {
+  color: var(--red-text);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.skillGrid h3 {
+  margin: 0;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--ink);
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.skillGrid p {
+  margin: 0 0 1rem;
+  font-size: 0.9375rem;
+}
+
+.skillGrid li {
+  padding: 0.125rem 0;
+}
+
+.job {
+  display: grid;
+  grid-template-columns: minmax(7rem, 2fr) 7fr;
+  gap: var(--gap);
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.job:last-of-type {
+  border-bottom: 0;
+}
+
+.job h3 {
+  margin: 0;
+  font-size: 1.375rem;
+  letter-spacing: -0.02em;
+}
+
+.period {
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.tags {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.facts {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: minmax(3rem, 1fr) 4fr 4fr;
+  gap: var(--gap);
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.bigNum {
+  margin: 0 !important;
+  color: var(--red-text);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+}
+
+.projectTitle {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  font-weight: 600;
+}
+
+.sub {
+  margin: 2.5rem 0 1rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--ink);
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.table li {
+  display: grid;
+  grid-template-columns: 4fr 5fr 3fr;
+  gap: var(--gap);
+  align-items: baseline;
+  padding: 0.625rem 0;
+  border-top: 1px solid #c9c9c9;
+  overflow-wrap: anywhere;
+}
+
+.table li:first-child {
+  border-top: 0;
+}
+
+.years li {
+  display: grid;
+  grid-template-columns: minmax(7rem, 2fr) 7fr;
+  gap: var(--gap);
+  padding: 0.75rem 0;
+  border-top: 1px solid #c9c9c9;
+  font-size: 1.1875rem;
+}
+
+.years li:first-child {
+  border-top: 0;
+}
+
+.year {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.interests {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.contactLine {
+  margin-bottom: 2rem !important;
+  font-size: clamp(2.25rem, 7vw, 6.5rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.contactLine span {
+  display: block;
+}
+
+.contactLine span:last-child {
+  color: var(--red-text);
+}
+
+.contact .cols {
+  columns: 1;
+  max-width: 40rem;
+}
+
+.arrowLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.copy {
+  justify-self: start;
+  padding: 0.125rem 0.625rem;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.copy:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Small screens: the grid collapses to one column, numerals stay as the structure ---- */
+
+@media (max-width: 56rem) {
+  .masthead p,
+  .nav,
+  .gridToggle {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .masthead {
+    row-gap: 0.75rem;
+  }
+
+  .heroStatus,
+  .heroRoles,
+  .heroLinks {
+    grid-column: 1 / -1;
+  }
+
+  .head,
+  .body {
+    grid-column: 1 / -1;
+  }
+
+  .head {
+    position: static;
+    margin-bottom: 1.5rem;
+  }
+
+  .skillGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 36rem) {
+  .cols {
+    columns: 1;
+  }
+
+  .skillGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .job,
+  .years li {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .table li {
+    grid-template-columns: 1fr;
+    gap: 0.125rem;
+  }
+}

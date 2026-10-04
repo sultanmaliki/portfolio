@@ -1,0 +1,71 @@
+.skip {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  color: #111111;
+  font: 600 0.875rem/1.2 system-ui, sans-serif;
+  text-decoration: none;
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+  transform: translateY(-200%);
+  transition: transform 0.15s ease;
+}
+
+.skip:focus,
+.skip:focus-visible {
+  transform: translateY(0);
+}
+
+/* Reveal: hidden until showOnView() marks it, then it eases in. Reduced motion and print skip it entirely. */
+.reveal,
+.revealBlur {
+  opacity: 0;
+}
+
+.reveal[data-shown] {
+  animation: reveal-in var(--r-dur, 0.6s) cubic-bezier(0.16, 1, 0.3, 1) var(--r-delay, 0s) both;
+}
+
+.revealBlur[data-shown] {
+  animation: reveal-blur-in var(--r-dur, 0.6s) cubic-bezier(0.16, 1, 0.3, 1) var(--r-delay, 0s) both;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--r-y, 20px), 0) scale(var(--r-scale, 1)) rotate(var(--r-rot, 0deg));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-blur-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--r-y, 20px), 0) scale(var(--r-scale, 1)) rotate(var(--r-rot, 0deg));
+    filter: blur(var(--r-blur, 8px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), print {
+  .reveal,
+  .revealBlur {
+    opacity: 1;
+  }
+
+  .reveal[data-shown],
+  .revealBlur[data-shown] {
+    animation: none;
+  }
+}

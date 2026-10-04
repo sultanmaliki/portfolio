@@ -1,0 +1,508 @@
+.page {
+  --base: #e0e5ec;
+  --dark: #a3b1c6;
+  --light: #ffffff;
+  --ink: #2b3441;
+  --muted: #3f4a5e;
+  --accent: #2450b8;
+  --edge: rgba(255, 255, 255, 0.55);
+  --raised: 9px 9px 18px var(--dark), -9px -9px 18px var(--light);
+  --raised-sm: 5px 5px 10px var(--dark), -5px -5px 10px var(--light);
+  --pressed: inset 6px 6px 12px var(--dark), inset -6px -6px 12px var(--light);
+  --pressed-sm: inset 3px 3px 6px var(--dark), inset -3px -3px 6px var(--light);
+  min-height: 100dvh;
+  background: var(--base);
+  color: var(--ink);
+  font-family: var(--font-neu), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+:global(html:has([data-design="neumorphism"])) {
+  background: #e0e5ec;
+}
+
+.page p {
+  margin: 0 0 0.9rem;
+}
+
+.page :where(a) {
+  color: inherit;
+}
+
+.page a:focus-visible,
+.page button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.page ul,
+.page ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 17rem minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2rem) 5rem;
+}
+
+/* The aside stretches to the full height of the page so the inner card can stay stuck while you read */
+.sideInner {
+  position: sticky;
+  top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem 1.25rem;
+  border: 1px solid var(--edge);
+  border-radius: 28px;
+  box-shadow: var(--raised);
+}
+
+.monogram {
+  display: grid;
+  width: 5rem;
+  height: 5rem;
+  place-items: center;
+  align-self: center;
+  border-radius: 50%;
+  box-shadow: var(--pressed);
+  color: var(--accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.sideName {
+  margin: 0 !important;
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+/* Pressed "well": anything that sits inside the surface */
+
+.well {
+  border-radius: 18px;
+  box-shadow: var(--pressed-sm);
+}
+
+.availability {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: 0 !important;
+  padding: 0.85rem 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+}
+
+.availability small {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.led {
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-top: 0.3rem;
+  border-radius: 50%;
+  background: #1f9d55;
+  box-shadow: 0 0 0 3px rgba(31, 157, 85, 0.22);
+}
+
+.nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.nav a {
+  display: block;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  box-shadow: var(--raised-sm);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.nav a:hover {
+  color: var(--accent);
+}
+
+.nav a[aria-current="location"] {
+  box-shadow: var(--pressed-sm);
+  color: var(--accent);
+}
+
+.sideActions {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--edge);
+  border-radius: 16px;
+  background: var(--base);
+  box-shadow: var(--raised-sm);
+  color: var(--ink);
+  font: 700 0.9375rem/1.2 var(--font-neu), sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+.btnAccent {
+  color: var(--accent);
+}
+
+.btn:active {
+  box-shadow: var(--pressed-sm);
+}
+
+.main {
+  min-width: 0;
+}
+
+.raised {
+  border: 1px solid var(--edge);
+  border-radius: 28px;
+  box-shadow: var(--raised);
+}
+
+.panel {
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  margin-bottom: 1.75rem;
+}
+
+.hero {
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.name {
+  font-size: clamp(2.5rem, 6.4vw, 4.75rem) !important;
+  letter-spacing: -0.045em !important;
+  line-height: 1 !important;
+  text-shadow: 2px 2px 3px var(--light), -1px -1px 2px rgba(163, 177, 198, 0.6);
+}
+
+.role {
+  margin: 1rem 0 0.5rem !important;
+  color: var(--accent);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 700;
+}
+
+.summary {
+  margin: 1.5rem 0 0 !important;
+  padding: 1.25rem 1.5rem;
+  font-size: 1.0625rem;
+}
+
+.section {
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+  scroll-margin-top: 1rem;
+}
+
+.title {
+  margin-bottom: 1.5rem !important;
+  font-size: clamp(1.75rem, 3.6vw, 2.5rem) !important;
+}
+
+.panel h3 {
+  margin-bottom: 0.3rem;
+  font-size: 1.3rem;
+}
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.quotes li {
+  padding: 1.25rem 1.4rem;
+  font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.refrain {
+  margin-top: 1.5rem !important;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.refrain em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
+}
+
+.grid2 .panel {
+  margin-bottom: 0;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1rem 0 0.25rem;
+}
+
+.chips li {
+  padding: 0.4rem 0.95rem;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  box-shadow: var(--raised-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: box-shadow 0.2s ease;
+}
+
+.chips li:hover {
+  box-shadow: var(--pressed-sm);
+}
+
+.chipsLarge li {
+  padding: 0.65rem 1.4rem;
+  font-size: 1.05rem;
+}
+
+.bullets {
+  margin: 1rem 0;
+}
+
+.bullets li {
+  position: relative;
+  margin-bottom: 0.7rem;
+  padding-left: 1.25rem;
+}
+
+.bullets li::before {
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  box-shadow: var(--pressed-sm);
+  content: "";
+}
+
+.tagWell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.project {
+  max-width: 100%;
+}
+
+.projectTitle {
+  font-size: clamp(1.6rem, 3vw, 2.2rem) !important;
+}
+
+.bulletWell {
+  margin: 1rem 0;
+  padding: 1rem 1.25rem 0.4rem;
+}
+
+.bulletWell li {
+  margin-bottom: 0.7rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin: 1.25rem 0 0 !important;
+}
+
+.repoList {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.repoList li {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 2.4fr);
+  gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.75rem 1.1rem;
+  overflow-wrap: anywhere;
+}
+
+.repoList a {
+  font-weight: 700;
+}
+
+.repoList small,
+.certList small {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.certList {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.certList li {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 1.1rem;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 2.5rem !important;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.7rem;
+  width: 0.5rem;
+  border-radius: 999px;
+  box-shadow: var(--pressed-sm);
+  content: "";
+}
+
+.timeline li {
+  position: relative;
+  display: grid;
+  gap: 0.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.knob {
+  position: absolute;
+  top: 0.15rem;
+  left: -2.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1px solid var(--edge);
+  border-radius: 50%;
+  box-shadow: var(--raised-sm);
+}
+
+.year {
+  color: var(--accent);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.contact {
+  margin-bottom: 0;
+}
+
+.contactTitle {
+  margin-bottom: 1rem !important;
+  font-size: clamp(2rem, 5vw, 3.75rem) !important;
+  letter-spacing: -0.04em !important;
+}
+
+.emailWell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.1rem;
+}
+
+.emailWell a {
+  font-size: 1.1rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 64rem) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sideInner {
+    position: static;
+  }
+
+  .nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sideActions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 48rem) {
+  .grid2,
+  .quotes {
+    grid-template-columns: 1fr;
+  }
+
+  .repoList li {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}

@@ -1,7 +1,8 @@
 import type { MouseEvent } from "react";
+import { profile } from "@/data/profile";
 
-export const RESUME_URL = "/resume.pdf";
-export const RESUME_FILENAME = "Syed_Mohammed_Sultan_Resume.pdf";
+export const RESUME_URL = profile.resume.url;
+export const RESUME_FILENAME = profile.resume.filename;
 export const OPEN_RESUME_EVENT = "portfolio:open-resume";
 
 /** Opens the built-in resume reader (see ResumeViewer). */

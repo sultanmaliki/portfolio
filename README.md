@@ -7,6 +7,7 @@ A high-performance, interactive personal portfolio built with a focus on storyte
 ## 🚀 Features
 
 - **Cinematic Scrollytelling**: A 150-frame image sequence drawn to an HTML5 `<canvas>`, mapped to scroll progress. Desktop gets the 1080p set, phones the 720p set; frames load coarse-to-fine (fewer on small screens and data-saver) so the page is usable quickly.
+- **Many designs, one data store**: All content lives in typed TypeScript (`src/data`); each design is a separate route that only arranges it. A **Designs** panel (bottom-left, with a preview of each look) switches between all **23**: Cinematic, Claymorphism, Cybercore, Neo-brutalism, Scrapbook, Surrealism, Y2K, Pixel art, Synthwave, Glassmorphism, Neumorphism, Bento grid, Editorial, Swiss, Minimalism, Maximalism, Luxury typography, Conceptual sketch, Ethereal, Bohemian, Victorian, Cyberpunk and Wabi-sabi. Switching keeps you on the section you were reading (see [docs/DESIGNS.md](docs/DESIGNS.md)).
 - **Recruiter-first basics**: The first screen states availability ("Open to entry-level roles") and offers View projects / Resume / Contact; featured projects carry concrete evidence (stack, what was built, numbers); the resume opens in-page; the email address can be copied.
 - **Glassmorphic UI**: Beautiful, interactive glass panels with magnetic hover effects, noise textures, and subtle 3D transformations.
 - **Built-in Resume Reader**: The resume opens in an on-page PDF reader (pdf.js, loaded on demand) with zoom, selectable text, clickable links and a Download PDF button, instead of a bare browser PDF tab.
@@ -52,9 +53,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | --- | --- |
 | `npm run lint` | ESLint (Next.js core-web-vitals + TypeScript rules) |
 | `npm run typecheck` | `tsc --noEmit` in strict mode |
-| `npm test` | Vitest unit tests: repo filtering/sorting, URL safety, click handlers, data integrity |
+| `npm test` | Vitest unit tests: repo filtering/sorting, URL safety, click handlers, content and design-registry integrity, the scaffold script |
 | `npm run build` | Static export to `out/` |
-| `npm run test:e2e` | Playwright smoke tests against `out/` on a desktop and a phone profile (first run: `npx playwright install chromium`; or set `PW_CHANNEL=chrome` to use installed Chrome) |
+| `npm run test:e2e` | Playwright smoke tests, the design switcher and the per-design contract against `out/` on a desktop and a phone profile (first run: `npx playwright install chromium`; or set `PW_CHANNEL=chrome` to use installed Chrome) |
+| `npm run new-design -- <slug>` | Scaffolds a planned design (component, route, registry status) |
+| `npm run previews` | Regenerates the design-switcher thumbnails in `public/design-previews/` from the built site (`npm run build` first) |
 | `npm run check:links` | Verifies every external link in the built page (also runs weekly in CI: `.github/workflows/link-check.yml`) |
 | `npm run check` | lint + typecheck + unit tests + build |
 
@@ -65,64 +68,74 @@ GitHub Actions (`.github/workflows/ci.yml`) runs all of the above on every push 
 
 ```text
 ├── public/
-│   ├── sequence-720-v2/ # 150 WebP frames, 1280×720 (phones, tablets, data-saver)
-│   ├── sequence-hd-v2/  # the same 150 frames at 1920×1080 (desktop)
-│   ├── resume.pdf       # Downloadable resume
-│   ├── og.jpg           # 1200×630 social preview image
+│   ├── sequence-720-v2/   # cinematic design: 150 WebP frames, 1280×720 (phones, data-saver)
+│   ├── sequence-hd-v2/    # the same frames at 1920×1080 (desktop)
+│   ├── resume.pdf         # Downloadable resume
+│   ├── og.jpg             # 1200×630 social preview image
+│   ├── design-previews/   # 320×200 thumbnails shown in the design switcher (npm run previews)
 │   ├── robots.txt / sitemap.xml
-│   └── _headers         # Cloudflare Pages: cache + security headers
+│   └── _headers           # Cloudflare Pages: cache + security headers (CSP, HSTS)
 ├── src/
 │   ├── app/
-│   │   ├── globals.css  # Global styles and CSS variables
-│   │   ├── layout.tsx   # Root layout: metadata, JSON-LD, no-JS fallback
-│   │   ├── not-found.tsx # Custom 404
-│   │   └── page.tsx     # Main page stitching components together
-│   ├── components/
-│   │   ├── CustomCursor.tsx     # Global morphing cursor
-│   │   ├── KonamiCode.tsx       # Easter egg logic
-│   │   ├── NoiseBackground.tsx  # Grain overlay
-│   │   ├── SiteNav.tsx          # Section navigation (appears after the intro)
-│   │   ├── Providers.tsx        # Framer Motion reduced-motion config
-│   │   ├── Overlay.tsx          # Parallax intro text
-│   │   ├── Projects.tsx         # GitHub repos: build-time snapshot + live refresh
-│   │   ├── ScrollTimeline.tsx   # Sticky scroll container that exposes progress (0–1)
-│   │   ├── ScrollyCanvas.tsx    # Scroll-linked canvas engine & preloader
-│   │   ├── SectionContact.tsx   # Footer and links
-│   │   ├── SectionEducation.tsx # Degree + certifications, from src/data/education.ts
-│   │   ├── SectionExperience.tsx# Work experience, rendered from src/data/experience.ts
-│   │   ├── SectionCuriosity.tsx # Floating sticky notes
-│   │   ├── SectionSkills.tsx    # Magnetic glass cards
-│   │   ├── SectionStory.tsx     # Typographic storytelling
-│   │   ├── SectionTimeline.tsx  # Horizontal scroll timeline
-│   │   ├── LinkViewer.tsx       # In-page link preview card + embedded browser (src/lib/links.ts)
-│   │   ├── SmoothAnchors.tsx    # Animated in-page navigation
-│   │   └── ResumeViewer.tsx     # Built-in PDF reader (opened via src/lib/resume.ts)
-│   ├── data/
-│   │   ├── experience.ts        # Work experience entries (newest first)
-│   │   ├── education.ts         # Education and certifications
-│   │   ├── config.ts            # GitHub username, excluded repos, contact email, `featured` pins
-│   │   ├── projects.ts          # Curated featured projects (role, stack, evidence)
-│   │   └── repos.json           # Generated snapshot (committed; refreshed by the sync workflow)
-│   ├── lib/
-│   │   ├── github.ts            # Repo types, API payload parsing/filtering, sorting
-│   ├── links.ts             # openLink()/linkHandler(): opens the in-page link viewer
-│   └── resume.ts            # openResume()/handleResumeClick(): opens the resume reader
+│   │   ├── layout.tsx     # Root layout: metadata, JSON-LD, no-JS fallback, shared chrome
+│   │   ├── page.tsx       # "/" serves the default design
+│   │   ├── designs/<slug>/page.tsx  # one tiny route per additional live design (generated)
+│   │   ├── globals.css, not-found.tsx
+│   ├── data/              # ALL content, typed. Designs only read it.
+│   │   ├── index.ts       # `portfolio`: everything below in one object
+│   │   ├── profile.ts     # identity, availability, links, story, skills, timeline, interests
+│   │   ├── experience.ts / education.ts / projects.ts
+│   │   ├── config.ts      # GitHub username, excluded repos
+│   │   ├── site.ts        # SEO and sharing copy
+│   │   └── repos.json     # Generated GitHub snapshot (committed; refreshed by the sync workflow)
+│   ├── designs/
+│   │   ├── registry.ts    # every design (live and planned): name, direction, palette, status
+│   │   ├── sections.ts    # the nine anchor ids every design provides
+│   │   ├── metadata.ts    # route metadata helper
+│   │   ├── shared/        # usePortfolio() (content + wired-up links), Reveal, SkipLink, useActiveSection
+│   │   ├── cinematic/     # the default design: scroll-driven film intro + glass panels
+│   │   └── <slug>/        # the other 22: index.tsx, styles.module.css, fonts.ts, fonts/ (self-hosted)
+│   ├── components/        # shared chrome, mounted once in the root layout
+│   │   ├── DesignSwitcher.tsx   # the panel that switches designs
+│   │   ├── ResumeViewer.tsx     # built-in PDF reader
+│   │   ├── LinkViewer.tsx       # in-page link preview card + embedded browser
+│   │   ├── SmoothAnchors.tsx    # animated in-page navigation
+│   │   ├── SiteChrome.tsx, Providers.tsx
+│   ├── lib/               # behaviour any design can reuse
+│   │   ├── github.ts      # repo types, API parsing/filtering, sorting
+│   │   ├── useRepos.ts    # GitHub projects: snapshot first, live refresh after
+│   │   ├── projects.ts    # featured/others split
+│   │   ├── useCopy.ts     # copy-to-clipboard with feedback
+│   │   ├── links.ts / resume.ts / seo.ts
 │   └── utils/
-│       ├── scroll.ts            # useScrollTransform: scroll ranges padded to 0–1
-│       └── timeline.ts          # Splits a section's scroll range into named phases
-├── tools/
-│   └── frame-pipeline/          # How the scroll frames were cleaned + upscaled (Real-ESRGAN); reproducible
+│       ├── scroll.ts      # useScrollTransform: scroll ranges padded to 0–1
+│       └── timeline.ts    # splits a section's scroll range into named phases
+├── docs/DESIGNS.md        # how designs work, the contract, and what shipped in each of the 23
+├── e2e/                   # Playwright: site smoke tests, design switcher, design contract
 ├── scripts/
-│   ├── fetch-repos.mjs          # `prebuild`: snapshots public repos (drops dead homepages) into src/data/repos.json
-│   └── check-links.mjs          # Checks every external link in the built page
-├── e2e/                         # Playwright smoke tests (desktop + phone)
+│   ├── fetch-repos.mjs    # `prebuild`: snapshots public repos (drops dead homepages)
+│   ├── check-links.mjs    # checks every external link in the built page
+│   ├── new-design.mjs     # scaffolds a planned design (+ templates/)
+│   ├── capture-previews.mjs  # renders the switcher thumbnails from out/
+├── tools/frame-pipeline/  # how the cinematic frames were cleaned + upscaled (Real-ESRGAN)
 ├── .github/
-│   ├── workflows/ci.yml         # Lint, types, unit tests, build, e2e on every push/PR
-│   ├── workflows/sync-portfolio.yml # Every 6h: rebuild, commit repos.json if changed
-│   ├── workflows/link-check.yml # Weekly: verify every external link
-│   └── dependabot.yml           # Weekly grouped dependency updates
+│   ├── workflows/ci.yml, link-check.yml, sync-portfolio.yml
+│   └── dependabot.yml
 ├── LICENSE
 ```
+
+## 🎨 Designs
+
+The portfolio can be shown in many styles from the same content. Everything is data-driven:
+
+- **Content** lives in `src/data`. A design imports `portfolio` and never hard-codes anything.
+- **The plan** lives in `src/designs/registry.ts`: 23 designs, each `live` or `planned`, with a one-line direction and a palette. The **Designs** panel is generated from it.
+- **One hook** (`usePortfolio()` in `src/designs/shared`) gives every design the content, the GitHub projects and ready-made link props, so the resume reader, link viewer and copy-email behave identically everywhere.
+- **Add a design:** `npm run new-design -- <slug>` scaffolds the component and route and marks it live. The Playwright suite then checks the design contract for it automatically: all content present, resume reader works, the nine section anchors exist, no overflow from 320 px up, no console errors, WCAG 2.1 A/AA via axe, nothing looping under reduced motion.
+- **Routes:** the default design is served at `/`; the others at `/designs/<slug>/` with their canonical URL pointing at `/`, so search engines index one page.
+- Fonts are self-hosted per design (a visitor only downloads the fonts of the design they open) and there are no image assets: textures and illustrations are CSS and inline SVG.
+
+Details, conventions and notes on each design are in [docs/DESIGNS.md](docs/DESIGNS.md).
 
 ## 🔄 GitHub Projects Sync
 
@@ -140,7 +153,7 @@ The **featured** projects at the top come from `src/data/projects.ts` (title, wh
 - Headers (cache, CSP, HSTS) come from `public/_headers`. If you add a new third-party origin (analytics, fonts, embeds), allow it in the Content-Security-Policy there.
 - Optional: add a `GITHUB_TOKEN` environment variable (a fine-grained token with no permissions is enough for public data) so shared build IPs don't hit the unauthenticated rate limit.
 
-## 🎨 Design Language
+## 🎨 Design Language (default Cinematic design)
 - **Background**: Deep Dark (`#121212`)
 - **Accent**: Soft Blue (`#6EA8FF`)
 - **Typography**: `Inter` (self-hosted variable font, OFL) — Focus on huge whitespace, light font weights, and extreme contrast.

@@ -1,0 +1,220 @@
+.page {
+  --bg: #fafafa;
+  --ink: #111111;
+  --muted: #565d68;
+  --rule: #e4e4e7;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-minimal), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  font-feature-settings: "ss01", "kern";
+  -webkit-font-smoothing: antialiased;
+}
+
+:global(html:has([data-design="minimalism"])) {
+  background: #fafafa;
+}
+
+.wrap {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 9vw, 6.5rem) 1.5rem clamp(4rem, 12vw, 8rem);
+}
+
+.page p {
+  margin: 0 0 1rem;
+  max-width: 62ch;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.24em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 40%, transparent);
+  transition: text-decoration-color 0.15s ease;
+}
+
+.page a:hover {
+  text-decoration-color: var(--ink);
+}
+
+.page a:focus-visible,
+.page button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.header {
+  margin-bottom: clamp(3.5rem, 10vw, 6rem);
+}
+
+.name {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.875rem, 6vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.role {
+  margin: 0 0 0.25rem !important;
+}
+
+.status {
+  color: var(--muted);
+  margin-bottom: 1.5rem !important;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin-bottom: 1.25rem !important;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin-top: 2.5rem;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.nav a {
+  text-decoration-color: transparent;
+}
+
+.nav a:hover {
+  text-decoration-color: currentColor;
+}
+
+.section {
+  margin-top: clamp(4.5rem, 12vw, 7.5rem);
+  scroll-margin-top: 2rem;
+}
+
+.label {
+  margin: 0 0 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.sub {
+  margin: 2.5rem 0 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.lead {
+  font-size: 1.1875rem;
+  line-height: 1.6;
+}
+
+.quiet {
+  color: var(--muted);
+}
+
+.entry {
+  margin-bottom: 3rem;
+}
+
+.entry h3 {
+  margin: 0 0 0.125rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.pairs {
+  margin: 0;
+}
+
+.pairs > div {
+  margin-bottom: 1.25rem;
+}
+
+.pairs dt {
+  font-weight: 600;
+}
+
+.pairs dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+.plain {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plain li {
+  margin-bottom: 0.625rem;
+}
+
+.timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline li {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.year {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.textButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.24em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 40%, transparent);
+  cursor: pointer;
+}
+
+.textButton:hover {
+  text-decoration-color: var(--ink);
+}
+
+@media (max-width: 30rem) {
+  .timeline li {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .page {
+    --bg: #101011;
+    --ink: #ececec;
+    --muted: #9ba1ab;
+    --rule: #26262a;
+  }
+
+  :global(html:has([data-design="minimalism"])) {
+    background: #101011;
+  }
+}

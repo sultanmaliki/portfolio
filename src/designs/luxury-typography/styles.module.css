@@ -1,0 +1,543 @@
+.page {
+  --ink: #0e0e0e;
+  --ivory: #f2ebdd;
+  --ivory-soft: #bdb6a8;
+  --gold: #c9a227;
+  --gold-line: rgba(201, 162, 39, 0.4);
+  min-height: 100dvh;
+  background: var(--ink);
+  color: var(--ivory);
+  font-family: var(--font-lux-sans), "Helvetica Neue", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 300;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+:global(html:has([data-design="luxury-typography"])) {
+  background: #0e0e0e;
+}
+
+.page p {
+  margin: 0 0 1.25rem;
+}
+
+.page :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page a:focus-visible,
+.page button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 5px;
+}
+
+.page ul,
+.page ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Wide-tracked small caps used for every label, tag and caption */
+.caps {
+  color: var(--ivory-soft);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  line-height: 1.8;
+  text-transform: uppercase;
+}
+
+.gold {
+  color: var(--gold);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.button,
+.ghost {
+  display: inline-block;
+  padding: 0.95rem 2.1rem;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold) !important;
+  font: 500 0.8125rem/1.2 var(--font-lux-sans), sans-serif;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+.ghost {
+  border-color: var(--gold-line);
+}
+
+.button:hover,
+.ghost:hover {
+  background: var(--gold);
+  color: var(--ink) !important;
+}
+
+.textLink {
+  padding-bottom: 0.2em;
+  border-bottom: 1px solid var(--gold-line);
+  transition: border-color 0.4s ease, color 0.4s ease;
+}
+
+.textLink:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem 2rem;
+}
+
+/* Hero --------------------------------------------------------------------- */
+
+.hero {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  padding: 1.75rem 1.5rem 3rem;
+  background: radial-gradient(ellipse at 50% 38%, #1a1810 0%, var(--ink) 62%);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 2.25rem;
+  color: var(--ivory-soft);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.nav a:hover {
+  color: var(--gold);
+}
+
+.heroBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0 1rem;
+  text-align: center;
+}
+
+.heroBody > * {
+  animation: rise 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.heroBody > :nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.heroBody > :nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.heroBody > :nth-child(n + 4) {
+  animation-delay: 0.45s;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.monogram {
+  display: grid;
+  width: 5.25rem;
+  height: 5.25rem;
+  place-items: center;
+  margin-bottom: 2.25rem;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold);
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+}
+
+.name {
+  max-width: 14ch;
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: clamp(3rem, 9.5vw, 8.5rem);
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.heroBody .caps {
+  margin: 1.75rem 0 0;
+}
+
+.rule {
+  display: block;
+  width: min(20rem, 60%);
+  height: 1px;
+  margin: 2rem 0 1.75rem;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.available {
+  margin-bottom: 2rem !important;
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: 1.375rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.available span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--ivory-soft);
+  font-family: var(--font-lux-sans), sans-serif;
+  font-size: 0.875rem;
+  font-style: normal;
+  letter-spacing: 0.1em;
+}
+
+/* Sections ----------------------------------------------------------------- */
+
+.content {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 0 1.5rem 7rem;
+}
+
+.section {
+  padding-top: clamp(6rem, 13vw, 10rem);
+  scroll-margin-top: 1rem;
+}
+
+.sectionTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+  text-align: center;
+}
+
+.numeral {
+  color: var(--gold);
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  line-height: 1;
+}
+
+.sectionTitle h2 {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  text-transform: uppercase;
+}
+
+.hairline {
+  width: 1px;
+  height: 3.5rem;
+  margin-top: 1.5rem;
+  background: linear-gradient(var(--gold), transparent);
+}
+
+.narrow {
+  max-width: 38rem;
+  margin-inline: auto;
+}
+
+.lead {
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+.quote {
+  margin: clamp(3rem, 6vw, 5rem) auto;
+  max-width: 46rem;
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: clamp(1.75rem, 4.2vw, 3.25rem);
+  font-style: italic;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.quote p {
+  margin: 0 0 0.5rem;
+}
+
+.refrain {
+  margin-top: 2rem !important;
+  color: var(--ivory-soft);
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.refrain em {
+  color: var(--gold);
+}
+
+.skills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.5rem;
+}
+
+.skills > div {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gold-line);
+}
+
+.skills h3 {
+  margin-bottom: 0.4rem;
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: 1.75rem;
+  line-height: 1.15;
+}
+
+.skills .caps {
+  margin-bottom: 1.25rem;
+  color: var(--gold);
+}
+
+.skills li {
+  padding: 0.2rem 0;
+  font-size: 1.0625rem;
+}
+
+.lot {
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+  border-top: 1px solid var(--gold-line);
+  text-align: center;
+}
+
+.lotNumber {
+  margin: 0 0 0.5rem !important;
+  color: var(--gold);
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.3em;
+}
+
+.lotTitle {
+  margin-bottom: 1rem !important;
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.lot .lead {
+  max-width: 44rem;
+  margin: 1.5rem auto;
+}
+
+.twoCol {
+  columns: 2 20rem;
+  column-gap: 3rem;
+  max-width: 58rem;
+  margin: 2rem auto;
+  text-align: left;
+}
+
+.twoCol p {
+  break-inside: avoid;
+}
+
+.subTitle {
+  margin: 4rem 0 1.5rem !important;
+  color: var(--gold);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.repoList li {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr);
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-top: 1px solid rgba(201, 162, 39, 0.2);
+  overflow-wrap: anywhere;
+}
+
+.repoList a:hover {
+  color: var(--gold);
+}
+
+.repoList .caps {
+  margin: 0;
+  text-align: right;
+}
+
+.certs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 3rem;
+}
+
+.certs li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.timeline {
+  max-width: 48rem;
+  margin: 0 auto !important;
+}
+
+.timeline > li {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.5rem;
+  padding: 1.25rem 0;
+  position: relative;
+}
+
+.timeline > li::before {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 1px;
+  background: var(--gold-line);
+  content: "";
+}
+
+.year {
+  color: var(--gold);
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  text-align: right;
+}
+
+.interests {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 0;
+  max-width: 52rem;
+  margin: 0 auto !important;
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-style: italic;
+}
+
+.interests li:not(:last-child)::after {
+  margin: 0 1.1rem;
+  color: var(--gold);
+  font-style: normal;
+  content: "/";
+}
+
+.contact {
+  text-align: center;
+}
+
+.contactLine {
+  margin-bottom: 2.5rem !important;
+  font-family: var(--font-lux-serif), Georgia, serif;
+  font-size: clamp(2.5rem, 8vw, 6.5rem);
+  font-style: italic;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.contactLine span {
+  display: block;
+}
+
+.contactLine span:last-child {
+  color: var(--gold);
+}
+
+.pitch {
+  margin-bottom: 2.5rem !important;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 2.5rem;
+  margin: 3rem 0 2rem !important;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 62rem) {
+  .skills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 40rem) {
+  .skills {
+    grid-template-columns: 1fr;
+  }
+
+  .repoList li {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .repoList .caps {
+    text-align: left;
+  }
+
+  .timeline > li {
+    grid-template-columns: 1fr;
+    padding-left: 1.25rem;
+  }
+
+  .timeline > li::before {
+    inset: 0 auto 0 0;
+  }
+
+  .year {
+    text-align: left;
+  }
+
+  .nav {
+    gap: 0.4rem 1.25rem;
+    letter-spacing: 0.16em;
+  }
+}

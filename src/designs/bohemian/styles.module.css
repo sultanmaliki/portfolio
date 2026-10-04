@@ -1,0 +1,678 @@
+.page {
+  --cream: #f8edd9;
+  --card: #fffaf0;
+  --ink: #3b2a20;
+  --muted: #5d4637;
+  --terra: #c2674a;
+  --terra-deep: #9e4a2f;
+  --mustard: #e9c46a;
+  --sage-soft: #bbd2b8;
+  --sage-deep: #3f6b4e;
+  --peach: #f0c9b8;
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: clip;
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(233, 196, 106, 0.22), transparent 38%),
+    radial-gradient(circle at 88% 70%, rgba(187, 210, 184, 0.3), transparent 42%);
+  color: var(--ink);
+  font-family: var(--font-boho-sans), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+:global(html:has([data-design="bohemian"])) {
+  background: #f8edd9;
+}
+
+.wrap {
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 2.5rem) 6rem;
+}
+
+.page p {
+  margin: 0 0 0.85rem;
+}
+
+.page :where(a) {
+  color: inherit;
+}
+
+.page a:focus-visible,
+.page button:focus-visible {
+  outline: 3px solid var(--sage-deep);
+  outline-offset: 3px;
+}
+
+.page ul,
+.page ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  margin: 0;
+  font-family: var(--font-boho-serif), Georgia, serif;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.5rem;
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+
+.nav a {
+  padding: 0.25rem 0;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+
+.nav a:hover {
+  border-bottom-color: var(--terra);
+}
+
+/* Hero */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: center;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2.5rem, 5vw, 4rem);
+}
+
+.status {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.1rem 0.9rem;
+  margin-bottom: 1.5rem !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: var(--sage-deep);
+  color: var(--cream);
+  font-size: 0.9375rem;
+}
+
+.name {
+  font-size: clamp(2.9rem, 8vw, 6.25rem) !important;
+  letter-spacing: -0.015em;
+  line-height: 1 !important;
+  text-wrap: balance;
+}
+
+.role {
+  margin: 1.25rem 0 1.75rem !important;
+  color: var(--terra-deep);
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1.25rem 0 0 !important;
+}
+
+.center {
+  justify-content: center;
+}
+
+.button,
+.cream {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 800 1rem/1.2 var(--font-boho-sans), sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, translate 0.3s ease;
+}
+
+.button:hover {
+  background: var(--mustard);
+  translate: 0 -2px;
+}
+
+.buttonSolid {
+  background: var(--terra-deep);
+  border-color: var(--terra-deep);
+  color: var(--cream) !important;
+}
+
+.buttonSolid:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+/* Rainbow arches */
+
+.arches {
+  width: min(100%, 24rem);
+  justify-self: center;
+}
+
+.arch {
+  border-radius: 999px 999px 0 0;
+  padding: clamp(0.7rem, 1.6vw, 1.1rem) clamp(0.7rem, 1.6vw, 1.1rem) 0;
+}
+
+.arch1 {
+  background: var(--terra-deep);
+}
+
+.arch2 {
+  background: var(--terra);
+}
+
+.arch3 {
+  background: var(--mustard);
+}
+
+.arch4 {
+  position: relative;
+  min-height: clamp(14rem, 30vw, 24rem);
+  overflow: hidden;
+  background: var(--sage-soft);
+}
+
+.sun {
+  position: absolute;
+  left: 50%;
+  bottom: 28%;
+  width: 46%;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: var(--mustard);
+  box-shadow: 0 0 0 clamp(0.5rem, 1.4vw, 1rem) rgba(255, 250, 240, 0.55);
+}
+
+.leaf {
+  position: absolute;
+  bottom: -0.5rem;
+  width: 22%;
+  height: 52%;
+  border-radius: 0 100% 0 100%;
+  background: var(--sage-deep);
+  transform-origin: 50% 100%;
+  animation: sway 6s ease-in-out infinite alternate;
+}
+
+.leafA {
+  left: 8%;
+  rotate: -12deg;
+}
+
+.leafB {
+  left: 28%;
+  height: 40%;
+  rotate: 18deg;
+  background: var(--terra-deep);
+  animation-delay: -2s;
+}
+
+.leafC {
+  right: 8%;
+  rotate: 14deg;
+  animation-delay: -4s;
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
+
+/* Scalloped edge between hero and content */
+
+.scallop {
+  height: 1.1rem;
+  background: radial-gradient(circle at 0.75rem 0, transparent 0.7rem, var(--mustard) 0.75rem) 0 0 / 1.5rem 1.1rem repeat-x;
+}
+
+/* Sections */
+
+.section {
+  padding-top: clamp(3.5rem, 8vw, 6rem);
+  scroll-margin-top: 1rem;
+}
+
+.titleWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.25rem;
+  text-align: center;
+}
+
+.sunDot {
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 50%;
+  background: var(--terra);
+  box-shadow: 0 0 0 0.35rem var(--mustard);
+}
+
+.sunDotLarge {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 auto 0.9rem;
+}
+
+.title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem) !important;
+}
+
+/* A woven band: diagonal colour stripes you can only see at its edges */
+.weave {
+  display: block;
+  width: min(14rem, 60%);
+  height: 0.55rem;
+  margin-top: 0.9rem;
+  background: repeating-linear-gradient(135deg, var(--terra) 0 8px, var(--mustard) 8px 16px, var(--sage-deep) 16px 24px);
+  border-radius: 999px;
+}
+
+.panel {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 2px solid var(--ink);
+  border-radius: 1.5rem;
+  background: var(--card);
+  box-shadow: 6px 6px 0 var(--mustard);
+}
+
+.panel + .panel {
+  margin-top: 1.5rem;
+}
+
+.lead {
+  margin: 0 !important;
+  font-size: clamp(1.15rem, 1.9vw, 1.4rem);
+  line-height: 1.55;
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 2rem 2.5rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.quoteArch {
+  padding: 5rem 1.75rem 2rem !important;
+  border-radius: 50% 50% 1.5rem 1.5rem / 9rem 9rem 1.5rem 1.5rem;
+  background: var(--mustard);
+  border: 2px solid var(--ink);
+  font-family: var(--font-boho-serif), Georgia, serif;
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  line-height: 1.25;
+  text-align: center;
+}
+
+.quoteArch li {
+  margin-bottom: 1rem;
+}
+
+.refrain {
+  margin: 1.25rem 0 0 !important;
+  font-family: var(--font-boho-serif), Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.refrain em {
+  color: var(--terra-deep);
+  font-style: normal;
+}
+
+.woven {
+  padding: 1.5rem 0;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-image: repeating-linear-gradient(135deg, var(--terra) 0 10px, var(--mustard) 10px 20px, var(--sage-deep) 20px 30px) 14;
+}
+
+.skillGrid,
+.eduGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
+}
+
+.skillGrid .panel,
+.eduGrid .panel {
+  margin: 0;
+}
+
+.panel h3 {
+  margin-bottom: 0.25rem;
+  font-size: 1.5rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1rem 0 0.25rem;
+}
+
+.chips li {
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
+  background: var(--sage-soft);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.chips li:nth-child(3n + 2) {
+  background: var(--mustard);
+}
+
+.chips li:nth-child(3n) {
+  background: var(--peach);
+}
+
+.job {
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 1.5rem;
+  background: var(--card);
+  box-shadow: 6px 6px 0 var(--sage-soft);
+}
+
+.jobHead {
+  padding: 1.25rem clamp(1.25rem, 3vw, 2rem);
+  background: var(--terra-deep);
+  color: var(--cream);
+}
+
+.jobHead h3 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+}
+
+.jobHead p {
+  margin: 0.4rem 0 0;
+}
+
+.jobBody {
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.bullets {
+  margin: 0 0 1rem;
+}
+
+.bullets li {
+  position: relative;
+  margin-bottom: 0.7rem;
+  padding-left: 1.5rem;
+}
+
+.bullets li::before {
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0 100% 0 100%;
+  background: var(--sage-deep);
+  content: "";
+}
+
+.inline {
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: var(--terra);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.2em;
+}
+
+/* Projects: arch-topped frames */
+
+.archGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19.5rem), 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.archCard {
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 50% 50% 1.5rem 1.5rem / 8rem 8rem 1.5rem 1.5rem;
+  background: var(--card);
+  box-shadow: 6px 6px 0 var(--terra);
+}
+
+.archTop {
+  padding: 3.5rem 1.5rem 1.5rem;
+  background: var(--sage-soft);
+  text-align: center;
+}
+
+.archTop h3 {
+  font-size: clamp(1.9rem, 3.6vw, 2.5rem);
+}
+
+.kind {
+  margin-bottom: 0.4rem !important;
+  font-weight: 800;
+  font-size: 0.9375rem;
+}
+
+.archBody {
+  padding: 1.5rem;
+}
+
+.repoPanel {
+  margin-top: 2.5rem;
+}
+
+.repoList {
+  margin-top: 1rem;
+}
+
+.repoList li {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 2.4fr);
+  gap: 0.5rem 1.25rem;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  border-top: 2px dotted rgba(59, 42, 32, 0.4);
+  overflow-wrap: anywhere;
+}
+
+.repoList li:first-child {
+  border-top: 0;
+}
+
+.repoList a {
+  font-weight: 800;
+}
+
+.repoList small,
+.certList small {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.certList {
+  margin-top: 1rem;
+}
+
+.certList li {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0;
+  border-top: 2px dotted rgba(59, 42, 32, 0.4);
+}
+
+.certList li:first-child {
+  border-top: 0;
+}
+
+/* Timeline: a path of suns */
+
+.path {
+  position: relative;
+  max-width: 44rem;
+  margin: 0 auto !important;
+  padding-left: 3rem !important;
+}
+
+.path::before {
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.8rem;
+  width: 6px;
+  border-radius: 999px;
+  background: repeating-linear-gradient(to bottom, var(--sage-deep) 0 14px, transparent 14px 22px);
+  content: "";
+}
+
+.path li {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.stop {
+  position: absolute;
+  top: 1.1rem;
+  left: -3rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--terra);
+  box-shadow: 0 0 0 0.4rem var(--mustard);
+}
+
+.stopCard {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.9rem 1.25rem;
+  border: 2px solid var(--ink);
+  border-radius: 1.25rem;
+  background: var(--card);
+}
+
+.year {
+  color: var(--terra-deep);
+  font-family: var(--font-boho-serif), serif;
+  font-size: 1.5rem;
+}
+
+.pebbles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.25rem;
+}
+
+.pebble {
+  padding: 0.7rem 1.6rem;
+  border: 2px solid var(--ink);
+  border-radius: 58% 42% 55% 45% / 52% 55% 45% 48%;
+  font-family: var(--font-boho-serif), serif;
+  font-size: 1.2rem;
+}
+
+.pebble:nth-child(even) {
+  border-radius: 44% 56% 48% 52% / 56% 44% 56% 44%;
+}
+
+.pebbleMustard {
+  background: var(--mustard);
+}
+
+.pebbleSage {
+  background: var(--sage-soft);
+}
+
+.pebblePeach {
+  background: var(--peach);
+}
+
+.contact {
+  padding: clamp(2.5rem, 7vw, 5rem) clamp(1.25rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem);
+  border-radius: 50% 50% 2rem 2rem / 9rem 9rem 2rem 2rem;
+  background: var(--terra-deep);
+  color: var(--cream);
+  text-align: center;
+}
+
+.contactTitle {
+  margin-bottom: 1.25rem !important;
+  font-size: clamp(2.4rem, 6.5vw, 5rem) !important;
+  line-height: 1.02 !important;
+}
+
+.contactTitle span {
+  display: block;
+}
+
+.contactLead {
+  max-width: 38rem;
+  margin: 0 auto 0.85rem !important;
+  font-size: 1.15rem;
+}
+
+.cream {
+  border-color: var(--cream);
+  color: var(--cream);
+}
+
+.cream:hover {
+  background: var(--cream);
+  color: var(--terra-deep);
+}
+
+.contact a:focus-visible,
+.contact button:focus-visible {
+  outline-color: var(--cream);
+}
+
+@media (max-width: 52rem) {
+  .hero,
+  .storyGrid,
+  .skillGrid,
+  .eduGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .arches {
+    width: min(70%, 16rem);
+  }
+
+  .repoList li {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+}
