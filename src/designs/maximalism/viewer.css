@@ -1,0 +1,174 @@
+/* Maximalism viewer: more is more. Thick black outlines, stacked hard shadows in two colours, a striped title bar, a zigzag
+   toolbar, dotted and checked backgrounds, a different sticker colour for every chip and control, display type in a heavy
+   slab. Colours come straight from the page: pink, yellow, blue, purple, green, orange on cream. */
+[data-viewer-theme="maximalism"] {
+  --mx-black: #111111;
+  --mx-stripes: repeating-linear-gradient(45deg, #2b86c5 0 16px, #ffd600 16px 32px);
+  --mx-zigzag: repeating-linear-gradient(135deg, #6a00f4 0 14px, #00d68f 14px 28px);
+  --mx-dots: radial-gradient(#111 22%, transparent 24%) 0 0 / 22px 22px, #ffd600;
+  --mx-checks: conic-gradient(#111 25%, #ff3cac 0 50%, #111 0 75%, #ff3cac 0) 0 0 / 44px 44px;
+
+  --vw-font: var(--font-max-syne), system-ui, sans-serif;
+  --vw-font-display: var(--font-max-bowlby), var(--font-max-abril), Impact, sans-serif;
+  --vw-scrim: rgba(17, 17, 17, 0.72);
+  --vw-scrim-blur: 0px;
+  --vw-pad: 2.25rem;
+  --vw-pad-sm: 0.5rem;
+  --vw-bg: #fff1b8;
+  --vw-fg: #111111;
+  --vw-soft: #1c1c1c;
+  --vw-muted: #333333;
+  --vw-accent: #6a00f4;
+  --vw-accent-fg: #ffffff;
+  --vw-frame: 5px solid #111111;
+  --vw-radius: 0.75rem;
+  --vw-radius-sm: 0.5rem;
+  --vw-shadow: 10px 10px 0 #ff3cac, 20px 20px 0 #111111;
+  --vw-title-display: flex;
+  --vw-title-h: 2.75rem;
+  --vw-title-bg: var(--mx-stripes);
+  --vw-title-fg: #111111;
+  --vw-title-line: 5px solid #111111;
+  --vw-dot-size: 1.1rem;
+  --vw-dot-1: #ff3cac;
+  --vw-dot-2: #00d68f;
+  --vw-dot-3: #6a00f4;
+  --vw-tab-bg: #ffffff;
+  --vw-tab-fg: #111111;
+  --vw-tab-line: 3px solid #111111;
+  --vw-tab-radius: 0.4rem;
+  --vw-bar-bg: #00d68f;
+  --vw-bar-fg: #111111;
+  --vw-bar-line: 5px solid #111111;
+  --vw-btn-bg: #ffd600;
+  --vw-btn-fg: #111111;
+  --vw-btn-line: 3px solid #111111;
+  --vw-btn-radius: 0.5rem;
+  --vw-btn-shadow: 3px 3px 0 #111111;
+  --vw-btn-hover-bg: #ff3cac;
+  --vw-btn-hover-fg: #111111;
+  --vw-btn-hover-shadow: 5px 5px 0 #111111;
+  --vw-btn-press: translate(3px, 3px);
+  --vw-pri-bg: #6a00f4;
+  --vw-pri-fg: #ffffff;
+  --vw-pri-line: 3px solid #111111;
+  --vw-pri-radius: 0.5rem;
+  --vw-pri-shadow: 4px 4px 0 #111111;
+  --vw-pri-hover-bg: #8a33ff;
+  --vw-solid-bg: #111111;
+  --vw-solid-fg: #ffd600;
+  --vw-solid-line: 3px solid #111111;
+  --vw-solid-radius: 0.5rem;
+  --vw-solid-shadow: 4px 4px 0 #ff3cac;
+  --vw-solid-hover-bg: #2a2a2a;
+  --vw-addr-bg: #ffffff;
+  --vw-addr-fg: #111111;
+  --vw-addr-line: 3px solid #111111;
+  --vw-addr-radius: 0.5rem;
+  --vw-addr-shadow: 3px 3px 0 #ff6b1a;
+  --vw-body-bg: #ffd600;
+  --vw-paper-shadow: 8px 8px 0 #ff3cac, 14px 14px 0 #111111;
+  --vw-paper-line: 4px solid #111111;
+  --vw-chip-bg: #ff3cac;
+  --vw-chip-fg: #111111;
+  --vw-chip-line: 2px solid #111111;
+  --vw-chip-radius: 0.4rem;
+  --vw-lang-radius: 50%;
+  --vw-status-bg: #111111;
+  --vw-status-fg: #ffd600;
+  --vw-status-line: 5px solid #111111;
+  --vw-focus: #111111;
+  --vw-focus-width: 4px;
+  --vw-icon-stroke: 2.75;
+  --vw-title-weight: 400;
+  --vw-card-pad: 1.25rem;
+  font-weight: 600;
+}
+
+/* checked wallpaper behind the window */
+[data-viewer-theme="maximalism"].vw-overlay {
+  background-image: var(--mx-checks);
+  background-color: var(--vw-scrim);
+  background-blend-mode: soft-light;
+}
+[data-viewer-theme="maximalism"] .vw-dots i {
+  border: 3px solid #111111;
+}
+[data-viewer-theme="maximalism"] .vw-tab {
+  font-family: var(--font-max-bowlby), Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  rotate: -1.5deg;
+  box-shadow: 3px 3px 0 #111111;
+}
+/* zigzag under a green wash, so the controls stay readable */
+[data-viewer-theme="maximalism"] .vw-toolbar {
+  background-image: linear-gradient(rgba(0, 214, 143, 0.92), rgba(0, 214, 143, 0.92)), var(--mx-zigzag);
+}
+[data-viewer-theme="maximalism"] .vw-group .vw-btn:nth-child(3n + 2) {
+  background: #1b5fa8;
+  color: #ffffff;
+}
+[data-viewer-theme="maximalism"] .vw-group .vw-btn:nth-child(3n + 2):hover {
+  background: #ff6b1a;
+  color: #111111;
+}
+[data-viewer-theme="maximalism"] .vw-btn:disabled {
+  background: #dddddd;
+}
+[data-viewer-theme="maximalism"] .vw-btn--primary,
+[data-viewer-theme="maximalism"] .vw-btn--solid {
+  font-weight: 800;
+}
+[data-viewer-theme="maximalism"] .vw-address,
+[data-viewer-theme="maximalism"] .vw-doc {
+  font-weight: 700;
+}
+[data-viewer-theme="maximalism"] .vw-lock {
+  color: #6a00f4;
+}
+[data-viewer-theme="maximalism"] .vw-card {
+  background: radial-gradient(#ff3cac33 22%, transparent 24%) 0 0 / 22px 22px, #fff1b8;
+}
+[data-viewer-theme="maximalism"] .vw-card-title {
+  font-family: var(--font-max-bowlby), Impact, sans-serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #111111;
+  text-shadow: 3px 3px 0 #ff3cac;
+}
+[data-viewer-theme="maximalism"] .vw-chip:nth-child(4n + 2) {
+  background: #ffd600;
+}
+[data-viewer-theme="maximalism"] .vw-chip:nth-child(4n + 3) {
+  background: #00d68f;
+}
+[data-viewer-theme="maximalism"] .vw-chip:nth-child(4n) {
+  background: #1b5fa8;
+  color: #ffffff;
+}
+[data-viewer-theme="maximalism"] .vw-body {
+  background: var(--mx-dots);
+}
+[data-viewer-theme="maximalism"][data-viewer-kind="card"] .vw-body {
+  background: transparent;
+}
+[data-viewer-theme="maximalism"] .vw-status {
+  font-weight: 700;
+}
+[data-viewer-theme="maximalism"] .vw-status a {
+  color: #ff3cac;
+}
+[data-viewer-theme="maximalism"] .vw-state {
+  background: #ffd600;
+  color: #111111;
+  font-weight: 800;
+}
+@media (max-width: 39.99rem) {
+  [data-viewer-theme="maximalism"] {
+    --vw-shadow: 6px 6px 0 #ff3cac;
+  }
+}

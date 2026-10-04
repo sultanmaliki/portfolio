@@ -7,6 +7,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { bentoMono, bentoSans } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -36,6 +38,7 @@ export default function BentoGridDesign() {
 
   return (
     <main id="top" data-design="bento-grid" className={`${bentoSans.variable} ${bentoMono.variable} ${styles.page}`}>
+      <ViewerTheme slug="bento-grid" fonts={`${bentoSans.variable} ${bentoMono.variable}`} entrance="pop" />
       <SkipLink />
       <div className={styles.wrap}>
         <nav aria-label="Sections" className={styles.nav}>

@@ -1,0 +1,192 @@
+/* Scrapbook viewer: a sheet of paper taped onto the page. Two strips of tape hold the window, the tab is a typewritten label,
+   buttons are stickers set slightly crooked, notes are in handwriting, the desk behind is craft paper. */
+[data-viewer-theme="scrapbook"] {
+  --sb-ink: #3d405b;
+  --sb-rust: #8a301a;
+  --sb-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .4 0 0 0 0 .3 0 0 0 .5 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  --vw-font: var(--font-scrap-serif), Georgia, serif;
+  --vw-font-display: var(--font-scrap-hand), "Comic Sans MS", cursive;
+  --vw-font-mono: var(--font-scrap-type), "Courier New", monospace;
+  --vw-scrim: rgba(92, 70, 48, 0.62);
+  --vw-scrim-blur: 2px;
+  --vw-pad: 2.25rem;
+  --vw-pad-sm: 1.25rem;
+  --vw-bg: #fffdf7;
+  --vw-fg: #3d405b;
+  --vw-soft: #3d405b;
+  --vw-muted: #55576f;
+  --vw-accent: #8a301a;
+  --vw-accent-fg: #fffdf7;
+  --vw-frame: 1px solid rgba(61, 64, 91, 0.18);
+  --vw-radius: 2px;
+  --vw-radius-sm: 2px;
+  --vw-shadow: 0 22px 26px -14px rgba(40, 30, 20, 0.6), 0 3px 5px rgba(40, 30, 20, 0.25);
+  --vw-title-display: flex;
+  --vw-title-bg: transparent;
+  --vw-title-fg: #3d405b;
+  --vw-title-line: 2px dashed rgba(61, 64, 91, 0.35);
+  --vw-dots-display: none;
+  --vw-tab-bg: #ffe08a;
+  --vw-tab-fg: #3d405b;
+  --vw-tab-radius: 2px;
+  --vw-bar-bg: transparent;
+  --vw-bar-fg: #3d405b;
+  --vw-bar-line: 2px dashed rgba(61, 64, 91, 0.35);
+  --vw-btn-bg: #f7b7c3;
+  --vw-btn-fg: #3d405b;
+  --vw-btn-line: 0;
+  --vw-btn-radius: 3px;
+  --vw-btn-shadow: 1px 2px 3px rgba(61, 64, 91, 0.35);
+  --vw-btn-hover-bg: #ffe08a;
+  --vw-btn-hover-fg: #3d405b;
+  --vw-btn-hover-shadow: 2px 4px 6px rgba(61, 64, 91, 0.4);
+  --vw-pri-bg: #8a301a;
+  --vw-pri-fg: #fffdf7;
+  --vw-pri-line: 2px dashed rgba(255, 253, 247, 0.75);
+  --vw-pri-radius: 3px;
+  --vw-pri-shadow: 1px 2px 4px rgba(61, 64, 91, 0.45);
+  --vw-pri-hover-bg: #6f2615;
+  --vw-solid-bg: #3d405b;
+  --vw-solid-fg: #fffdf7;
+  --vw-solid-line: 0;
+  --vw-solid-radius: 3px;
+  --vw-solid-shadow: 1px 2px 4px rgba(61, 64, 91, 0.45);
+  --vw-solid-hover-bg: #2c2e44;
+  --vw-addr-bg: #fffdf7;
+  --vw-addr-fg: #3d405b;
+  --vw-addr-line: 2px dashed rgba(61, 64, 91, 0.45);
+  --vw-addr-radius: 2px;
+  --vw-body-bg: #e9d9bd;
+  --vw-paper-shadow: 0 14px 18px -10px rgba(61, 64, 91, 0.55), 0 2px 3px rgba(61, 64, 91, 0.25);
+  --vw-chip-bg: #bfe3c0;
+  --vw-chip-fg: #2f3a33;
+  --vw-chip-line: 0;
+  --vw-chip-radius: 2px;
+  --vw-lang-radius: 50%;
+  --vw-status-bg: transparent;
+  --vw-status-fg: #8a301a;
+  --vw-status-line: 2px dashed rgba(61, 64, 91, 0.35);
+  --vw-focus: #3d405b;
+  --vw-focus-width: 3px;
+  --vw-title-weight: 700;
+  --vw-card-pad: 1.5rem;
+}
+
+[data-viewer-theme="scrapbook"].vw-overlay {
+  background-image: var(--sb-grain);
+  background-color: var(--vw-scrim);
+}
+
+/* two strips of tape across the top edge */
+[data-viewer-theme="scrapbook"] .vw-window::before,
+[data-viewer-theme="scrapbook"] .vw-window::after {
+  content: "";
+  position: absolute;
+  top: -0.85rem;
+  z-index: 3;
+  width: 6.5rem;
+  height: 1.75rem;
+  background: rgba(224, 122, 95, 0.85);
+  box-shadow: 0 1px 2px rgba(61, 64, 91, 0.3);
+  clip-path: polygon(0 8%, 4% 0, 8% 10%, 12% 0, 100% 0, 96% 25%, 100% 50%, 96% 75%, 100% 100%, 12% 100%, 8% 90%, 4% 100%, 0 92%, 3% 50%);
+  pointer-events: none;
+}
+[data-viewer-theme="scrapbook"] .vw-window::before {
+  left: 1.75rem;
+  rotate: -5deg;
+}
+[data-viewer-theme="scrapbook"] .vw-window::after {
+  right: 1.75rem;
+  rotate: 4deg;
+  background: rgba(247, 183, 195, 0.9);
+}
+
+[data-viewer-theme="scrapbook"] .vw-titlebar {
+  padding-top: 0.9rem;
+  padding-bottom: 0.4rem;
+}
+[data-viewer-theme="scrapbook"] .vw-tab {
+  font-family: var(--font-scrap-type), "Courier New", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  rotate: -1.2deg;
+  box-shadow: 1px 2px 3px rgba(61, 64, 91, 0.3);
+}
+[data-viewer-theme="scrapbook"] .vw-group .vw-btn:nth-child(odd) {
+  rotate: -1.5deg;
+}
+[data-viewer-theme="scrapbook"] .vw-group .vw-btn:nth-child(even) {
+  rotate: 1.2deg;
+  background: #b7d6f2;
+}
+[data-viewer-theme="scrapbook"] .vw-btn:hover {
+  rotate: 0deg;
+}
+[data-viewer-theme="scrapbook"] .vw-btn:disabled {
+  background: #e5dccb;
+}
+[data-viewer-theme="scrapbook"] .vw-address,
+[data-viewer-theme="scrapbook"] .vw-doc {
+  font-family: var(--font-scrap-type), "Courier New", monospace;
+}
+[data-viewer-theme="scrapbook"] .vw-card-title {
+  font-family: var(--font-scrap-hand), cursive;
+  font-size: 2.1rem;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+[data-viewer-theme="scrapbook"] .vw-eyebrow {
+  font-family: var(--font-scrap-type), "Courier New", monospace;
+}
+[data-viewer-theme="scrapbook"] .vw-chip {
+  font-family: var(--font-scrap-type), "Courier New", monospace;
+  box-shadow: 1px 1px 2px rgba(61, 64, 91, 0.25);
+}
+[data-viewer-theme="scrapbook"] .vw-chip:nth-child(4n + 1) {
+  rotate: -2deg;
+}
+[data-viewer-theme="scrapbook"] .vw-chip:nth-child(4n + 2) {
+  background: #ffe08a;
+  rotate: 1.5deg;
+}
+[data-viewer-theme="scrapbook"] .vw-chip:nth-child(4n + 3) {
+  background: #f7b7c3;
+  rotate: -1deg;
+}
+[data-viewer-theme="scrapbook"] .vw-chip:nth-child(4n) {
+  background: #b7d6f2;
+  rotate: 2deg;
+}
+[data-viewer-theme="scrapbook"] .vw-status {
+  font-family: var(--font-scrap-hand), cursive;
+  font-size: 1.05rem;
+}
+[data-viewer-theme="scrapbook"] .vw-body {
+  background-image: var(--sb-grain);
+}
+[data-viewer-theme="scrapbook"][data-viewer-kind="card"] .vw-body {
+  background-image: none;
+}
+[data-viewer-theme="scrapbook"] .vw-paper::before {
+  content: "";
+  position: absolute;
+  top: -0.7rem;
+  left: 50%;
+  z-index: 3;
+  width: 5rem;
+  height: 1.4rem;
+  translate: -50% 0;
+  rotate: 2deg;
+  background: rgba(255, 224, 138, 0.85);
+  box-shadow: 0 1px 2px rgba(61, 64, 91, 0.3);
+  pointer-events: none;
+}
+[data-viewer-theme="scrapbook"] .vw-pages {
+  padding-top: 1.75rem;
+}
+[data-viewer-theme="scrapbook"] .vw-state {
+  background: #fffdf7;
+  font-family: var(--font-scrap-hand), cursive;
+  font-size: 1.25rem;
+}

@@ -5,6 +5,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { victorianFell, victorianGaramond } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const CONTENTS = [
   ["story", "A Biographical Sketch", "I"],
@@ -32,6 +34,7 @@ export default function VictorianDesign() {
 
   return (
     <main id="top" data-design="victorian" className={`${victorianFell.variable} ${victorianGaramond.variable} ${styles.page}`}>
+      <ViewerTheme slug="victorian" fonts={`${victorianFell.variable} ${victorianGaramond.variable}`} entrance="rise" />
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.titlePage}>

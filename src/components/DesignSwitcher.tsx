@@ -126,7 +126,7 @@ export default function DesignSwitcher() {
     <div
       ref={rootRef}
       data-design-switcher
-      className="fixed z-[90]"
+      className="fixed z-[130]"
       style={{ bottom: "max(1rem, env(safe-area-inset-bottom))", left: "max(1rem, env(safe-area-inset-left))" }}
       onBlur={(e) => {
         // Tabbing out of the panel closes it; clicks outside are handled by the pointer listener.

@@ -1,0 +1,143 @@
+/* Neo-brutalism viewer: raw and loud. Flat colour blocks on a yellow ground, 3px black borders everywhere, hard offset shadows
+   with no blur, square corners, buttons that physically press into their shadow. Nothing is polished on purpose. */
+[data-viewer-theme="neo-brutalism"] {
+  --nb-ink: #111111;
+  --nb-hard: 6px 6px 0 #111111;
+
+  --vw-font: var(--font-nb-grotesk), system-ui, sans-serif;
+  --vw-font-display: var(--font-nb-grotesk), system-ui, sans-serif;
+  --vw-font-mono: var(--font-nb-mono), ui-monospace, monospace;
+  --vw-scrim: rgba(17, 17, 17, 0.62);
+  --vw-scrim-blur: 0px;
+  --vw-pad: 2rem;
+  --vw-pad-sm: 0.5rem;
+  --vw-bg: #ffffff;
+  --vw-fg: #111111;
+  --vw-soft: #1f1f1f;
+  --vw-muted: #3a3a3a;
+  --vw-accent: #111111;
+  --vw-frame: 3px solid #111111;
+  --vw-radius: 0;
+  --vw-radius-sm: 0;
+  --vw-shadow: 10px 10px 0 #111111;
+  --vw-title-display: flex;
+  --vw-title-bg: #ff6b6b;
+  --vw-title-fg: #111111;
+  --vw-title-line: 3px solid #111111;
+  --vw-title-weight: 800;
+  --vw-dot-size: 1rem;
+  --vw-dot-radius: 0;
+  --vw-dot-1: #ffe156;
+  --vw-dot-2: #7ee0b0;
+  --vw-dot-3: #74c0fc;
+  --vw-tab-bg: #ffffff;
+  --vw-tab-fg: #111111;
+  --vw-tab-line: 3px solid #111111;
+  --vw-tab-radius: 0;
+  --vw-bar-bg: #ffe156;
+  --vw-bar-fg: #111111;
+  --vw-bar-line: 3px solid #111111;
+  --vw-bar-pad: 0.5rem 0.625rem;
+  --vw-btn-bg: #ffffff;
+  --vw-btn-fg: #111111;
+  --vw-btn-line: 3px solid #111111;
+  --vw-btn-radius: 0;
+  --vw-btn-shadow: 3px 3px 0 #111111;
+  --vw-btn-hover-bg: #7ee0b0;
+  --vw-btn-hover-fg: #111111;
+  --vw-btn-hover-shadow: 5px 5px 0 #111111;
+  --vw-btn-press: translate(3px, 3px);
+  --vw-pri-bg: #74c0fc;
+  --vw-pri-fg: #111111;
+  --vw-pri-line: 3px solid #111111;
+  --vw-pri-radius: 0;
+  --vw-pri-shadow: 4px 4px 0 #111111;
+  --vw-pri-hover-bg: #c6a8ff;
+  --vw-solid-bg: #111111;
+  --vw-solid-fg: #ffe156;
+  --vw-solid-line: 3px solid #111111;
+  --vw-solid-radius: 0;
+  --vw-solid-shadow: 4px 4px 0 #ff6b6b;
+  --vw-solid-hover-bg: #2a2a2a;
+  --vw-addr-bg: #ffffff;
+  --vw-addr-fg: #111111;
+  --vw-addr-line: 3px solid #111111;
+  --vw-addr-radius: 0;
+  --vw-body-bg: #7ee0b0;
+  --vw-paper-shadow: 8px 8px 0 #111111;
+  --vw-paper-line: 3px solid #111111;
+  --vw-chip-bg: #ffe156;
+  --vw-chip-fg: #111111;
+  --vw-chip-line: 2px solid #111111;
+  --vw-chip-radius: 0;
+  --vw-lang-radius: 0;
+  --vw-status-bg: #111111;
+  --vw-status-fg: #ffe156;
+  --vw-status-line: 3px solid #111111;
+  --vw-focus: #111111;
+  --vw-focus-width: 4px;
+  --vw-icon-stroke: 3;
+  --vw-card-pad: 1.25rem;
+  font-weight: 600;
+}
+
+[data-viewer-theme="neo-brutalism"] .vw-dots i {
+  box-shadow: inset 0 0 0 2px #111111;
+}
+[data-viewer-theme="neo-brutalism"] .vw-tab {
+  font-family: var(--font-nb-mono), ui-monospace, monospace;
+  font-weight: 700;
+  text-transform: none;
+  box-shadow: 3px 3px 0 #111111;
+}
+[data-viewer-theme="neo-brutalism"] .vw-btn:active {
+  box-shadow: none;
+}
+[data-viewer-theme="neo-brutalism"] .vw-btn:disabled {
+  background: #d8d8d8;
+}
+[data-viewer-theme="neo-brutalism"] .vw-address,
+[data-viewer-theme="neo-brutalism"] .vw-doc {
+  font-family: var(--font-nb-mono), ui-monospace, monospace;
+  font-weight: 600;
+}
+[data-viewer-theme="neo-brutalism"] .vw-lock {
+  color: #111111;
+}
+[data-viewer-theme="neo-brutalism"] .vw-card-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+[data-viewer-theme="neo-brutalism"] .vw-chip:nth-child(4n + 2) {
+  background: #7ee0b0;
+}
+[data-viewer-theme="neo-brutalism"] .vw-chip:nth-child(4n + 3) {
+  background: #c6a8ff;
+}
+[data-viewer-theme="neo-brutalism"] .vw-chip:nth-child(4n) {
+  background: #74c0fc;
+}
+[data-viewer-theme="neo-brutalism"] .vw-status {
+  font-family: var(--font-nb-mono), ui-monospace, monospace;
+  font-weight: 600;
+}
+[data-viewer-theme="neo-brutalism"] .vw-status a {
+  color: #ffe156;
+}
+[data-viewer-theme="neo-brutalism"] .vw-eyebrow svg {
+  color: #111111;
+}
+[data-viewer-theme="neo-brutalism"] .vw-card {
+  background: #ffe156;
+}
+[data-viewer-theme="neo-brutalism"] .vw-state {
+  background: #ffe156;
+  color: #111111;
+  font-weight: 800;
+}
+@media (max-width: 39.99rem) {
+  [data-viewer-theme="neo-brutalism"] {
+    --vw-shadow: 6px 6px 0 #111111;
+  }
+}

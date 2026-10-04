@@ -1,0 +1,165 @@
+/* Pixel-art viewer: a game menu window. Every edge is a 4px block in the page's 16-colour palette, the shadow is a solid
+   black step, corners are notched, controls are chunky tiles that drop into their shadow when pressed, and the entrance
+   animates in four hard frames instead of easing. */
+[data-viewer-theme="pixel-art"] {
+  --px-white: #fff1e8;
+  --px-hard: 8px 8px 0 #000000;
+
+  --vw-font: var(--font-px-body), system-ui, sans-serif;
+  --vw-font-display: var(--font-px-display), var(--font-px-body), monospace;
+  --vw-scrim: rgba(13, 21, 48, 0.9);
+  --vw-scrim-blur: 0px;
+  --vw-pad: 2rem;
+  --vw-pad-sm: 0.5rem;
+  --vw-bg: #1d2b53;
+  --vw-fg: #fff1e8;
+  --vw-soft: #e9dfd6;
+  --vw-muted: #c2c3c7;
+  --vw-accent: #ffec27;
+  --vw-accent-fg: #0d1530;
+  --vw-frame: 4px solid #fff1e8;
+  --vw-radius: 0;
+  --vw-radius-sm: 0;
+  --vw-shadow: 8px 8px 0 #000000;
+  --vw-title-display: flex;
+  --vw-title-h: 2.25rem;
+  --vw-title-bg: #29adff;
+  --vw-title-fg: #0d1530;
+  --vw-title-line: 4px solid #fff1e8;
+  --vw-dot-size: 0.6rem;
+  --vw-dot-radius: 0;
+  --vw-dot-1: #ff004d;
+  --vw-dot-2: #ffec27;
+  --vw-dot-3: #00e436;
+  --vw-tab-fg: #0d1530;
+  --vw-label-case: uppercase;
+  --vw-label-track: 0.04em;
+  --vw-bar-bg: #0d1530;
+  --vw-bar-fg: #fff1e8;
+  --vw-bar-line: 4px solid #5f574f;
+  --vw-btn-bg: #1d2b53;
+  --vw-btn-fg: #fff1e8;
+  --vw-btn-line: 4px solid #fff1e8;
+  --vw-btn-radius: 0;
+  --vw-btn-shadow: 4px 4px 0 #000000;
+  --vw-btn-hover-bg: #29adff;
+  --vw-btn-hover-fg: #0d1530;
+  --vw-btn-hover-shadow: 4px 4px 0 #000000;
+  --vw-btn-press: translate(4px, 4px);
+  --vw-pri-bg: #ffec27;
+  --vw-pri-fg: #0d1530;
+  --vw-pri-line: 4px solid #fff1e8;
+  --vw-pri-radius: 0;
+  --vw-pri-shadow: 4px 4px 0 #000000;
+  --vw-pri-hover-bg: #fff58a;
+  --vw-solid-bg: #00e436;
+  --vw-solid-fg: #0d1530;
+  --vw-solid-line: 4px solid #fff1e8;
+  --vw-solid-radius: 0;
+  --vw-solid-shadow: 4px 4px 0 #000000;
+  --vw-solid-hover-bg: #6bff8f;
+  --vw-addr-bg: #0d1530;
+  --vw-addr-fg: #c2c3c7;
+  --vw-addr-line: 4px solid #5f574f;
+  --vw-addr-radius: 0;
+  --vw-body-bg: #0d1530;
+  --vw-paper-shadow: 8px 8px 0 #000000;
+  --vw-paper-line: 4px solid #fff1e8;
+  --vw-chip-bg: #0d1530;
+  --vw-chip-fg: #fff1e8;
+  --vw-chip-line: 3px solid #83769c;
+  --vw-chip-radius: 0;
+  --vw-lang-radius: 0;
+  --vw-status-bg: #0d1530;
+  --vw-status-fg: #ffec27;
+  --vw-status-line: 4px solid #5f574f;
+  --vw-focus: #ffec27;
+  --vw-focus-width: 4px;
+  --vw-icon-stroke: 3;
+  --vw-title-weight: 400;
+  font-size: 1rem;
+}
+
+[data-viewer-theme="pixel-art"].vw-overlay {
+  background-image: conic-gradient(rgba(0, 0, 0, 0.28) 25%, transparent 0 50%, rgba(0, 0, 0, 0.28) 0 75%, transparent 0);
+  background-size: 8px 8px;
+  background-color: var(--vw-scrim);
+}
+
+[data-viewer-theme="pixel-art"] .vw-inner {
+  border: 0;
+}
+[data-viewer-theme="pixel-art"] .vw-icon {
+  shape-rendering: crispEdges;
+}
+[data-viewer-theme="pixel-art"] .vw-btn {
+  font-family: var(--font-px-display), monospace;
+  font-size: 0.625rem;
+  line-height: 1.6;
+}
+[data-viewer-theme="pixel-art"] .vw-btn:active {
+  box-shadow: none;
+}
+[data-viewer-theme="pixel-art"] .vw-btn:disabled {
+  background: #5f574f;
+  border-color: #83769c;
+}
+[data-viewer-theme="pixel-art"] .vw-dots i {
+  box-shadow: inset 0 0 0 2px #0d1530;
+}
+[data-viewer-theme="pixel-art"] .vw-tab {
+  font-family: var(--font-px-display), monospace;
+  font-size: 0.625rem;
+}
+[data-viewer-theme="pixel-art"] .vw-address,
+[data-viewer-theme="pixel-art"] .vw-doc {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+[data-viewer-theme="pixel-art"] .vw-zoom-level {
+  font-family: var(--font-px-display), monospace;
+  font-size: 0.625rem;
+}
+[data-viewer-theme="pixel-art"] .vw-card-title {
+  font-family: var(--font-px-display), monospace;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: #ffec27;
+  text-shadow: 3px 3px 0 #000000;
+}
+[data-viewer-theme="pixel-art"] .vw-card-text,
+[data-viewer-theme="pixel-art"] .vw-note,
+[data-viewer-theme="pixel-art"] .vw-meta {
+  font-size: 1.0625rem;
+  line-height: 1.4;
+}
+[data-viewer-theme="pixel-art"] .vw-eyebrow {
+  font-family: var(--font-px-display), monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+}
+[data-viewer-theme="pixel-art"] .vw-chip {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+[data-viewer-theme="pixel-art"] .vw-status {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+[data-viewer-theme="pixel-art"] .vw-status > span:first-child::before {
+  content: "> ";
+}
+[data-viewer-theme="pixel-art"] .vw-body {
+  background-image: radial-gradient(#fff1e8 1px, transparent 1.5px), radial-gradient(#29adff 1px, transparent 1.5px);
+  background-size: 137px 137px, 211px 211px;
+  background-position: 10px 20px, 80px 120px;
+}
+[data-viewer-theme="pixel-art"][data-viewer-kind="card"] .vw-body {
+  background-image: none;
+}
+[data-viewer-theme="pixel-art"] .vw-state {
+  background: #0d1530;
+  color: #ffec27;
+  font-size: 1.1rem;
+}

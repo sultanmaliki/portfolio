@@ -1,0 +1,669 @@
+/*
+ * Themed viewers: the browser window (link preview card, embedded demo browser) and the PDF reader.
+ *
+ * One implementation, restyled per design. This file is the structure and the contract:
+ *
+ *   .vw-overlay   fixed scrim, carries data-viewer-theme="<design slug>" and data-viewer-kind="browser|pdf|card"
+ *   .vw-window    the window frame (border, radius, shadow). Decorations that stick out of it go on its pseudo-elements.
+ *   .vw-inner     clipped content of the window, in this order:
+ *     .vw-titlebar  decorative: .vw-dots (window controls) and .vw-tab (page or file name). aria-hidden, so a theme may hide it.
+ *     .vw-toolbar   the real controls: .vw-group, .vw-btn, .vw-address (browser) or .vw-doc (PDF), .vw-zoom
+ *     .vw-body      the page: iframe host, PDF pages or the preview card
+ *     .vw-status    one line of help text
+ *
+ * A design restyles all of that from its own viewer.css (selectors start with [data-viewer-theme="<slug>"]).
+ * It sets the tokens below and may add structure of its own with ::before / ::after. The defaults here are the
+ * original Cinematic look, so a design that sets nothing still gets a working, dark viewer.
+ * Keep colours AA-contrast: the e2e suite runs axe against every theme with a viewer open.
+ */
+
+.vw-overlay {
+  /* Scrim and placement */
+  --vw-scrim: rgba(0, 0, 0, 0.7);
+  --vw-scrim-blur: 4px;
+  --vw-pad: 1.5rem;
+  --vw-pad-sm: 0;
+  --vw-max-browser: 72rem;
+  --vw-max-pdf: 56rem;
+  --vw-max-card: 32rem;
+
+  /* Window */
+  --vw-bg: #161616;
+  --vw-fg: #f5f5f5;
+  --vw-soft: rgba(245, 245, 245, 0.72);
+  --vw-muted: rgba(245, 245, 245, 0.62);
+  --vw-accent: #6ea8ff;
+  --vw-accent-fg: #0b1220;
+  --vw-frame: 1px solid rgba(255, 255, 255, 0.1);
+  --vw-radius: 0.75rem;
+  --vw-radius-sm: 0;
+  --vw-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+
+  /* Title bar, window controls and tab */
+  --vw-title-display: none;
+  --vw-title-h: 2.25rem;
+  --vw-title-bg: rgba(255, 255, 255, 0.04);
+  --vw-title-fg: var(--vw-soft);
+  --vw-title-line: 1px solid rgba(255, 255, 255, 0.08);
+  --vw-dots-display: flex;
+  --vw-dot-size: 0.625rem;
+  --vw-dot-radius: 50%;
+  --vw-dot-1: #ff5f57;
+  --vw-dot-2: #febc2e;
+  --vw-dot-3: #28c840;
+  --vw-tab-bg: transparent;
+  --vw-tab-fg: var(--vw-soft);
+  --vw-tab-line: 0;
+  --vw-tab-radius: 0;
+
+  /* Toolbar and controls */
+  --vw-bar-order: 0;
+  --vw-bar-bg: rgba(255, 255, 255, 0.05);
+  --vw-bar-fg: var(--vw-soft);
+  --vw-bar-line: 1px solid rgba(255, 255, 255, 0.1);
+  --vw-bar-pad: 0.375rem 0.625rem;
+  --vw-btn-bg: transparent;
+  --vw-btn-fg: var(--vw-soft);
+  --vw-btn-line: 1px solid transparent;
+  --vw-btn-radius: 0.5rem;
+  --vw-btn-shadow: none;
+  --vw-btn-hover-bg: rgba(255, 255, 255, 0.1);
+  --vw-btn-hover-fg: #ffffff;
+  --vw-btn-hover-shadow: none;
+  --vw-btn-press: none;
+  /* Primary: the accent-coloured action. Solid: the inverted, high-emphasis one (defaults to window colours swapped). */
+  --vw-pri-bg: transparent;
+  --vw-pri-fg: var(--vw-accent);
+  --vw-pri-line: 1px solid color-mix(in srgb, var(--vw-accent) 40%, transparent);
+  --vw-pri-radius: 0.5rem;
+  --vw-pri-shadow: none;
+  --vw-pri-hover-bg: color-mix(in srgb, var(--vw-accent) 12%, transparent);
+  --vw-solid-bg: var(--vw-fg);
+  --vw-solid-fg: var(--vw-bg);
+  --vw-solid-line: 1px solid transparent;
+  --vw-solid-radius: var(--vw-pri-radius);
+  --vw-solid-shadow: none;
+  --vw-solid-hover-bg: color-mix(in srgb, var(--vw-fg) 88%, var(--vw-bg));
+  --vw-addr-bg: rgba(0, 0, 0, 0.3);
+  --vw-addr-fg: var(--vw-soft);
+  --vw-addr-line: 1px solid rgba(255, 255, 255, 0.1);
+  --vw-addr-radius: 0.5rem;
+  --vw-addr-shadow: none;
+
+  /* Content */
+  --vw-body-bg: #1d1d1d;
+  --vw-paper-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  --vw-paper-line: 0;
+  --vw-chip-bg: rgba(255, 255, 255, 0.05);
+  --vw-chip-fg: rgba(245, 245, 245, 0.8);
+  --vw-chip-line: 1px solid rgba(255, 255, 255, 0.05);
+  --vw-chip-radius: 0.375rem;
+  --vw-lang-radius: 50%;
+  --vw-card-pad: 1.5rem;
+  --vw-status-order: 0;
+  --vw-status-bg: rgba(255, 255, 255, 0.05);
+  --vw-status-fg: var(--vw-muted);
+  --vw-status-line: 1px solid rgba(255, 255, 255, 0.1);
+  /* --vw-status-link: link colour on the status strip, when the accent does not contrast with the strip */
+
+  /* Type */
+  --vw-font: var(--font-inter), system-ui, sans-serif;
+  --vw-font-display: var(--vw-font);
+  --vw-font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --vw-title-weight: 600;
+  --vw-label-case: none;
+  --vw-label-track: 0;
+  --vw-icon-stroke: 2;
+  --vw-focus: #6ea8ff;
+  --vw-focus-width: 2px;
+
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* The bottom edge leaves room for the design switcher, which stays usable above the viewer. */
+  padding: var(--vw-pad) var(--vw-pad) max(var(--vw-pad), 3.75rem);
+  background: var(--vw-scrim);
+  -webkit-backdrop-filter: blur(var(--vw-scrim-blur));
+  backdrop-filter: blur(var(--vw-scrim-blur));
+  color: var(--vw-fg);
+  font-family: var(--vw-font);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A link viewer opened from the resume reader must sit above it. */
+.vw-overlay:not([data-viewer-kind="pdf"]) {
+  z-index: 120;
+}
+
+.vw-overlay *,
+.vw-overlay *::before,
+.vw-overlay *::after {
+  box-sizing: border-box;
+}
+
+.vw-overlay :focus-visible {
+  outline: var(--vw-focus-width) solid var(--vw-focus);
+  outline-offset: 2px;
+}
+/* The scroll region takes focus when it opens: keep that ring inside its edge so it reads as a frame, not a glow. */
+.vw-overlay .vw-pages:focus-visible {
+  outline-offset: -4px;
+}
+
+/* Window ------------------------------------------------------------------------------------------ */
+
+.vw-window {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: var(--vw-bg);
+  color: var(--vw-fg);
+  border: var(--vw-frame);
+  border-radius: var(--vw-radius);
+  box-shadow: var(--vw-shadow);
+  outline: none;
+}
+
+.vw-overlay[data-viewer-kind="browser"] .vw-window {
+  max-width: var(--vw-max-browser);
+}
+.vw-overlay[data-viewer-kind="pdf"] .vw-window {
+  max-width: var(--vw-max-pdf);
+}
+.vw-overlay[data-viewer-kind="card"] .vw-window {
+  max-width: var(--vw-max-card);
+  height: auto;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* On a short screen the card is taller than the window may be: the window gives the clipped content a
+   definite height, and the card inside scrolls. */
+.vw-overlay[data-viewer-kind="card"] .vw-inner {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+.vw-inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* Title bar: window controls and a tab. Decorative (aria-hidden); a theme can hide it. */
+
+.vw-titlebar {
+  display: var(--vw-title-display);
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  min-height: var(--vw-title-h);
+  padding: 0 0.75rem;
+  background: var(--vw-title-bg);
+  color: var(--vw-title-fg);
+  border-bottom: var(--vw-title-line);
+  font-size: 0.75rem;
+  text-transform: var(--vw-label-case);
+  letter-spacing: var(--vw-label-track);
+}
+
+.vw-dots {
+  display: var(--vw-dots-display);
+  align-items: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+}
+.vw-dots i {
+  display: block;
+  width: var(--vw-dot-size);
+  height: var(--vw-dot-size);
+  border-radius: var(--vw-dot-radius);
+  background: var(--vw-dot-1);
+}
+.vw-dots i:nth-child(2) {
+  background: var(--vw-dot-2);
+}
+.vw-dots i:nth-child(3) {
+  background: var(--vw-dot-3);
+}
+
+.vw-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  max-width: min(16rem, 100%);
+  padding: 0.25rem 0.75rem;
+  background: var(--vw-tab-bg);
+  color: var(--vw-tab-fg);
+  border: var(--vw-tab-line);
+  border-radius: var(--vw-tab-radius);
+}
+.vw-tab-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.vw-tab-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Toolbar ----------------------------------------------------------------------------------------- */
+
+.vw-toolbar {
+  order: var(--vw-bar-order);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  min-height: 3rem;
+  padding: var(--vw-bar-pad);
+  background: var(--vw-bar-bg);
+  color: var(--vw-bar-fg);
+  border-bottom: var(--vw-bar-line);
+}
+
+.vw-group {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.vw-address,
+.vw-doc {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.375rem 0.75rem;
+  background: var(--vw-addr-bg);
+  color: var(--vw-addr-fg);
+  border: var(--vw-addr-line);
+  border-radius: var(--vw-addr-radius);
+  box-shadow: var(--vw-addr-shadow);
+  font-size: 0.8125rem;
+}
+.vw-address-text,
+.vw-doc-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vw-address-path {
+  opacity: 0.75;
+}
+.vw-doc-pages {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+.vw-lock {
+  flex-shrink: 0;
+  color: var(--vw-accent);
+}
+
+.vw-zoom-level {
+  min-width: 2.75rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--vw-bar-fg);
+}
+
+.vw-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  stroke-width: var(--vw-icon-stroke);
+}
+.vw-icon-sm {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* Buttons and links that look like buttons */
+
+.vw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0 0.5rem;
+  background: var(--vw-btn-bg);
+  color: var(--vw-btn-fg);
+  border: var(--vw-btn-line);
+  border-radius: var(--vw-btn-radius);
+  box-shadow: var(--vw-btn-shadow);
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  text-decoration: none;
+  text-transform: var(--vw-label-case);
+  letter-spacing: var(--vw-label-track);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.vw-btn:hover {
+  background: var(--vw-btn-hover-bg);
+  color: var(--vw-btn-hover-fg);
+  box-shadow: var(--vw-btn-hover-shadow);
+}
+.vw-btn:active {
+  transform: var(--vw-btn-press);
+}
+.vw-btn:disabled {
+  pointer-events: none;
+  opacity: 0.35;
+}
+.vw-btn--label {
+  padding: 0 0.85rem;
+}
+.vw-btn--primary {
+  background: var(--vw-pri-bg);
+  color: var(--vw-pri-fg);
+  border: var(--vw-pri-line);
+  border-radius: var(--vw-pri-radius);
+  box-shadow: var(--vw-pri-shadow);
+}
+.vw-btn--primary:hover {
+  background: var(--vw-pri-hover-bg);
+  color: var(--vw-pri-fg);
+}
+.vw-btn--solid {
+  background: var(--vw-solid-bg);
+  color: var(--vw-solid-fg);
+  border: var(--vw-solid-line);
+  border-radius: var(--vw-solid-radius);
+  box-shadow: var(--vw-solid-shadow);
+}
+.vw-btn--solid:hover {
+  background: var(--vw-solid-hover-bg);
+  color: var(--vw-solid-fg);
+}
+.vw-btn--large {
+  min-height: 2.5rem;
+  padding: 0 1.25rem;
+  font-size: 0.875rem;
+}
+
+@media (pointer: coarse) {
+  .vw-btn {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+}
+
+/* Body -------------------------------------------------------------------------------------------- */
+
+.vw-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  background: var(--vw-body-bg);
+}
+.vw-overlay[data-viewer-kind="card"] .vw-body {
+  background: transparent;
+}
+
+/* Embedded browser */
+.vw-page {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  background: #ffffff;
+}
+.vw-page iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.vw-state {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: var(--vw-bg);
+  color: var(--vw-muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* PDF pages */
+.vw-pages {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 1rem 0.75rem;
+  background: var(--vw-body-bg);
+  outline: none;
+}
+@media (min-width: 40rem) {
+  .vw-pages {
+    padding: 1.5rem;
+  }
+}
+.vw-paper {
+  position: relative;
+  margin: 0 auto;
+  background: #ffffff;
+  box-shadow: var(--vw-paper-shadow);
+  border: var(--vw-paper-line);
+}
+.vw-paper canvas {
+  display: block;
+}
+.vw-pdf-link {
+  position: absolute;
+  border-radius: 2px;
+  outline-offset: 2px;
+}
+.vw-pdf-link:hover {
+  background: color-mix(in srgb, var(--vw-accent) 18%, transparent);
+}
+.vw-empty {
+  max-width: 24rem;
+  margin: 4rem auto 0;
+  color: var(--vw-soft);
+  text-align: center;
+}
+.vw-empty p {
+  margin: 0 0 1rem;
+}
+
+/* Link preview card */
+.vw-card {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--vw-card-pad);
+}
+@media (min-width: 40rem) {
+  .vw-card {
+    padding: calc(var(--vw-card-pad) + 0.5rem);
+  }
+}
+.vw-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.vw-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  margin: 0;
+  color: var(--vw-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.vw-eyebrow svg {
+  color: var(--vw-accent);
+}
+.vw-card-title {
+  margin: 0 0 0.75rem;
+  color: var(--vw-fg);
+  font-family: var(--vw-font-display);
+  font-size: 1.5rem;
+  font-weight: var(--vw-title-weight);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+.vw-card-text {
+  margin: 0 0 1.25rem;
+  color: var(--vw-soft);
+  line-height: 1.65;
+}
+.vw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+.vw-chip {
+  padding: 0.2rem 0.7rem;
+  background: var(--vw-chip-bg);
+  color: var(--vw-chip-fg);
+  border: var(--vw-chip-line);
+  border-radius: var(--vw-chip-radius);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.vw-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.25rem;
+  margin: 0 0 1.5rem;
+  color: var(--vw-muted);
+  font-size: 0.8125rem;
+}
+.vw-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.vw-lang {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: var(--vw-lang-radius);
+  background: var(--vw-accent);
+}
+.vw-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+.vw-note {
+  margin: 1.25rem 0 0;
+  color: var(--vw-muted);
+  font-size: 0.75rem;
+}
+
+/* Status strip */
+.vw-status {
+  order: var(--vw-status-order);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  flex-shrink: 0;
+  padding: 0.5rem 0.75rem;
+  background: var(--vw-status-bg);
+  color: var(--vw-status-fg);
+  border-top: var(--vw-status-line);
+  font-size: 0.75rem;
+}
+.vw-status a {
+  color: var(--vw-status-link, var(--vw-accent));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Visibility helpers for small screens */
+@media (max-width: 39.99rem) {
+  .vw-hide-sm {
+    display: none !important;
+  }
+}
+@media (max-width: 359px) {
+  .vw-hide-xs {
+    display: none !important;
+  }
+}
+/* Below 30rem a labelled button keeps only its icon (it still has an accessible name). */
+@media (max-width: 29.99rem) {
+  .vw-hide-phone {
+    display: none !important;
+  }
+  .vw-btn--download {
+    min-width: 2.5rem;
+    padding: 0;
+  }
+}
+@media (min-width: 40rem) {
+  .vw-show-sm {
+    display: none !important;
+  }
+}
+
+/* Phones: the window fills the screen (the card stays a card). The design switcher floats at the bottom left, so
+   the status strip keeps clear of it. */
+@media (max-width: 39.99rem) {
+  .vw-overlay {
+    padding: var(--vw-pad-sm);
+    padding-bottom: var(--vw-pad-sm);
+  }
+  .vw-overlay[data-viewer-kind="card"] {
+    padding: 1rem;
+  }
+  .vw-overlay:not([data-viewer-kind="card"]) .vw-window {
+    border-radius: var(--vw-radius-sm);
+  }
+  .vw-status {
+    padding-left: 7.5rem;
+    min-height: 3.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vw-btn {
+    transition: none;
+  }
+}

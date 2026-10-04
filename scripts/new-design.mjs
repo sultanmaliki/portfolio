@@ -2,6 +2,7 @@
 //
 //   src/designs/<slug>/index.tsx     starter component (renders all content through usePortfolio())
 //   src/designs/<slug>/styles.module.css  starter styles
+//   src/designs/<slug>/viewer.css    starter theme for the browser window and PDF reader
 //   src/app/designs/<slug>/page.tsx  route + metadata
 //   src/designs/registry.ts          status flipped from "planned" to "live"
 //
@@ -63,8 +64,9 @@ async function main() {
 
   const designFile = new URL(`src/designs/${slug}/index.tsx`, ROOT);
   const styleFile = new URL(`src/designs/${slug}/styles.module.css`, ROOT);
+  const viewerFile = new URL(`src/designs/${slug}/viewer.css`, ROOT);
   const pageFile = new URL(`src/app/designs/${slug}/page.tsx`, ROOT);
-  if (existsSync(designFile) || existsSync(pageFile) || existsSync(styleFile)) {
+  if (existsSync(designFile) || existsSync(pageFile) || existsSync(styleFile) || existsSync(viewerFile)) {
     console.error(`"${slug}" already has files; refusing to overwrite them.`);
     process.exit(1);
   }
@@ -74,17 +76,20 @@ async function main() {
   const component = fill(await readFile(new URL("scripts/templates/design.tsx.tpl", ROOT), "utf8"), vars);
   const page = fill(await readFile(new URL("scripts/templates/page.tsx.tpl", ROOT), "utf8"), vars);
   const styles = fill(await readFile(new URL("scripts/templates/styles.module.css.tpl", ROOT), "utf8"), vars);
+  const viewer = fill(await readFile(new URL("scripts/templates/viewer.css.tpl", ROOT), "utf8"), vars);
 
   await mkdir(new URL(`src/designs/${slug}/`, ROOT), { recursive: true });
   await mkdir(new URL(`src/app/designs/${slug}/`, ROOT), { recursive: true });
   await writeFile(designFile, component);
   await writeFile(styleFile, styles);
+  await writeFile(viewerFile, viewer);
   await writeFile(pageFile, page);
   await writeFile(REGISTRY, updatedRegistry);
 
   console.log(`Created ${entry.name} (${slug}):
   src/designs/${slug}/index.tsx      <- design it here (starter already renders all content)
   src/designs/${slug}/styles.module.css
+  src/designs/${slug}/viewer.css     <- how the browser window and PDF reader look in this design
   src/app/designs/${slug}/page.tsx   <- route, served at /designs/${slug}/
   src/designs/registry.ts            <- status is now "live"
 

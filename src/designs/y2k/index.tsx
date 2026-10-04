@@ -6,6 +6,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { y2kDisplay, y2kText } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -55,6 +57,7 @@ export default function Y2KDesign() {
 
   return (
     <main id="top" data-design="y2k" className={`${y2kDisplay.variable} ${y2kText.variable} ${styles.page}`}>
+      <ViewerTheme slug="y2k" fonts={`${y2kDisplay.variable} ${y2kText.variable}`} entrance="pop" />
       <SkipLink />
 
       <div aria-hidden className={styles.sky}>

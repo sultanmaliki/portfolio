@@ -21,11 +21,14 @@ src/designs/         ← one folder per design + the registry (the plan)
   registry.ts          all 23 designs: name, one-line direction, palette, live | planned
   sections.ts          the nine in-page anchor ids every design provides
   shared/              usePortfolio() (content + wired-up links), Reveal, SkipLink, useActiveSection
-  <slug>/              index.tsx, styles.module.css, fonts.ts, fonts/ (self-hosted woff2 + licences)
+  <slug>/              index.tsx, styles.module.css, viewer.css, fonts.ts, fonts/ (self-hosted woff2 + licences)
 src/app/designs/<slug>/page.tsx   ← one tiny route per design (generated)
 src/components/      ← shared chrome mounted once in the root layout
-  DesignSwitcher       the panel that switches designs
-  ResumeViewer, LinkViewer, SmoothAnchors
+  DesignSwitcher       the panel that switches designs (stays usable above an open viewer)
+  ResumeViewer         the PDF reader         ┐ both are built from the same themed window,
+  LinkViewer           preview card + browser ┘ restyled per design (see "Themed viewers")
+  viewer/              ViewerFrame (the shared window), viewerTheme (which design is active), viewer.css (structure + tokens)
+  SmoothAnchors
 ```
 
 A design never owns content. It reads everything through one hook and arranges it:
@@ -45,9 +48,10 @@ Each design is its own route, so a visitor only downloads the code and fonts of 
 1. Add an entry to `src/designs/registry.ts` with `status: "planned"` (name, one-line direction, three palette swatches).
 2. `npm run new-design -- <slug>` creates `src/designs/<slug>/index.tsx` (a working starter that already renders everything), `src/app/designs/<slug>/page.tsx`, and flips the registry entry to `live`.
 3. Copy the font files you need into `src/designs/<slug>/fonts/` (variable `woff2` from the Fontsource packages is the easiest source; keep each family's licence next to it), declare them in `fonts.ts` with `next/font/local`, and write `styles.module.css`.
-4. `npm run dev`, open `/designs/<slug>/`, and design it. Keep the contract below.
-5. `npm run check && npm run test:e2e`. The e2e suite runs the contract against every live design automatically.
-6. `npm run previews` (after a build) captures the thumbnail the switcher shows for each design into `public/design-previews/<slug>.jpg`. A design without a thumbnail falls back to its three palette swatches.
+4. Theme the viewers: the scaffold gives you `viewer.css` (a starter theme) and a `<ViewerTheme>` in `index.tsx`. Pass it the design's font `variable` classes and restyle `viewer.css` from the design's own palette, type and shapes. See "Themed viewers" below.
+5. `npm run dev`, open `/designs/<slug>/`, and design it. Keep the contract below.
+6. `npm run check && npm run test:e2e`. The e2e suite runs the contract and the viewer checks against every live design automatically.
+7. `npm run previews` (after a build) captures the thumbnail the switcher shows for each design into `public/design-previews/<slug>.jpg`. A design without a thumbnail falls back to its three palette swatches.
 
 To remove a design, delete `src/designs/<slug>` and `src/app/designs/<slug>` and set its registry status back to `planned` (or delete the entry). If `npm run typecheck` then complains about `.next/types`, delete the `.next` folder; it is generated.
 
@@ -67,7 +71,9 @@ Every live design must:
 - leave no infinite animation running when the visitor prefers reduced motion
 - be usable by keyboard (visible focus ring, skip link first) and put the first screen to work for a recruiter: who, what role, available, and where to click next
 
-Shared chrome (the switcher, resume reader and link viewer) is dark glass on purpose so it stays legible on top of any design. Designs do not restyle it.
+- render `<ViewerTheme slug="<slug>" fonts={…} />` and ship a `viewer.css` that styles `[data-viewer-theme="<slug>"]` (unit-tested), so the browser window and PDF reader belong to the design. `e2e/viewers.spec.ts` then walks the preview card, embedded browser and PDF reader of every design: axe, fits the screen, tappable controls on a phone, focus kept inside, and a look no other design shares
+
+The design switcher is dark glass on purpose so it stays legible on top of any design; designs do not restyle it. It sits above an open viewer, so you can change design while the PDF or browser window is showing.
 
 ## Conventions
 
@@ -79,6 +85,71 @@ Shared chrome (the switcher, resume reader and link viewer) is dark glass on pur
 - **Contrast:** text sits on a solid or heavily tinted surface, never directly on a pattern. Check every fill and text pair (the e2e axe run covers solid backgrounds; blurred or patterned areas need a manual check).
 - **Decoration:** purely decorative elements are `aria-hidden`. Generated content (`::before`, `content: attr()`) is for ornament only; meaning stays in the DOM.
 - **Mobile:** layouts collapse to one column below ~52 rem; sticky effects must not trap content taller than the viewport.
+
+## Themed viewers
+
+The in-page **browser window** (a repo preview card, or a live demo in an iframe with back, reload, address bar and "open in a new tab") and the **PDF reader** (pdf.js with zoom, page count, selectable text, clickable links and Download) are one implementation each, shared by all 23 designs and restyled by every design. Behaviour lives in `src/components`; look lives in each design's `viewer.css`.
+
+```
+ResumeViewer / LinkViewer        what they do (pdf.js, iframe, reload, zoom, links)    shared, written once
+  └─ viewer/ViewerFrame          overlay, window, title bar, toolbar slot, body,        shared, written once
+                                 status strip; focus trap, Esc, scroll lock, entrance
+       └─ viewer/viewer.css      structure + the --vw-* design tokens, with defaults    shared, written once
+            └─ <slug>/viewer.css how this design restyles all of it                     one small file per design
+```
+
+**How the active design reaches the viewers.** They live in the root layout, outside any design, so each design renders `<ViewerTheme slug fonts entrance />`. It renders nothing: it publishes the slug, the design's font classes and the entrance animation to a tiny store. `ViewerFrame` reads the store and sets `data-viewer-theme="<slug>"` and the font classes on the overlay. Switching design swaps the store value, so an open viewer restyles in place without closing, reloading the PDF or losing its scroll position. A design's `viewer.css` is imported by that design, so a visitor only downloads the viewer CSS of the design they open.
+
+**The window's parts** (the contract `viewer.css` styles; the top of `src/components/viewer/viewer.css` is the reference):
+
+| Part | Class | Notes |
+| --- | --- | --- |
+| Scrim | `.vw-overlay` | carries `data-viewer-theme` and `data-viewer-kind` (`card`, `browser` or `pdf`) |
+| Window frame | `.vw-window` | border, radius, shadow; its `::before` and `::after` are free for decoration that sticks out (tape, a gold ring, HUD brackets) |
+| Clipped content | `.vw-inner` | holds `.vw-titlebar`, `.vw-toolbar`, `.vw-body`, `.vw-status` in that order |
+| Title bar | `.vw-titlebar` | decorative and `aria-hidden`, so a theme may hide it: `.vw-dots` (window controls) and `.vw-tab` (tab or file name) |
+| Controls | `.vw-toolbar`, `.vw-group`, `.vw-btn` (+ `--primary`, `--solid`, `--label`), `.vw-address`, `.vw-doc`, `.vw-zoom-level` | the real, accessible controls |
+| Content | `.vw-page` (iframe), `.vw-pages` and `.vw-paper` (PDF), `.vw-card`, `.vw-chip`, `.vw-meta` (preview card) | |
+| Status | `.vw-status` | one help line; keeps clear of the switcher button on phones |
+
+A theme sets tokens (`--vw-bg`, `--vw-frame`, `--vw-radius`, `--vw-shadow`, `--vw-scrim`, `--vw-bar-*`, `--vw-btn-*`, `--vw-pri-*`, `--vw-solid-*`, `--vw-addr-*`, `--vw-chip-*`, `--vw-status-*`, `--vw-font*`, `--vw-icon-stroke` and more) and then adds rules for what colour alone cannot express: a toolbar moved below the content (`--vw-bar-order`), a hidden title bar, a clipped corner, a stepped border, a drop cap, a different shape for the window buttons.
+
+**Rules of the road**
+
+- Derive the theme from the design itself (palette, type, borders, radii, shadows, how it draws surfaces) so it looks like that design's own window, not the default with a new accent. Two designs may not end up with the same set of key tokens; an e2e test compares them.
+- Keep every text and background pair AA-contrast. The e2e run applies axe to the open card, browser and PDF reader in each design. Where the accent does not contrast with the status strip, set `--vw-status-link`.
+- Controls stay at least 44 px on touch screens (the base does this; do not shrink them) and the window must fit from 320 px up, so no fixed widths. Use `--vw-pad`, `--vw-pad-sm` and `--vw-radius-sm` to say how the window sits on a phone.
+- Selectors start with `[data-viewer-theme="<slug>"]` and may only name your own slug (unit-tested). Pick the entrance with `<ViewerTheme entrance>`: `rise`, `pop`, `drop`, `slide`, `fade` or `snap`. Reduced motion is handled globally.
+- Decoration is CSS only and nothing new gets an accessible role. The real controls are the shared buttons and links.
+- Never branch behaviour per design. If a design needs something the structure cannot express, extend `ViewerFrame` for everyone.
+
+**What each design does**
+
+| Design | Viewer treatment |
+| --- | --- |
+| Cinematic | Dark stage: glass bars, hairline frame, wide-tracked uppercase labels, a lit blue edge under the label bar, pill controls like the page's own calls to action |
+| Claymorphism | Puffy pastel clay: pink title bar with three clay beads, bulging buttons that squash when pressed, a dented address field and page tray, mint status strip |
+| Cybercore | HUD panel: cyan corner brackets, brushed-metal title bar, coordinate grid behind the content, square outlined controls, `SYS //` mono status line |
+| Neo-brutalism | Yellow and coral blocks with 3 px black borders and hard offset shadows, square window buttons, controls that press into their shadow |
+| Scrapbook | Taped sheet of paper: two tape strips, typewriter label tab, crooked sticker buttons, handwritten notes, craft-paper tray under the PDF |
+| Surrealism | Plum arch with a gold frame, a gold ring and a blue moon drifting off its edge, leaf-shaped controls, italic serif titles |
+| Y2K aesthetic | Early-2000s window: glossy gradient title bar with bevelled buttons on the right, 3D bevel controls, sunken address field, star-dot body |
+| Pixel art | Game menu: 4 px block borders, solid black step shadow, pixel-font labels, tiles that drop into their shadow, entrance in four hard frames |
+| Synthwave | Neon sign over a sunset: pink and cyan glow, italic tracked labels, perspective-grid floor, setting sun behind the window |
+| Glassmorphism | Frosted translucent layers over the blurred violet, pink and teal light field, bright top edge, small glass tiles |
+| Neumorphism | One soft plastic surface: extruded window and buttons, pressed-in address, tab and page tray |
+| Bento grid | A bento box: title bar, toolbar, content and status are separate rounded tiles on an off-white tray, one dark tile |
+| Editorial design | Broadsheet: thick-over-double rules, serif masthead, small-caps text-link controls, a drop cap, crimson only for the main action |
+| Swiss design | International Typographic Style: red 6 px rule over a black 4 px one, square boxes that invert on hover, no shadows, one grotesque |
+| Minimalism | Almost nothing: no title bar, hairlines, muted icons and words, one dark button |
+| Maximalism | Striped title bar, zigzag toolbar, dotted and checked backgrounds, stacked two-colour hard shadows, a different sticker colour per chip |
+| Luxury typography | Black with a double gold hairline frame, centred serif title, quiet wide-tracked words for controls |
+| Conceptual sketch | Graph-paper notebook page: pencil outlines with uneven corners, dashed construction lines, hollow doodle dots, handwritten labels and notes |
+| Ethereal | Pearl frosted glass in a halo over a pale haze, big gentle radii, accent-tinted shadows, italic serif notes |
+| Bohemian | Arched cream window, a woven terracotta band under the title, earthy rounded buttons, serif italics |
+| Victorian | Parlour display case: burgundy mat and brass frame, small-caps title between brass diamonds, brass-plated buttons, a drop cap |
+| Cyberpunk | Terminal with two cut corners, hazard-striped title strip, skewed status lights, scanlines, clipped primary buttons |
+| Wabi-sabi | Plaster and handmade paper: slightly off-square edges, a small rust seal in the title bar, almost no shadow |
 
 ---
 

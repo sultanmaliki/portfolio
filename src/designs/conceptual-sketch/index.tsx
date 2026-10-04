@@ -7,6 +7,8 @@ import { showOnView } from "../shared/showOnView";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { sketchBody, sketchHand } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -90,6 +92,7 @@ export default function ConceptualSketchDesign() {
 
   return (
     <main id="top" data-design="conceptual-sketch" className={`${sketchHand.variable} ${sketchBody.variable} ${styles.page}`}>
+      <ViewerTheme slug="conceptual-sketch" fonts={`${sketchHand.variable} ${sketchBody.variable}`} entrance="rise" />
       <SkipLink />
 
       {/* Shared pencil-wobble filter used by the sketched borders. Decorative. */}

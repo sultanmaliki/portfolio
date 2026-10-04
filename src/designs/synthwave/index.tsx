@@ -6,6 +6,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { synthExo } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -41,6 +43,7 @@ export default function SynthwaveDesign() {
 
   return (
     <main id="top" data-design="synthwave" className={`${synthExo.variable} ${styles.page}`}>
+      <ViewerTheme slug="synthwave" fonts={`${synthExo.variable}`} entrance="rise" />
       <SkipLink />
 
       <header className={styles.hero}>

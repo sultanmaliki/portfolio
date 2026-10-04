@@ -1,0 +1,141 @@
+/* Cybercore viewer: a HUD panel in brushed metal. Cyan hairlines, corner brackets, a coordinate grid behind the content,
+   monospaced uppercase labels and square, tactile controls. Cold and instrument-like, nothing rounded. */
+[data-viewer-theme="cybercore"] {
+  --core-cyan: #7cf7e4;
+  --core-line: rgba(124, 247, 228, 0.3);
+  --core-grid: linear-gradient(rgba(124, 247, 228, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(124, 247, 228, 0.07) 1px, transparent 1px);
+
+  --vw-font: var(--font-core-mono), ui-monospace, Menlo, monospace;
+  --vw-font-display: var(--font-core-display), var(--font-core-mono), sans-serif;
+  --vw-scrim: rgba(5, 8, 12, 0.84);
+  --vw-scrim-blur: 3px;
+  --vw-pad-sm: 0;
+  --vw-bg: #0b0f14;
+  --vw-fg: #e6ebf2;
+  --vw-soft: #c3c9d4;
+  --vw-muted: #9aa5b5;
+  --vw-accent: #7cf7e4;
+  --vw-accent-fg: #0b0f14;
+  --vw-frame: 1px solid var(--core-line);
+  --vw-radius: 2px;
+  --vw-radius-sm: 0;
+  --vw-shadow: 0 0 0 1px rgba(124, 247, 228, 0.06), 0 0 60px rgba(124, 247, 228, 0.12), 0 30px 60px rgba(0, 0, 0, 0.7);
+  --vw-title-display: flex;
+  --vw-title-h: 2rem;
+  --vw-title-bg: linear-gradient(180deg, #2a3340, #151b23);
+  --vw-title-fg: #c3c9d4;
+  --vw-title-line: 1px solid var(--core-line);
+  --vw-dot-size: 0.375rem;
+  --vw-dot-radius: 1px;
+  --vw-dot-1: #7cf7e4;
+  --vw-dot-2: #4b5666;
+  --vw-dot-3: #4b5666;
+  --vw-tab-bg: transparent;
+  --vw-tab-fg: #c3c9d4;
+  --vw-label-case: uppercase;
+  --vw-label-track: 0.14em;
+  --vw-bar-bg: #101720;
+  --vw-bar-fg: #c3c9d4;
+  --vw-bar-line: 1px solid var(--core-line);
+  --vw-btn-bg: transparent;
+  --vw-btn-fg: #c3c9d4;
+  --vw-btn-line: 1px solid rgba(124, 247, 228, 0.22);
+  --vw-btn-radius: 0;
+  --vw-btn-hover-bg: rgba(124, 247, 228, 0.12);
+  --vw-btn-hover-fg: #7cf7e4;
+  --vw-btn-hover-shadow: 0 0 14px rgba(124, 247, 228, 0.25), inset 0 0 0 1px rgba(124, 247, 228, 0.5);
+  --vw-pri-bg: transparent;
+  --vw-pri-fg: #7cf7e4;
+  --vw-pri-line: 1px solid #7cf7e4;
+  --vw-pri-radius: 0;
+  --vw-pri-hover-bg: rgba(124, 247, 228, 0.16);
+  --vw-solid-bg: #7cf7e4;
+  --vw-solid-fg: #0b0f14;
+  --vw-solid-line: 1px solid #7cf7e4;
+  --vw-solid-radius: 0;
+  --vw-solid-hover-bg: #a4fbee;
+  --vw-addr-bg: #0b0f14;
+  --vw-addr-fg: #7cf7e4;
+  --vw-addr-line: 1px solid var(--core-line);
+  --vw-addr-radius: 0;
+  --vw-body-bg: #0b0f14;
+  --vw-paper-shadow: 0 0 0 1px rgba(124, 247, 228, 0.45), 0 0 34px rgba(124, 247, 228, 0.18);
+  --vw-chip-bg: rgba(124, 247, 228, 0.07);
+  --vw-chip-fg: #7cf7e4;
+  --vw-chip-line: 1px solid var(--core-line);
+  --vw-chip-radius: 0;
+  --vw-lang-radius: 0;
+  --vw-status-bg: #101720;
+  --vw-status-fg: #9aa5b5;
+  --vw-status-line: 1px solid var(--core-line);
+  --vw-focus: #7cf7e4;
+  --vw-icon-stroke: 1.75;
+}
+
+/* faint coordinate grid under everything */
+[data-viewer-theme="cybercore"].vw-overlay {
+  background-image: var(--core-grid);
+  background-size: 48px 48px;
+  background-color: var(--vw-scrim);
+}
+[data-viewer-theme="cybercore"] .vw-body {
+  background-image: var(--core-grid);
+  background-size: 32px 32px;
+}
+[data-viewer-theme="cybercore"][data-viewer-kind="card"] .vw-body {
+  background-color: transparent;
+}
+
+/* corner brackets */
+[data-viewer-theme="cybercore"] .vw-window::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  pointer-events: none;
+  z-index: 2;
+  --b: var(--core-cyan);
+  background:
+    linear-gradient(var(--b), var(--b)) top left / 18px 2px no-repeat,
+    linear-gradient(var(--b), var(--b)) top left / 2px 18px no-repeat,
+    linear-gradient(var(--b), var(--b)) top right / 18px 2px no-repeat,
+    linear-gradient(var(--b), var(--b)) top right / 2px 18px no-repeat,
+    linear-gradient(var(--b), var(--b)) bottom left / 18px 2px no-repeat,
+    linear-gradient(var(--b), var(--b)) bottom left / 2px 18px no-repeat,
+    linear-gradient(var(--b), var(--b)) bottom right / 18px 2px no-repeat,
+    linear-gradient(var(--b), var(--b)) bottom right / 2px 18px no-repeat;
+}
+@media (max-width: 39.99rem) {
+  [data-viewer-theme="cybercore"] .vw-window::before {
+    inset: 0;
+  }
+}
+
+[data-viewer-theme="cybercore"] .vw-tab {
+  padding: 0.2rem 0.5rem;
+  border-left: 2px solid var(--core-cyan);
+  font-family: var(--font-core-mono), monospace;
+}
+[data-viewer-theme="cybercore"] .vw-card-title {
+  font-family: var(--font-core-display), sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+[data-viewer-theme="cybercore"] .vw-eyebrow::before,
+[data-viewer-theme="cybercore"] .vw-status > span:first-child::before {
+  content: "SYS // ";
+  color: var(--core-cyan);
+}
+[data-viewer-theme="cybercore"] .vw-status {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.6875rem;
+}
+[data-viewer-theme="cybercore"] .vw-address-text::before {
+  content: "> ";
+  opacity: 0.6;
+}
+[data-viewer-theme="cybercore"] .vw-zoom-level,
+[data-viewer-theme="cybercore"] .vw-doc-pages {
+  color: #7cf7e4;
+}

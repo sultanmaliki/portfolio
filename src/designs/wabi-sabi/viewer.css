@@ -1,0 +1,146 @@
+/* Wabi-sabi viewer: a plastered wall and a sheet of handmade paper. Muted plaster, ink and a single rust accent. Nothing is
+   perfectly square: edges are a few pixels off, borders are thin and a little uneven, there are no shadows to speak of, no
+   gloss, no animation beyond a slow fade. The title bar carries a small rust seal. */
+[data-viewer-theme="wabi-sabi"] {
+  --ws-plaster: #d8d2c4;
+  --ws-line: rgba(52, 50, 45, 0.45);
+  --ws-uneven: 3px 9px 4px 11px / 10px 4px 9px 3px;
+  --ws-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .45 -.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  --vw-font: var(--font-wabi), Georgia, serif;
+  --vw-font-display: var(--font-wabi), Georgia, serif;
+  --vw-scrim: rgba(52, 50, 45, 0.6);
+  --vw-scrim-blur: 0px;
+  --vw-pad: 2.25rem;
+  --vw-pad-sm: 0.75rem;
+  --vw-bg: #d8d2c4;
+  --vw-fg: #34322d;
+  --vw-soft: #3d3b35;
+  --vw-muted: #47443c;
+  --vw-accent: #6b3f27;
+  --vw-accent-fg: #f1ece0;
+  --vw-frame: 1px solid var(--ws-line);
+  --vw-radius: 3px 9px 4px 11px / 10px 4px 9px 3px;
+  --vw-radius-sm: 3px 9px 4px 11px / 10px 4px 9px 3px;
+  --vw-shadow: 0 18px 40px -18px rgba(30, 28, 24, 0.7);
+  --vw-title-display: flex;
+  --vw-title-bg: transparent;
+  --vw-title-fg: #47443c;
+  --vw-title-line: 1px solid var(--ws-line);
+  --vw-dots-display: none;
+  --vw-tab-fg: #47443c;
+  --vw-bar-bg: transparent;
+  --vw-bar-fg: #34322d;
+  --vw-bar-line: 1px solid var(--ws-line);
+  --vw-btn-bg: transparent;
+  --vw-btn-fg: #34322d;
+  --vw-btn-line: 1px solid transparent;
+  --vw-btn-radius: 2px 7px 3px 6px;
+  --vw-btn-hover-bg: rgba(107, 63, 39, 0.1);
+  --vw-btn-hover-fg: #6b3f27;
+  --vw-pri-bg: transparent;
+  --vw-pri-fg: #6b3f27;
+  --vw-pri-line: 1px solid #6b3f27;
+  --vw-pri-radius: 2px 7px 3px 6px;
+  --vw-pri-hover-bg: rgba(107, 63, 39, 0.12);
+  --vw-solid-bg: #34322d;
+  --vw-solid-fg: #ece6d8;
+  --vw-solid-line: 1px solid #34322d;
+  --vw-solid-radius: 2px 7px 3px 6px;
+  --vw-solid-hover-bg: #6b3f27;
+  --vw-addr-bg: rgba(255, 255, 255, 0.22);
+  --vw-addr-fg: #34322d;
+  --vw-addr-line: 0;
+  --vw-addr-radius: 3px 8px 4px 6px;
+  --vw-body-bg: #cdc6b6;
+  --vw-paper-shadow: 0 8px 20px -8px rgba(30, 28, 24, 0.6);
+  --vw-chip-bg: transparent;
+  --vw-chip-fg: #3d3b35;
+  --vw-chip-line: 1px solid var(--ws-line);
+  --vw-chip-radius: 2px 6px 3px 5px;
+  --vw-lang-radius: 40% 60% 50% 50%;
+  --vw-status-bg: transparent;
+  --vw-status-fg: #47443c;
+  --vw-status-line: 1px solid var(--ws-line);
+  --vw-focus: #6b3f27;
+  --vw-focus-width: 2px;
+  --vw-icon-stroke: 1.5;
+  --vw-title-weight: 500;
+  --vw-card-pad: 1.5rem;
+}
+
+[data-viewer-theme="wabi-sabi"] .vw-window {
+  background-image: radial-gradient(ellipse at 18% 8%, rgba(255, 255, 255, 0.2), transparent 52%), radial-gradient(ellipse at 82% 62%, rgba(110, 92, 62, 0.12), transparent 56%), var(--ws-grain);
+}
+[data-viewer-theme="wabi-sabi"] .vw-body {
+  background-image: var(--ws-grain);
+}
+[data-viewer-theme="wabi-sabi"][data-viewer-kind="card"] .vw-body {
+  background-image: none;
+}
+/* the seal */
+[data-viewer-theme="wabi-sabi"] .vw-tab::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background: #6b3f27;
+  border-radius: 1px 2px 1px 2px;
+  rotate: -4deg;
+}
+[data-viewer-theme="wabi-sabi"] .vw-tab-icon {
+  display: none;
+}
+[data-viewer-theme="wabi-sabi"] .vw-tab {
+  font-style: italic;
+  font-size: 0.875rem;
+}
+[data-viewer-theme="wabi-sabi"] .vw-btn--primary:hover,
+[data-viewer-theme="wabi-sabi"] .vw-btn--solid:hover {
+  color: #ece6d8;
+}
+[data-viewer-theme="wabi-sabi"] .vw-btn--primary:hover {
+  color: #6b3f27;
+}
+[data-viewer-theme="wabi-sabi"] .vw-address,
+[data-viewer-theme="wabi-sabi"] .vw-doc {
+  font-style: italic;
+  font-size: 0.9375rem;
+  border-bottom: 1px solid var(--ws-line);
+}
+[data-viewer-theme="wabi-sabi"] .vw-lock {
+  color: #6b3f27;
+}
+[data-viewer-theme="wabi-sabi"] .vw-eyebrow {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-style: italic;
+  font-size: 0.875rem;
+}
+[data-viewer-theme="wabi-sabi"] .vw-eyebrow svg {
+  color: #6b3f27;
+}
+[data-viewer-theme="wabi-sabi"] .vw-card-title {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+[data-viewer-theme="wabi-sabi"] .vw-card-text {
+  line-height: 1.8;
+}
+[data-viewer-theme="wabi-sabi"] .vw-chip {
+  font-style: italic;
+}
+[data-viewer-theme="wabi-sabi"] .vw-status {
+  font-style: italic;
+}
+[data-viewer-theme="wabi-sabi"] .vw-state {
+  background: #d8d2c4;
+  font-style: italic;
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-viewer-theme="wabi-sabi"] .vw-btn {
+    transition-duration: 0.4s;
+  }
+}

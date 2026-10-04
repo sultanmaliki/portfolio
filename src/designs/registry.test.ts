@@ -93,3 +93,26 @@ describe("design paths", () => {
     expect(designForPath("/somewhere-else/")).toBeUndefined();
   });
 });
+
+describe("viewer themes", () => {
+  // The browser window and PDF reader are shared; each design restyles them from its own viewer.css and tells the
+  // viewer which design is active with <ViewerTheme>. A design without both would show another design's look.
+  it("gives every live design a viewer theme registered under its own slug", () => {
+    for (const d of liveDesigns()) {
+      const css = file(`src/designs/${d.slug}/viewer.css`);
+      expect(existsSync(css), `${d.slug} has no viewer.css`).toBe(true);
+      expect(readFileSync(css, "utf8"), `${d.slug}/viewer.css never styles [data-viewer-theme="${d.slug}"]`).toContain(`[data-viewer-theme="${d.slug}"]`);
+      const index = readFileSync(file(`src/designs/${d.slug}/index.tsx`), "utf8");
+      expect(index, `${d.slug}/index.tsx does not render <ViewerTheme slug="${d.slug}">`).toContain(`<ViewerTheme slug="${d.slug}"`);
+      expect(index, `${d.slug}/index.tsx does not import its viewer.css`).toContain('import "./viewer.css"');
+    }
+  });
+
+  it("does not let a theme style another design's viewer", () => {
+    for (const d of liveDesigns()) {
+      const css = readFileSync(file(`src/designs/${d.slug}/viewer.css`), "utf8");
+      const targeted = new Set([...css.matchAll(/\[data-viewer-theme="([^"]+)"\]/g)].map((m) => m[1]));
+      expect([...targeted], `${d.slug}/viewer.css targets other designs`).toEqual([d.slug]);
+    }
+  });
+});

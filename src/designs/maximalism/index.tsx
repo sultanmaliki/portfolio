@@ -5,6 +5,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { maxAbril, maxBowlby, maxSyne } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -36,6 +38,7 @@ export default function MaximalismDesign() {
 
   return (
     <main id="top" data-design="maximalism" className={`${maxBowlby.variable} ${maxAbril.variable} ${maxSyne.variable} ${styles.page} ${calm ? styles.calm : ""}`}>
+      <ViewerTheme slug="maximalism" fonts={`${maxBowlby.variable} ${maxAbril.variable} ${maxSyne.variable}`} entrance="pop" />
       <SkipLink />
 
       <div className={styles.wrap}>

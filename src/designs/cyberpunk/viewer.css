@@ -1,0 +1,185 @@
+/* Cyberpunk viewer: a street terminal. Near-black with yellow, red and cyan, the window cut at two corners like the page's
+   panels, a hazard-striped title strip with a yellow tab, skewed status lights instead of dots, scanlines over everything,
+   monospaced capitals and clipped buttons that flip to solid cyan on hover. */
+[data-viewer-theme="cyberpunk"] {
+  --cp-cut: 16px;
+  --cp-cut-sm: 8px;
+  --cp-hazard: repeating-linear-gradient(-45deg, #fcee0a 0 10px, #0a0a0f 10px 20px);
+  --cp-scan: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px);
+
+  --vw-font: var(--font-cp-mono), "Courier New", monospace;
+  --vw-font-display: var(--font-cp-display), var(--font-cp-mono), sans-serif;
+  --vw-scrim: radial-gradient(ellipse at 15% 0%, rgba(255, 0, 60, 0.3), transparent 45%), radial-gradient(ellipse at 90% 40%, rgba(0, 240, 255, 0.14), transparent 40%), rgba(5, 5, 8, 0.9);
+  --vw-scrim-blur: 2px;
+  --vw-pad: 2rem;
+  --vw-pad-sm: 0;
+  --vw-bg: #0a0a0f;
+  --vw-fg: #ececf3;
+  --vw-soft: #d6d6e2;
+  --vw-muted: #a9a9bd;
+  --vw-accent: #00f0ff;
+  --vw-accent-fg: #0a0a0f;
+  --vw-frame: 0;
+  --vw-radius: 0;
+  --vw-radius-sm: 0;
+  --vw-shadow: none;
+  --vw-title-display: flex;
+  --vw-title-h: 2.25rem;
+  --vw-title-bg: #0a0a0f;
+  --vw-title-fg: #fcee0a;
+  --vw-title-line: 1px solid rgba(252, 238, 10, 0.55);
+  --vw-dot-size: 0.9rem;
+  --vw-dot-radius: 0;
+  --vw-dot-1: #ff003c;
+  --vw-dot-2: #fcee0a;
+  --vw-dot-3: #00f0ff;
+  --vw-tab-bg: #fcee0a;
+  --vw-tab-fg: #0a0a0f;
+  --vw-label-case: uppercase;
+  --vw-label-track: 0.1em;
+  --vw-bar-bg: #11111a;
+  --vw-bar-fg: #ececf3;
+  --vw-bar-line: 1px solid rgba(0, 240, 255, 0.4);
+  --vw-btn-bg: transparent;
+  --vw-btn-fg: #00f0ff;
+  --vw-btn-line: 1px solid rgba(0, 240, 255, 0.55);
+  --vw-btn-radius: 0;
+  --vw-btn-hover-bg: #00f0ff;
+  --vw-btn-hover-fg: #0a0a0f;
+  --vw-btn-hover-shadow: 0 0 14px rgba(0, 240, 255, 0.5);
+  --vw-pri-bg: #fcee0a;
+  --vw-pri-fg: #0a0a0f;
+  --vw-pri-line: 1px solid #fcee0a;
+  --vw-pri-radius: 0;
+  --vw-pri-hover-bg: #fff56a;
+  --vw-solid-bg: #ff003c;
+  --vw-solid-fg: #0a0a0f;
+  --vw-solid-line: 1px solid #ff003c;
+  --vw-solid-radius: 0;
+  --vw-solid-hover-bg: #ff5a7a;
+  --vw-addr-bg: #050508;
+  --vw-addr-fg: #fcee0a;
+  --vw-addr-line: 1px solid rgba(255, 0, 60, 0.7);
+  --vw-addr-radius: 0;
+  --vw-body-bg: #0a0a0f;
+  --vw-paper-shadow: 6px 6px 0 #ff003c;
+  --vw-paper-line: 2px solid #fcee0a;
+  --vw-chip-bg: transparent;
+  --vw-chip-fg: #00f0ff;
+  --vw-chip-line: 1px solid rgba(0, 240, 255, 0.55);
+  --vw-chip-radius: 0;
+  --vw-lang-radius: 0;
+  --vw-status-bg: #050508;
+  --vw-status-fg: #a9a9bd;
+  --vw-status-line: 1px solid rgba(252, 238, 10, 0.55);
+  --vw-focus: #fcee0a;
+  --vw-focus-width: 3px;
+  --vw-icon-stroke: 1.75;
+  --vw-title-weight: 700;
+  --vw-card-pad: 1.5rem;
+}
+
+/* The yellow outline is the window's own background showing around an inset, equally cut copy of itself. */
+[data-viewer-theme="cyberpunk"] .vw-window {
+  padding: 2px;
+  background: #fcee0a;
+  clip-path: polygon(0 0, calc(100% - var(--cp-cut)) 0, 100% var(--cp-cut), 100% 100%, var(--cp-cut) 100%, 0 calc(100% - var(--cp-cut)));
+}
+[data-viewer-theme="cyberpunk"] .vw-inner {
+  background: #0a0a0f;
+  clip-path: polygon(0 0, calc(100% - var(--cp-cut) + 1px) 0, 100% calc(var(--cp-cut) - 1px), 100% 100%, calc(var(--cp-cut) - 1px) 100%, 0 calc(100% - var(--cp-cut) + 1px));
+}
+/* scanlines over the whole window */
+[data-viewer-theme="cyberpunk"] .vw-window::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: var(--cp-scan);
+  pointer-events: none;
+}
+[data-viewer-theme="cyberpunk"] .vw-titlebar {
+  position: relative;
+  padding-top: 8px;
+}
+[data-viewer-theme="cyberpunk"] .vw-titlebar::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 6px;
+  background: var(--cp-hazard);
+}
+[data-viewer-theme="cyberpunk"] .vw-dots i {
+  width: 1rem;
+  height: 0.35rem;
+  transform: skewX(-25deg);
+}
+[data-viewer-theme="cyberpunk"] .vw-tab {
+  padding: 0.1rem 0.75rem;
+  font-weight: 700;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+[data-viewer-theme="cyberpunk"] .vw-btn,
+[data-viewer-theme="cyberpunk"] .vw-btn--primary,
+[data-viewer-theme="cyberpunk"] .vw-btn--solid {
+  font-weight: 700;
+}
+[data-viewer-theme="cyberpunk"] .vw-btn--primary,
+[data-viewer-theme="cyberpunk"] .vw-btn--solid {
+  clip-path: polygon(0 0, calc(100% - var(--cp-cut-sm)) 0, 100% var(--cp-cut-sm), 100% 100%, var(--cp-cut-sm) 100%, 0 calc(100% - var(--cp-cut-sm)));
+}
+[data-viewer-theme="cyberpunk"] .vw-btn--primary:focus-visible,
+[data-viewer-theme="cyberpunk"] .vw-btn--solid:focus-visible {
+  outline-offset: -4px;
+}
+[data-viewer-theme="cyberpunk"] .vw-btn:disabled {
+  border-color: #3a3a4a;
+  color: #6a6a80;
+}
+[data-viewer-theme="cyberpunk"] .vw-address-text::before {
+  content: "> ";
+  color: #ff003c;
+}
+[data-viewer-theme="cyberpunk"] .vw-eyebrow {
+  color: #ff5a7a;
+}
+[data-viewer-theme="cyberpunk"] .vw-card-title {
+  font-family: var(--font-cp-display), sans-serif;
+  font-size: 2.1rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+[data-viewer-theme="cyberpunk"] .vw-card-title::first-line {
+  color: #ffffff;
+}
+[data-viewer-theme="cyberpunk"] .vw-card-title::after {
+  content: "";
+  display: block;
+  width: 5rem;
+  height: 4px;
+  margin-top: 0.75rem;
+  background: var(--cp-hazard);
+}
+[data-viewer-theme="cyberpunk"] .vw-body {
+  background-image: var(--cp-scan);
+}
+[data-viewer-theme="cyberpunk"][data-viewer-kind="card"] .vw-body {
+  background-image: none;
+}
+[data-viewer-theme="cyberpunk"] .vw-status > span:first-child::before {
+  content: "// ";
+  color: #ff003c;
+}
+[data-viewer-theme="cyberpunk"] .vw-state {
+  background: #0a0a0f;
+  color: #fcee0a;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+@media (max-width: 39.99rem) {
+  [data-viewer-theme="cyberpunk"] {
+    --cp-cut: 12px;
+  }
+}

@@ -1,0 +1,125 @@
+/* Synthwave viewer: a neon sign over a sunset horizon. A glowing pink and cyan outline, light-bleed on every control,
+   italic tracked labels, a perspective grid floor under the content and a setting sun behind the window. */
+[data-viewer-theme="synthwave"] {
+  --sw-pink: #ff2a6d;
+  --sw-cyan: #05d9e8;
+  --sw-glow-pink: 0 0 12px rgba(255, 42, 109, 0.55);
+  --sw-glow-cyan: 0 0 12px rgba(5, 217, 232, 0.5);
+
+  --vw-font: var(--font-synth), system-ui, sans-serif;
+  --vw-font-display: var(--font-synth), system-ui, sans-serif;
+  --vw-scrim: radial-gradient(ellipse 70% 40% at 50% 100%, rgba(255, 42, 109, 0.42), transparent 70%), radial-gradient(circle at 50% 108%, rgba(255, 163, 51, 0.5) 0 14%, transparent 15%), rgba(10, 3, 24, 0.9);
+  --vw-scrim-blur: 5px;
+  --vw-pad: 1.75rem;
+  --vw-pad-sm: 0;
+  --vw-bg: #14072a;
+  --vw-fg: #f5e9ff;
+  --vw-soft: #e6d6f7;
+  --vw-muted: #cdb8e6;
+  --vw-accent: #05d9e8;
+  --vw-accent-fg: #14072a;
+  --vw-frame: 1px solid rgba(5, 217, 232, 0.7);
+  --vw-radius: 0.9rem;
+  --vw-radius-sm: 0;
+  --vw-shadow: 0 0 0 1px rgba(255, 42, 109, 0.55), 0 0 28px rgba(255, 42, 109, 0.4), 0 0 90px rgba(5, 217, 232, 0.22);
+  --vw-title-display: flex;
+  --vw-title-bg: #1f0c3a;
+  --vw-title-fg: #ff8fb4;
+  --vw-title-line: 1px solid rgba(255, 42, 109, 0.6);
+  --vw-dot-size: 0.6rem;
+  --vw-dot-1: #ff2a6d;
+  --vw-dot-2: #ffd166;
+  --vw-dot-3: #05d9e8;
+  --vw-tab-fg: #ff8fb4;
+  --vw-label-case: uppercase;
+  --vw-label-track: 0.12em;
+  --vw-bar-bg: #190a33;
+  --vw-bar-fg: #e6d6f7;
+  --vw-bar-line: 1px solid rgba(5, 217, 232, 0.35);
+  --vw-btn-bg: transparent;
+  --vw-btn-fg: #05d9e8;
+  --vw-btn-line: 1px solid rgba(5, 217, 232, 0.4);
+  --vw-btn-radius: 0.5rem;
+  --vw-btn-hover-bg: rgba(5, 217, 232, 0.14);
+  --vw-btn-hover-fg: #7ef3fb;
+  --vw-btn-hover-shadow: var(--sw-glow-cyan), inset 0 0 8px rgba(5, 217, 232, 0.25);
+  --vw-pri-bg: #ff2a6d;
+  --vw-pri-fg: #14072a;
+  --vw-pri-line: 1px solid #ff6b9a;
+  --vw-pri-radius: 0.5rem;
+  --vw-pri-shadow: var(--sw-glow-pink);
+  --vw-pri-hover-bg: #ff5c8d;
+  --vw-solid-bg: #05d9e8;
+  --vw-solid-fg: #14072a;
+  --vw-solid-line: 1px solid #7ef3fb;
+  --vw-solid-radius: 0.5rem;
+  --vw-solid-shadow: var(--sw-glow-cyan);
+  --vw-solid-hover-bg: #5ae9f4;
+  --vw-addr-bg: #0e0420;
+  --vw-addr-fg: #f5e9ff;
+  --vw-addr-line: 1px solid rgba(255, 42, 109, 0.55);
+  --vw-addr-radius: 0.5rem;
+  --vw-addr-shadow: inset 0 0 12px rgba(255, 42, 109, 0.18);
+  --vw-body-bg: #14072a;
+  --vw-paper-shadow: 0 0 0 1px rgba(5, 217, 232, 0.6), 0 0 36px rgba(5, 217, 232, 0.25), 0 0 80px rgba(255, 42, 109, 0.2);
+  --vw-chip-bg: rgba(255, 42, 109, 0.12);
+  --vw-chip-fg: #ff8fb4;
+  --vw-chip-line: 1px solid rgba(255, 42, 109, 0.5);
+  --vw-chip-radius: 0.4rem;
+  --vw-status-bg: #190a33;
+  --vw-status-fg: #cdb8e6;
+  --vw-status-line: 1px solid rgba(5, 217, 232, 0.35);
+  --vw-focus: #05d9e8;
+  --vw-focus-width: 3px;
+  --vw-icon-stroke: 1.75;
+}
+
+[data-viewer-theme="synthwave"] .vw-dots i {
+  box-shadow: 0 0 8px currentColor;
+}
+[data-viewer-theme="synthwave"] .vw-dots i:nth-child(1) {
+  box-shadow: 0 0 8px #ff2a6d;
+}
+[data-viewer-theme="synthwave"] .vw-dots i:nth-child(2) {
+  box-shadow: 0 0 8px #ffd166;
+}
+[data-viewer-theme="synthwave"] .vw-dots i:nth-child(3) {
+  box-shadow: 0 0 8px #05d9e8;
+}
+[data-viewer-theme="synthwave"] .vw-tab {
+  font-style: italic;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(255, 42, 109, 0.7);
+}
+[data-viewer-theme="synthwave"] .vw-btn {
+  font-weight: 600;
+  font-style: italic;
+}
+[data-viewer-theme="synthwave"] .vw-card-title {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 1.85rem;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(255, 42, 109, 0.85), 3px 3px 0 rgba(5, 217, 232, 0.55);
+}
+[data-viewer-theme="synthwave"] .vw-eyebrow {
+  color: #ff8fb4;
+}
+[data-viewer-theme="synthwave"] .vw-body {
+  background-image: linear-gradient(rgba(255, 42, 109, 0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.12) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: center bottom;
+}
+[data-viewer-theme="synthwave"][data-viewer-kind="card"] .vw-body {
+  background-image: linear-gradient(180deg, transparent 55%, rgba(255, 42, 109, 0.14)), linear-gradient(rgba(5, 217, 232, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.08) 1px, transparent 1px);
+  background-size: 100% 100%, 44px 44px, 44px 44px;
+  background-position: 0 0, center bottom, center bottom;
+}
+[data-viewer-theme="synthwave"] .vw-state {
+  background: #14072a;
+}
+[data-viewer-theme="synthwave"] .vw-status {
+  font-style: italic;
+}

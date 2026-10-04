@@ -7,6 +7,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { cybercoreMono, cybercoreOrbitron } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -57,6 +59,7 @@ export default function CybercoreDesign() {
 
   return (
     <main id="top" data-design="cybercore" className={`${cybercoreOrbitron.variable} ${cybercoreMono.variable} ${styles.page}`}>
+      <ViewerTheme slug="cybercore" fonts={`${cybercoreOrbitron.variable} ${cybercoreMono.variable}`} entrance="slide" />
       <SkipLink />
       <div aria-hidden className={styles.gridLines} />
 

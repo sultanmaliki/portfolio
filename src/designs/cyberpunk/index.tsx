@@ -5,6 +5,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { cyberpunkDisplay, cyberpunkMono } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -29,6 +31,7 @@ export default function CyberpunkDesign() {
 
   return (
     <main id="top" data-design="cyberpunk" className={`${cyberpunkDisplay.variable} ${cyberpunkMono.variable} ${styles.page}`}>
+      <ViewerTheme slug="cyberpunk" fonts={`${cyberpunkDisplay.variable} ${cyberpunkMono.variable}`} entrance="slide" />
       <SkipLink />
       <div aria-hidden className={styles.scanlines} />
 

@@ -1,0 +1,136 @@
+/* Bohemian viewer: a handmade, sun-warmed room. Cream and terracotta with mustard and sage, an arched window top, a woven
+   band of colour under the title, rounded earthy buttons, a serif for titles and notes. Warm brown shadows, never grey. */
+[data-viewer-theme="bohemian"] {
+  --bh-terra: #9e4a2f;
+  --bh-band: linear-gradient(#e9c46a, #e9c46a) left 0 bottom 0 / 100% 4px no-repeat, linear-gradient(#bbd2b8, #bbd2b8) left 0 bottom 4px / 100% 4px no-repeat, linear-gradient(#f0c9b8, #f0c9b8) left 0 bottom 8px / 100% 4px no-repeat, #9e4a2f;
+
+  --vw-font: var(--font-boho-sans), system-ui, sans-serif;
+  --vw-font-display: var(--font-boho-serif), Georgia, serif;
+  --vw-scrim: rgba(59, 42, 32, 0.66);
+  --vw-scrim-blur: 3px;
+  --vw-pad: 2rem;
+  --vw-pad-sm: 0.5rem;
+  --vw-bg: #fffaf0;
+  --vw-fg: #3b2a20;
+  --vw-soft: #4a3629;
+  --vw-muted: #5d4637;
+  --vw-accent: #9e4a2f;
+  --vw-accent-fg: #fffaf0;
+  --vw-frame: 3px solid #9e4a2f;
+  --vw-radius: 4.5rem 4.5rem 1.25rem 1.25rem / 2.5rem 2.5rem 1.25rem 1.25rem;
+  --vw-radius-sm: 2.25rem 2.25rem 1rem 1rem / 1.5rem 1.5rem 1rem 1rem;
+  --vw-shadow: 0 30px 60px -18px rgba(94, 50, 30, 0.6);
+  --vw-title-display: flex;
+  --vw-title-h: 3rem;
+  --vw-title-bg: var(--bh-band);
+  --vw-title-fg: #fffaf0;
+  --vw-title-line: 0;
+  --vw-dot-size: 0.7rem;
+  --vw-dot-1: #e9c46a;
+  --vw-dot-2: #bbd2b8;
+  --vw-dot-3: #f0c9b8;
+  --vw-tab-fg: #fffaf0;
+  --vw-bar-bg: #fffaf0;
+  --vw-bar-fg: #3b2a20;
+  --vw-bar-line: 1px dashed #9e4a2f;
+  --vw-btn-bg: #f0c9b8;
+  --vw-btn-fg: #3b2a20;
+  --vw-btn-line: 0;
+  --vw-btn-radius: 1rem;
+  --vw-btn-hover-bg: #e9c46a;
+  --vw-btn-hover-fg: #3b2a20;
+  --vw-btn-hover-shadow: 0 6px 12px -4px rgba(94, 50, 30, 0.4);
+  --vw-pri-bg: #3f6b4e;
+  --vw-pri-fg: #fffaf0;
+  --vw-pri-line: 0;
+  --vw-pri-radius: 1rem;
+  --vw-pri-hover-bg: #335840;
+  --vw-solid-bg: #9e4a2f;
+  --vw-solid-fg: #fffaf0;
+  --vw-solid-line: 0;
+  --vw-solid-radius: 1rem;
+  --vw-solid-hover-bg: #843c25;
+  --vw-addr-bg: #ffffff;
+  --vw-addr-fg: #3b2a20;
+  --vw-addr-line: 2px solid #f0c9b8;
+  --vw-addr-radius: 1rem;
+  --vw-body-bg: #f8edd9;
+  --vw-paper-shadow: 0 16px 30px -12px rgba(94, 50, 30, 0.55), 0 0 0 6px #fffaf0, 0 0 0 8px #e9c46a;
+  --vw-chip-bg: #bbd2b8;
+  --vw-chip-fg: #26382d;
+  --vw-chip-line: 0;
+  --vw-chip-radius: 999px;
+  --vw-status-bg: #bbd2b8;
+  --vw-status-fg: #26382d;
+  --vw-status-line: 0;
+  --vw-focus: #3f6b4e;
+  --vw-focus-width: 3px;
+  --vw-icon-stroke: 2;
+  --vw-title-weight: 700;
+  --vw-card-pad: 1.5rem;
+}
+
+[data-viewer-theme="bohemian"] .vw-titlebar {
+  justify-content: center;
+  padding-bottom: 0.9rem;
+  position: relative;
+}
+[data-viewer-theme="bohemian"] .vw-dots {
+  position: absolute;
+  left: 3.25rem;
+  top: 1.1rem;
+}
+@media (max-width: 39.99rem) {
+  [data-viewer-theme="bohemian"] .vw-dots {
+    position: static;
+  }
+  [data-viewer-theme="bohemian"] .vw-titlebar {
+    justify-content: flex-start;
+    padding-left: 1.75rem;
+  }
+}
+[data-viewer-theme="bohemian"] .vw-tab {
+  font-family: var(--font-boho-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+}
+[data-viewer-theme="bohemian"] .vw-body {
+  background-image: radial-gradient(circle at 12% 18%, rgba(233, 196, 106, 0.22), transparent 38%), radial-gradient(circle at 88% 70%, rgba(187, 210, 184, 0.3), transparent 42%);
+}
+[data-viewer-theme="bohemian"] .vw-address,
+[data-viewer-theme="bohemian"] .vw-doc {
+  font-family: var(--font-boho-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+}
+[data-viewer-theme="bohemian"] .vw-lock {
+  color: #3f6b4e;
+}
+[data-viewer-theme="bohemian"] .vw-eyebrow svg {
+  color: #9e4a2f;
+}
+[data-viewer-theme="bohemian"] .vw-card-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #9e4a2f;
+}
+[data-viewer-theme="bohemian"] .vw-chip:nth-child(3n + 2) {
+  background: #f0c9b8;
+  color: #4a2a1a;
+}
+[data-viewer-theme="bohemian"] .vw-chip:nth-child(3n) {
+  background: #e9c46a;
+  color: #3b2a20;
+}
+[data-viewer-theme="bohemian"] .vw-status {
+  font-family: var(--font-boho-serif), Georgia, serif;
+  font-style: italic;
+}
+[data-viewer-theme="bohemian"] .vw-status a {
+  color: #26382d;
+}
+[data-viewer-theme="bohemian"] .vw-state {
+  background: #fffaf0;
+}

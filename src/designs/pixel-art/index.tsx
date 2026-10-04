@@ -4,6 +4,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { pixelBody, pixelDisplay } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -84,6 +86,7 @@ export default function PixelArtDesign() {
 
   return (
     <main id="top" data-design="pixel-art" className={`${pixelDisplay.variable} ${pixelBody.variable} ${styles.page}`}>
+      <ViewerTheme slug="pixel-art" fonts={`${pixelDisplay.variable} ${pixelBody.variable}`} entrance="snap" />
       <SkipLink />
       <div aria-hidden className={styles.stars} />
 

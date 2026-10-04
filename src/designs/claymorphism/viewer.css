@@ -1,0 +1,130 @@
+/* Claymorphism viewer: soft pastel clay. Everything is puffy: fat radii, a lit top edge and a shaded underside on every
+   surface, controls that bulge out of the window and squash when pressed. Pink, butter, mint and lilac from the page. */
+[data-viewer-theme="claymorphism"] {
+  --clay-lift: 0 14px 24px -8px rgba(120, 80, 140, 0.38), inset 0 3px 0 rgba(255, 255, 255, 0.85), inset 0 -5px 0 rgba(120, 80, 140, 0.12);
+  --clay-lift-sm: 0 7px 12px -4px rgba(120, 80, 140, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.9), inset 0 -3px 0 rgba(120, 80, 140, 0.12);
+  --clay-dent: inset 0 4px 8px rgba(120, 80, 140, 0.22), inset 0 -2px 0 rgba(255, 255, 255, 0.9);
+
+  --vw-font: var(--font-clay-text), system-ui, sans-serif;
+  --vw-font-display: var(--font-clay-display), var(--font-clay-text), system-ui, sans-serif;
+  --vw-scrim: rgba(255, 214, 230, 0.72);
+  --vw-scrim-blur: 8px;
+  --vw-pad: 1.75rem;
+  --vw-pad-sm: 0.5rem;
+  --vw-bg: #fffafc;
+  --vw-fg: #3b3548;
+  --vw-soft: #4f4963;
+  --vw-muted: #5c5672;
+  --vw-accent: #6c4fe0;
+  --vw-frame: 0;
+  --vw-radius: 2.25rem;
+  --vw-radius-sm: 1.75rem;
+  --vw-shadow: 0 30px 50px -16px rgba(120, 80, 140, 0.45), inset 0 4px 0 rgba(255, 255, 255, 0.95), inset 0 -8px 0 rgba(120, 80, 140, 0.1);
+  --vw-title-display: flex;
+  --vw-title-bg: #ffc2d4;
+  --vw-title-fg: #3b3548;
+  --vw-title-line: 0;
+  --vw-title-weight: 700;
+  --vw-dot-size: 0.95rem;
+  --vw-dot-1: #fff0a8;
+  --vw-dot-2: #b9f3d8;
+  --vw-dot-3: #bde0fe;
+  --vw-tab-bg: #fffafc;
+  --vw-tab-fg: #3b3548;
+  --vw-tab-radius: 1.1rem;
+  --vw-bar-bg: #fff0f5;
+  --vw-bar-fg: #3b3548;
+  --vw-bar-line: 0;
+  --vw-bar-pad: 0.625rem 0.875rem;
+  --vw-btn-bg: #fffafc;
+  --vw-btn-fg: #3b3548;
+  --vw-btn-line: 0;
+  --vw-btn-radius: 1.1rem;
+  --vw-btn-shadow: var(--clay-lift-sm);
+  --vw-btn-hover-bg: #ffffff;
+  --vw-btn-hover-fg: #3b3548;
+  --vw-btn-hover-shadow: 0 10px 16px -4px rgba(120, 80, 140, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.95), inset 0 -3px 0 rgba(120, 80, 140, 0.12);
+  --vw-btn-press: scale(0.94);
+  --vw-pri-bg: #6c4fe0;
+  --vw-pri-fg: #ffffff;
+  --vw-pri-line: 0;
+  --vw-pri-radius: 1.25rem;
+  --vw-pri-shadow: 0 8px 14px -4px rgba(108, 79, 224, 0.55), inset 0 3px 0 rgba(255, 255, 255, 0.35), inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+  --vw-pri-hover-bg: #5b3fd0;
+  --vw-solid-bg: #3b3548;
+  --vw-solid-fg: #fffafc;
+  --vw-solid-line: 0;
+  --vw-solid-radius: 1.25rem;
+  --vw-solid-shadow: 0 8px 14px -4px rgba(59, 53, 72, 0.5), inset 0 3px 0 rgba(255, 255, 255, 0.25), inset 0 -4px 0 rgba(0, 0, 0, 0.2);
+  --vw-solid-hover-bg: #2c2738;
+  --vw-addr-bg: #ffffff;
+  --vw-addr-fg: #3b3548;
+  --vw-addr-line: 0;
+  --vw-addr-radius: 1.25rem;
+  --vw-addr-shadow: var(--clay-dent);
+  --vw-body-bg: #ffe9f0;
+  --vw-paper-shadow: 0 16px 28px -8px rgba(120, 80, 140, 0.45), 0 0 0 5px #fffafc;
+  --vw-chip-bg: #fff0a8;
+  --vw-chip-fg: #3b3548;
+  --vw-chip-line: 0;
+  --vw-chip-radius: 1rem;
+  --vw-status-bg: #b9f3d8;
+  --vw-status-fg: #2f3b3a;
+  --vw-status-line: 0;
+  --vw-status-link: #3b3548;
+  --vw-focus: #6c4fe0;
+  --vw-focus-width: 4px;
+  --vw-icon-stroke: 2.5;
+  --vw-card-pad: 1.5rem;
+  font-weight: 600;
+}
+
+[data-viewer-theme="claymorphism"] .vw-dots i {
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.9), inset 0 -3px 0 rgba(120, 80, 140, 0.2), 0 3px 5px rgba(120, 80, 140, 0.25);
+}
+[data-viewer-theme="claymorphism"] .vw-titlebar {
+  padding: 0.55rem 1rem;
+  box-shadow: inset 0 -4px 0 rgba(120, 80, 140, 0.12);
+}
+[data-viewer-theme="claymorphism"] .vw-tab {
+  box-shadow: var(--clay-lift-sm);
+  font-family: var(--font-clay-display), var(--font-clay-text), sans-serif;
+}
+[data-viewer-theme="claymorphism"] .vw-btn:hover {
+  translate: 0 -2px;
+}
+[data-viewer-theme="claymorphism"] .vw-btn:disabled {
+  box-shadow: var(--clay-dent);
+}
+[data-viewer-theme="claymorphism"] .vw-pages {
+  margin: 0.75rem;
+  border-radius: 1.5rem;
+  box-shadow: var(--clay-dent);
+}
+[data-viewer-theme="claymorphism"] .vw-paper {
+  border-radius: 0.9rem;
+  overflow: hidden;
+}
+[data-viewer-theme="claymorphism"] .vw-card-title {
+  font-size: 1.9rem;
+  letter-spacing: 0;
+}
+[data-viewer-theme="claymorphism"] .vw-chip {
+  box-shadow: var(--clay-lift-sm);
+}
+[data-viewer-theme="claymorphism"] .vw-chip:nth-child(4n + 2) {
+  background: #bde0fe;
+}
+[data-viewer-theme="claymorphism"] .vw-chip:nth-child(4n + 3) {
+  background: #d9c8ff;
+}
+[data-viewer-theme="claymorphism"] .vw-chip:nth-child(4n) {
+  background: #ffd3b6;
+}
+[data-viewer-theme="claymorphism"] .vw-status {
+  font-weight: 700;
+  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.5);
+}
+[data-viewer-theme="claymorphism"] .vw-state {
+  background: #fffafc;
+}

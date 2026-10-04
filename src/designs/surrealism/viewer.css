@@ -1,0 +1,150 @@
+/* Surrealism viewer: a dream-logic gallery. Deep plum, gold, cream and one painted blue. The window is an arch with a gold
+   frame, a gold ring and a second moon drift out of its edges, controls are leaf-shaped, titles are in a high-contrast serif. */
+[data-viewer-theme="surrealism"] {
+  --vw-font: var(--font-dream-sans), system-ui, sans-serif;
+  --vw-font-display: var(--font-dream-serif), Georgia, serif;
+  --vw-scrim: radial-gradient(circle at 25% 15%, rgba(51, 101, 138, 0.4), transparent 55%), radial-gradient(circle at 85% 90%, rgba(246, 174, 45, 0.16), transparent 50%), rgba(42, 21, 32, 0.92);
+  --vw-scrim-blur: 6px;
+  --vw-pad: 2.25rem;
+  --vw-pad-sm: 0.75rem;
+  --vw-bg: #2a1520;
+  --vw-fg: #fff3dc;
+  --vw-soft: #f3e3c6;
+  --vw-muted: #d9c2a4;
+  --vw-accent: #f6ae2d;
+  --vw-accent-fg: #2a1520;
+  --vw-frame: 2px solid #f6ae2d;
+  --vw-radius: 3.5rem 3.5rem 1rem 1rem;
+  --vw-radius-sm: 2rem 2rem 0.75rem 0.75rem;
+  --vw-shadow: 0 0 0 7px rgba(246, 174, 45, 0.16), 0 40px 90px -20px rgba(0, 0, 0, 0.85);
+  --vw-title-display: flex;
+  --vw-title-bg: #3b1f2b;
+  --vw-title-fg: #ffd98a;
+  --vw-title-line: 1px solid rgba(246, 174, 45, 0.55);
+  --vw-dot-size: 0.7rem;
+  --vw-dot-radius: 60% 0 60% 0;
+  --vw-dot-1: #f6ae2d;
+  --vw-dot-2: #fff3dc;
+  --vw-dot-3: #33658a;
+  --vw-tab-bg: transparent;
+  --vw-tab-fg: #ffd98a;
+  --vw-bar-bg: #3b1f2b;
+  --vw-bar-fg: #fff3dc;
+  --vw-bar-line: 1px solid rgba(246, 174, 45, 0.4);
+  --vw-btn-bg: transparent;
+  --vw-btn-fg: #ffd98a;
+  --vw-btn-line: 1px solid rgba(246, 174, 45, 0.55);
+  --vw-btn-radius: 70% 25% 70% 25%;
+  --vw-btn-hover-bg: #f6ae2d;
+  --vw-btn-hover-fg: #2a1520;
+  --vw-pri-bg: #f6ae2d;
+  --vw-pri-fg: #2a1520;
+  --vw-pri-line: 1px solid #f6ae2d;
+  --vw-pri-radius: 999px;
+  --vw-pri-hover-bg: #ffd98a;
+  --vw-solid-bg: #fff3dc;
+  --vw-solid-fg: #2a1520;
+  --vw-solid-line: 1px solid #fff3dc;
+  --vw-solid-radius: 999px;
+  --vw-solid-hover-bg: #ffffff;
+  --vw-addr-bg: #fff3dc;
+  --vw-addr-fg: #3b1f2b;
+  --vw-addr-line: 1px solid #f6ae2d;
+  --vw-addr-radius: 999px 999px 999px 0.5rem;
+  --vw-body-bg: #2a1520;
+  --vw-paper-shadow: 0 0 0 5px rgba(246, 174, 45, 0.25), 0 24px 60px rgba(0, 0, 0, 0.7);
+  --vw-chip-bg: transparent;
+  --vw-chip-fg: #ffd98a;
+  --vw-chip-line: 1px solid rgba(246, 174, 45, 0.6);
+  --vw-chip-radius: 999px 0.25rem 999px 0.25rem;
+  --vw-status-bg: #3b1f2b;
+  --vw-status-fg: #ffd98a;
+  --vw-status-line: 1px solid rgba(246, 174, 45, 0.4);
+  --vw-focus: #ffd98a;
+  --vw-focus-width: 3px;
+  --vw-icon-stroke: 1.75;
+  --vw-card-pad: 1.75rem;
+}
+
+/* the gold ring and the blue moon that float off the frame */
+[data-viewer-theme="surrealism"] .vw-window::before {
+  content: "";
+  position: absolute;
+  top: -2.2rem;
+  right: 3rem;
+  z-index: 3;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  border: 2px solid #f6ae2d;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 217, 138, 0.35), transparent 60%);
+  pointer-events: none;
+}
+[data-viewer-theme="surrealism"] .vw-window::after {
+  content: "";
+  position: absolute;
+  bottom: 2.25rem;
+  left: -1.5rem;
+  z-index: 3;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #5f93b8, #33658a 70%);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+@media (max-width: 39.99rem) {
+  [data-viewer-theme="surrealism"] .vw-dots {
+    position: static;
+  }
+  [data-viewer-theme="surrealism"] .vw-titlebar {
+    justify-content: flex-start;
+    padding-left: 1.75rem;
+  }
+  [data-viewer-theme="surrealism"] .vw-window::before {
+    top: -1.5rem;
+    right: 1.25rem;
+    width: 3rem;
+    height: 3rem;
+  }
+  [data-viewer-theme="surrealism"] .vw-window::after {
+    display: none;
+  }
+}
+
+[data-viewer-theme="surrealism"] .vw-titlebar {
+  justify-content: center;
+  padding-top: 0.2rem;
+}
+[data-viewer-theme="surrealism"] .vw-dots {
+  position: absolute;
+  left: 2.25rem;
+}
+[data-viewer-theme="surrealism"] .vw-tab {
+  font-family: var(--font-dream-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 0.875rem;
+}
+[data-viewer-theme="surrealism"] .vw-titlebar {
+  position: relative;
+}
+[data-viewer-theme="surrealism"] .vw-card-title {
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0;
+}
+[data-viewer-theme="surrealism"] .vw-card {
+  background: radial-gradient(circle at 90% 8%, rgba(246, 174, 45, 0.12), transparent 40%);
+}
+[data-viewer-theme="surrealism"] .vw-body {
+  background-image: radial-gradient(rgba(255, 217, 138, 0.35) 1px, transparent 1.4px), radial-gradient(rgba(255, 243, 220, 0.22) 1px, transparent 1.4px);
+  background-size: 61px 61px, 97px 97px;
+  background-position: 8px 12px, 40px 60px;
+}
+[data-viewer-theme="surrealism"] .vw-state {
+  background: #2a1520;
+}
+[data-viewer-theme="surrealism"] .vw-status {
+  font-style: italic;
+}
