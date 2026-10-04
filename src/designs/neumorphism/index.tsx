@@ -7,6 +7,8 @@ import { useActiveSection } from "../shared/useActiveSection";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { neuRounded } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -36,6 +38,7 @@ export default function NeumorphismDesign() {
 
   return (
     <main id="top" data-design="neumorphism" className={`${neuRounded.variable} ${styles.page}`}>
+      <ViewerTheme slug="neumorphism" fonts={`${neuRounded.variable}`} entrance="rise" />
       <SkipLink />
       <div className={styles.layout}>
         <aside className={styles.side}>

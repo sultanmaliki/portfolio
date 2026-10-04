@@ -1,0 +1,116 @@
+/* Ethereal viewer: light and air. Pearl-white frosted glass floating over a pale blue and lilac haze, a soft halo instead
+   of a border, big gentle radii, glowing indigo as the one accent, italic serif for titles and notes. Shadows are tinted
+   with the accent so nothing looks grey or heavy. */
+[data-viewer-theme="ethereal"] {
+  --et-glow: 0 10px 30px -8px rgba(69, 69, 184, 0.28);
+
+  --vw-font: var(--font-ether-sans), system-ui, sans-serif;
+  --vw-font-display: var(--font-ether-serif), Georgia, serif;
+  --vw-scrim: linear-gradient(180deg, rgba(234, 241, 255, 0.82), rgba(243, 235, 255, 0.84) 45%, rgba(228, 247, 255, 0.84));
+  --vw-scrim-blur: 14px;
+  --vw-pad: 2rem;
+  --vw-pad-sm: 0.5rem;
+  --vw-bg: rgba(255, 255, 255, 0.78);
+  --vw-fg: #2a2d55;
+  --vw-soft: #2f3360;
+  --vw-muted: #474b78;
+  --vw-accent: #4545b8;
+  --vw-accent-fg: #ffffff;
+  --vw-frame: 1px solid rgba(255, 255, 255, 0.95);
+  --vw-radius: 2rem;
+  --vw-radius-sm: 1.5rem;
+  --vw-shadow: 0 30px 80px -20px rgba(69, 69, 184, 0.32), 0 0 0 10px rgba(255, 255, 255, 0.4);
+  --vw-title-display: flex;
+  --vw-title-bg: transparent;
+  --vw-title-fg: #474b78;
+  --vw-title-line: 1px solid rgba(69, 69, 184, 0.12);
+  --vw-dot-size: 0.6rem;
+  --vw-dot-1: #d9d4ff;
+  --vw-dot-2: #c9e4ff;
+  --vw-dot-3: #f1d6ff;
+  --vw-tab-fg: #474b78;
+  --vw-bar-bg: transparent;
+  --vw-bar-fg: #2a2d55;
+  --vw-bar-line: 1px solid rgba(69, 69, 184, 0.12);
+  --vw-bar-pad: 0.5rem 0.875rem;
+  --vw-btn-bg: rgba(255, 255, 255, 0.8);
+  --vw-btn-fg: #2a2d55;
+  --vw-btn-line: 1px solid rgba(255, 255, 255, 0.95);
+  --vw-btn-radius: 1.1rem;
+  --vw-btn-shadow: 0 4px 14px -4px rgba(69, 69, 184, 0.22);
+  --vw-btn-hover-bg: #ffffff;
+  --vw-btn-hover-fg: #4545b8;
+  --vw-btn-hover-shadow: 0 8px 22px -4px rgba(69, 69, 184, 0.38);
+  --vw-pri-bg: #4545b8;
+  --vw-pri-fg: #ffffff;
+  --vw-pri-line: 1px solid #4545b8;
+  --vw-pri-radius: 1.25rem;
+  --vw-pri-shadow: 0 10px 24px -8px rgba(69, 69, 184, 0.65);
+  --vw-pri-hover-bg: #5656cc;
+  --vw-solid-bg: #2a2d55;
+  --vw-solid-fg: #ffffff;
+  --vw-solid-line: 1px solid #2a2d55;
+  --vw-solid-radius: 1.25rem;
+  --vw-solid-shadow: 0 10px 24px -8px rgba(42, 45, 85, 0.5);
+  --vw-solid-hover-bg: #3a3e72;
+  --vw-addr-bg: rgba(255, 255, 255, 0.85);
+  --vw-addr-fg: #2a2d55;
+  --vw-addr-line: 1px solid rgba(255, 255, 255, 0.95);
+  --vw-addr-radius: 1.25rem;
+  --vw-addr-shadow: inset 0 2px 8px rgba(69, 69, 184, 0.1);
+  --vw-body-bg: linear-gradient(180deg, rgba(234, 241, 255, 0.7), rgba(243, 235, 255, 0.7));
+  --vw-paper-shadow: 0 24px 50px -16px rgba(69, 69, 184, 0.4), 0 0 0 6px rgba(255, 255, 255, 0.6);
+  --vw-chip-bg: rgba(255, 255, 255, 0.8);
+  --vw-chip-fg: #2f3360;
+  --vw-chip-line: 1px solid rgba(255, 255, 255, 0.95);
+  --vw-chip-radius: 999px;
+  --vw-status-bg: transparent;
+  --vw-status-fg: #474b78;
+  --vw-status-line: 1px solid rgba(69, 69, 184, 0.12);
+  --vw-focus: #4545b8;
+  --vw-focus-width: 3px;
+  --vw-icon-stroke: 1.75;
+  --vw-title-weight: 400;
+  --vw-card-pad: 1.5rem;
+}
+
+[data-viewer-theme="ethereal"] .vw-window {
+  -webkit-backdrop-filter: blur(26px) saturate(1.3);
+  backdrop-filter: blur(26px) saturate(1.3);
+}
+[data-viewer-theme="ethereal"] .vw-dots i {
+  box-shadow: 0 0 10px rgba(69, 69, 184, 0.45);
+}
+[data-viewer-theme="ethereal"] .vw-tab,
+[data-viewer-theme="ethereal"] .vw-status {
+  font-family: var(--font-ether-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 0.875rem;
+}
+[data-viewer-theme="ethereal"] .vw-btn:hover {
+  translate: 0 -1px;
+}
+[data-viewer-theme="ethereal"] .vw-eyebrow {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-family: var(--font-ether-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+}
+[data-viewer-theme="ethereal"] .vw-card-title {
+  font-size: 2.1rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+[data-viewer-theme="ethereal"] .vw-card {
+  background: radial-gradient(circle at 100% 0, rgba(190, 200, 255, 0.35), transparent 50%);
+}
+[data-viewer-theme="ethereal"] .vw-paper {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+[data-viewer-theme="ethereal"] .vw-state {
+  background: rgba(247, 244, 255, 0.95);
+}

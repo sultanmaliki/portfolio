@@ -4,6 +4,8 @@ import SkipLink from "../shared/SkipLink";
 import { usePortfolio } from "../shared/usePortfolio";
 import { minimalSans } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -25,6 +27,7 @@ export default function MinimalismDesign() {
 
   return (
     <main id="top" data-design="minimalism" className={`${minimalSans.variable} ${styles.page}`}>
+      <ViewerTheme slug="minimalism" fonts={`${minimalSans.variable}`} entrance="fade" />
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.header}>

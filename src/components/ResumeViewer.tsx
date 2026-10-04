@@ -1,11 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { Download, ExternalLink, FileText, X, ZoomIn, ZoomOut } from "lucide-react";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 import { linkHandler } from "@/lib/links";
 import { OPEN_RESUME_EVENT, RESUME_FILENAME, RESUME_URL } from "@/lib/resume";
+import ViewerFrame from "./viewer/ViewerFrame";
 
 type PdfJs = typeof import("pdfjs-dist");
 type Loaded = { pdfjs: PdfJs; doc: PDFDocumentProxy };
@@ -95,10 +96,10 @@ function PdfPage({ loaded, pageNumber, width }: { loaded: Loaded; pageNumber: nu
 
   return (
     <div
-      className="relative mx-auto bg-white shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
+      className="vw-paper"
       style={{ width, height: height ?? Math.round(width * 1.414) }}
     >
-      <canvas ref={canvasRef} aria-hidden className="block" style={{ width, height: height ?? undefined }} />
+      <canvas ref={canvasRef} aria-hidden style={{ width, height: height ?? undefined }} />
       <div ref={textRef} className="pdf-text-layer" />
       {links.map((l) => (
         <a
@@ -108,7 +109,7 @@ function PdfPage({ loaded, pageNumber, width }: { loaded: Loaded; pageNumber: nu
           rel="noopener noreferrer"
           onClick={l.url.startsWith("mailto:") ? undefined : linkHandler({ url: l.url })}
           aria-label={l.url.replace(/^mailto:/i, "")}
-          className="absolute rounded-sm outline-offset-2 hover:bg-[#6EA8FF]/15"
+          className="vw-pdf-link"
           style={{ left: l.left, top: l.top, width: l.width, height: l.height }}
         />
       ))}
@@ -117,8 +118,6 @@ function PdfPage({ loaded, pageNumber, width }: { loaded: Loaded; pageNumber: nu
 }
 
 function ViewerDialog({ onClose }: { onClose: () => void }) {
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState<Loaded | null>(null);
   const [failed, setFailed] = useState(false);
@@ -159,48 +158,6 @@ function ViewerDialog({ onClose }: { onClose: () => void }) {
     };
   }, []);
 
-  // Focus handling, Esc to close, Tab kept inside the dialog, page behind not scrollable
-  useEffect(() => {
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    scrollRef.current?.focus({ preventScroll: true });
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (document.querySelector("[data-link-viewer]")) return; // a link viewer opened on top owns the keyboard
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
-        return;
-      }
-      if (e.key !== "Tab" || !panelRef.current) return;
-      const focusable = Array.from(
-        panelRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex="0"]')
-      ).filter((n) => n.offsetParent !== null);
-      if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    const keepPageStill = (e: Event) => {
-      if (!scrollRef.current?.contains(e.target as Node)) e.preventDefault();
-    };
-    const overlay = overlayRef.current;
-    window.addEventListener("keydown", onKeyDown);
-    overlay?.addEventListener("wheel", keepPageStill, { passive: false });
-    overlay?.addEventListener("touchmove", keepPageStill, { passive: false });
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      overlay?.removeEventListener("wheel", keepPageStill);
-      overlay?.removeEventListener("touchmove", keepPageStill);
-      if (previouslyFocused && document.contains(previouslyFocused)) previouslyFocused.focus({ preventScroll: true });
-    };
-  }, [onClose]);
-
   const numPages = loaded?.doc.numPages ?? 0;
   const zoom = ZOOMS[zoomIndex];
   const pageWidth = Math.max(0, Math.round(Math.min(available, MAX_PAGE_WIDTH) * zoom));
@@ -212,114 +169,95 @@ function ViewerDialog({ onClose }: { onClose: () => void }) {
     setCurrentPage(Math.min(numPages, Math.max(1, page)));
   }, [numPages]);
 
-  const iconButton =
-    "grid h-8 w-8 place-items-center rounded-md text-[#F5F5F5]/70 transition-colors hover:bg-white/10 hover:text-white disabled:pointer-events-none disabled:opacity-30";
+  const toolbar = (
+    <div className="vw-toolbar" role="toolbar" aria-label="Resume controls">
+      <div className="vw-doc">
+        <FileText aria-hidden className="vw-icon vw-lock" />
+        <span className="vw-doc-name">
+          <span className="vw-show-sm">Resume</span>
+          <span className="vw-hide-sm">{RESUME_FILENAME}</span>
+        </span>
+        {numPages > 1 && (
+          <span className="vw-doc-pages">
+            {currentPage} / {numPages}
+          </span>
+        )}
+      </div>
+
+      <div className="vw-group vw-zoom vw-hide-xs" role="group" aria-label="Zoom">
+        <button type="button" aria-label="Zoom out" className="vw-btn" disabled={zoomIndex === 0} onClick={() => setZoomIndex((i) => Math.max(0, i - 1))}>
+          <ZoomOut aria-hidden className="vw-icon" />
+        </button>
+        <span className="vw-zoom-level" aria-live="polite">
+          {Math.round(zoom * 100)}%
+        </span>
+        <button type="button" aria-label="Zoom in" className="vw-btn" disabled={zoomIndex === ZOOMS.length - 1} onClick={() => setZoomIndex((i) => Math.min(ZOOMS.length - 1, i + 1))}>
+          <ZoomIn aria-hidden className="vw-icon" />
+        </button>
+      </div>
+
+      <div className="vw-group">
+        <a href={RESUME_URL} download={RESUME_FILENAME} aria-label="Download PDF" className="vw-btn vw-btn--label vw-btn--primary vw-btn--download">
+          <Download aria-hidden className="vw-icon vw-icon-sm" />
+          <span className="vw-hide-phone">
+            Download<span className="vw-hide-sm"> PDF</span>
+          </span>
+        </a>
+        <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" aria-label="Open PDF in a new tab" className="vw-btn vw-hide-sm">
+          <ExternalLink aria-hidden className="vw-icon" />
+        </a>
+        <button type="button" aria-label="Close resume" className="vw-btn" onClick={onClose}>
+          <X aria-hidden className="vw-icon" />
+        </button>
+      </div>
+    </div>
+  );
+
+  const status = (
+    <div className="vw-status">
+      <span aria-hidden>{numPages ? `Page ${currentPage} of ${numPages}` : "Loading"}</span>
+      <span className="vw-hide-sm">Text is selectable and links are clickable.</span>
+    </div>
+  );
 
   return (
-    <motion.div
-      ref={overlayRef}
-      data-resume-viewer
-      role="dialog"
-      aria-modal="true"
-      aria-label="Resume"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
-      className="fixed inset-0 z-[110] flex items-center justify-center bg-black/70 backdrop-blur-sm sm:p-6"
-      onClick={onClose}
+    <ViewerFrame
+      kind="pdf"
+      marker="resume"
+      label="Resume"
+      onClose={onClose}
+      tabIcon={<FileText aria-hidden className="vw-icon vw-icon-sm" />}
+      tabTitle={RESUME_FILENAME}
+      toolbar={toolbar}
+      status={status}
+      initialFocus={scrollRef}
     >
-      <motion.div
-        ref={panelRef}
-        initial={{ opacity: 0, y: 40, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 40, scale: 0.97 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className="flex h-dvh w-full max-w-4xl flex-col overflow-hidden bg-[#161616] shadow-2xl sm:h-[92dvh] sm:rounded-xl sm:border sm:border-white/10"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Toolbar */}
-        <div className="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-white/10 bg-white/5 px-3 sm:px-4">
-          <div className="flex min-w-0 items-center gap-2 text-[#F5F5F5]/80">
-            <FileText aria-hidden className="h-4 w-4 shrink-0 text-[#6EA8FF]" />
-            <span className="truncate text-sm font-light">
-              <span className="sm:hidden">Resume</span>
-              <span className="hidden sm:inline">{RESUME_FILENAME}</span>
-            </span>
-            {numPages > 1 && (
-              <span className="shrink-0 text-xs tabular-nums text-[#F5F5F5]/60">
-                {currentPage} / {numPages}
-              </span>
-            )}
+      <div ref={scrollRef} tabIndex={0} role="region" aria-label="Resume pages" data-vw-scroll onScroll={onScroll} className="vw-pages">
+        {failed ? (
+          <div role="alert" className="vw-empty">
+            <p>The preview couldn&rsquo;t be loaded here. You can still read the resume directly.</p>
+            <div className="vw-actions" style={{ justifyContent: "center" }}>
+              <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="vw-btn vw-btn--label vw-btn--primary vw-btn--large">
+                Open PDF
+              </a>
+              <a href={RESUME_URL} download={RESUME_FILENAME} className="vw-btn vw-btn--label vw-btn--large">
+                Download
+              </a>
+            </div>
           </div>
-
-          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-            <div className="hidden items-center min-[360px]:flex" role="group" aria-label="Zoom">
-              <button type="button" aria-label="Zoom out" className={iconButton} disabled={zoomIndex === 0} onClick={() => setZoomIndex((i) => Math.max(0, i - 1))}>
-                <ZoomOut aria-hidden className="h-4 w-4" />
-              </button>
-              <span className="w-10 text-center text-xs tabular-nums text-[#F5F5F5]/60" aria-live="polite">
-                {Math.round(zoom * 100)}%
-              </span>
-              <button type="button" aria-label="Zoom in" className={iconButton} disabled={zoomIndex === ZOOMS.length - 1} onClick={() => setZoomIndex((i) => Math.min(ZOOMS.length - 1, i + 1))}>
-                <ZoomIn aria-hidden className="h-4 w-4" />
-              </button>
-            </div>
-
-            <a
-              href={RESUME_URL}
-              download={RESUME_FILENAME}
-              className="flex items-center gap-1.5 rounded-full border border-[#6EA8FF]/40 px-3 py-1.5 text-xs text-[#6EA8FF] transition-colors hover:bg-[#6EA8FF]/10 sm:text-sm"
-            >
-              <Download aria-hidden className="h-3.5 w-3.5" />
-              <span>
-                Download<span className="hidden sm:inline"> PDF</span>
-              </span>
-            </a>
-            <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" aria-label="Open PDF in a new tab" className={`${iconButton} hidden sm:grid`}>
-              <ExternalLink aria-hidden className="h-4 w-4" />
-            </a>
-            <button type="button" aria-label="Close resume" className={iconButton} onClick={onClose}>
-              <X aria-hidden className="h-4 w-4" />
-            </button>
+        ) : !loaded || pageWidth === 0 ? (
+          <p role="status" className="vw-empty">
+            Loading resume&hellip;
+          </p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "max-content", margin: "0 auto" }}>
+            {Array.from({ length: numPages }, (_, i) => (
+              <PdfPage key={i} loaded={loaded} pageNumber={i + 1} width={pageWidth} />
+            ))}
           </div>
-        </div>
-
-        {/* Pages */}
-        <div
-          ref={scrollRef}
-          tabIndex={0}
-          role="region"
-          aria-label="Resume pages"
-          onScroll={onScroll}
-          className="relative flex-1 overflow-auto overscroll-contain px-3 py-4 outline-none sm:px-6 sm:py-6"
-        >
-          {failed ? (
-            <div role="alert" className="mx-auto mt-16 max-w-sm text-center text-sm font-light text-[#F5F5F5]/70">
-              <p className="mb-4">The preview couldn&rsquo;t be loaded here. You can still read the resume directly.</p>
-              <div className="flex justify-center gap-3">
-                <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-[#6EA8FF]/40 px-4 py-2 text-[#6EA8FF] hover:bg-[#6EA8FF]/10">
-                  Open PDF
-                </a>
-                <a href={RESUME_URL} download={RESUME_FILENAME} className="rounded-full border border-white/20 px-4 py-2 text-[#F5F5F5]/80 hover:bg-white/10">
-                  Download
-                </a>
-              </div>
-            </div>
-          ) : !loaded || pageWidth === 0 ? (
-            <p role="status" className="mt-24 text-center text-sm font-light text-[#F5F5F5]/60">
-              Loading resume&hellip;
-            </p>
-          ) : (
-            <div className="mx-auto flex w-max flex-col gap-4">
-              {Array.from({ length: numPages }, (_, i) => (
-                <PdfPage key={i} loaded={loaded} pageNumber={i + 1} width={pageWidth} />
-              ))}
-            </div>
-          )}
-        </div>
-      </motion.div>
-    </motion.div>
+        )}
+      </div>
+    </ViewerFrame>
   );
 }
 

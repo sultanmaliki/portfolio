@@ -1,0 +1,90 @@
+/* Minimalism viewer: almost nothing. No title bar, no fills, no shadows beyond a whisper; one hairline between the parts,
+   a single sans at one weight, controls that are just muted icons and plain words. The one dark button is the only
+   emphasis. Everything else is whitespace. */
+[data-viewer-theme="minimalism"] {
+  --vw-font: var(--font-minimal), system-ui, sans-serif;
+  --vw-font-display: var(--font-minimal), system-ui, sans-serif;
+  --vw-scrim: rgba(250, 250, 250, 0.9);
+  --vw-scrim-blur: 3px;
+  --vw-pad: 2rem;
+  --vw-pad-sm: 0;
+  --vw-bg: #fafafa;
+  --vw-fg: #111111;
+  --vw-soft: #2b2f36;
+  --vw-muted: #565d68;
+  --vw-accent: #111111;
+  --vw-accent-fg: #fafafa;
+  --vw-frame: 1px solid #e4e4e7;
+  --vw-radius: 0.375rem;
+  --vw-radius-sm: 0;
+  --vw-shadow: 0 30px 60px -40px rgba(17, 17, 17, 0.35);
+  --vw-title-display: none;
+  --vw-bar-bg: transparent;
+  --vw-bar-fg: #565d68;
+  --vw-bar-line: 1px solid #e4e4e7;
+  --vw-bar-pad: 0.25rem 0.75rem;
+  --vw-btn-bg: transparent;
+  --vw-btn-fg: #565d68;
+  --vw-btn-line: 0;
+  --vw-btn-radius: 0.375rem;
+  --vw-btn-hover-bg: #f0f0f1;
+  --vw-btn-hover-fg: #111111;
+  --vw-pri-bg: transparent;
+  --vw-pri-fg: #111111;
+  --vw-pri-line: 1px solid #d4d4d8;
+  --vw-pri-radius: 0.375rem;
+  --vw-pri-hover-bg: #f0f0f1;
+  --vw-solid-bg: #111111;
+  --vw-solid-fg: #fafafa;
+  --vw-solid-line: 0;
+  --vw-solid-radius: 0.375rem;
+  --vw-solid-hover-bg: #2b2b2e;
+  --vw-addr-bg: transparent;
+  --vw-addr-fg: #111111;
+  --vw-addr-line: 0;
+  --vw-addr-radius: 0;
+  --vw-body-bg: #f4f4f5;
+  --vw-paper-shadow: 0 0 0 1px #e4e4e7;
+  --vw-chip-bg: transparent;
+  --vw-chip-fg: #565d68;
+  --vw-chip-line: 1px solid #e4e4e7;
+  --vw-chip-radius: 0.375rem;
+  --vw-status-bg: transparent;
+  --vw-status-fg: #565d68;
+  --vw-status-line: 1px solid #e4e4e7;
+  --vw-focus: #111111;
+  --vw-icon-stroke: 1.5;
+  --vw-title-weight: 500;
+  --vw-card-pad: 1.5rem;
+}
+
+[data-viewer-theme="minimalism"] .vw-address,
+[data-viewer-theme="minimalism"] .vw-doc {
+  font-size: 0.875rem;
+}
+[data-viewer-theme="minimalism"] .vw-lock {
+  color: #565d68;
+}
+[data-viewer-theme="minimalism"] .vw-eyebrow {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.8125rem;
+}
+[data-viewer-theme="minimalism"] .vw-eyebrow svg {
+  color: #565d68;
+}
+[data-viewer-theme="minimalism"] .vw-card-title {
+  font-size: 1.75rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+[data-viewer-theme="minimalism"] .vw-card-text {
+  max-width: 38ch;
+  line-height: 1.7;
+}
+[data-viewer-theme="minimalism"] .vw-lang {
+  background: #111111;
+}
+[data-viewer-theme="minimalism"] .vw-state {
+  background: #fafafa;
+}

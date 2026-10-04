@@ -1,0 +1,128 @@
+/* Neumorphism viewer: soft plastic. One surface colour, so depth comes only from paired light and dark shadows: the window
+   and its buttons are extruded, the address field, tab and page tray are pressed in, and a pressed button sinks. */
+[data-viewer-theme="neumorphism"] {
+  --nm-dark: #a3b1c6;
+  --nm-light: #ffffff;
+  --nm-raised: 9px 9px 18px var(--nm-dark), -9px -9px 18px var(--nm-light);
+  --nm-raised-sm: 5px 5px 10px var(--nm-dark), -5px -5px 10px var(--nm-light);
+  --nm-pressed: inset 6px 6px 12px var(--nm-dark), inset -6px -6px 12px var(--nm-light);
+  --nm-pressed-sm: inset 3px 3px 6px var(--nm-dark), inset -3px -3px 6px var(--nm-light);
+
+  --vw-font: var(--font-neu), system-ui, sans-serif;
+  --vw-font-display: var(--font-neu), system-ui, sans-serif;
+  --vw-scrim: rgba(224, 229, 236, 0.82);
+  --vw-scrim-blur: 8px;
+  --vw-pad: 2rem;
+  --vw-pad-sm: 0.625rem;
+  --vw-bg: #e0e5ec;
+  --vw-fg: #2b3441;
+  --vw-soft: #2b3441;
+  --vw-muted: #3f4a5e;
+  --vw-accent: #2450b8;
+  --vw-accent-fg: #ffffff;
+  --vw-frame: 0;
+  --vw-radius: 2rem;
+  --vw-radius-sm: 1.5rem;
+  --vw-shadow: 20px 20px 40px #a3b1c6, -20px -20px 40px #ffffff;
+  --vw-title-display: flex;
+  --vw-title-bg: transparent;
+  --vw-title-fg: #3f4a5e;
+  --vw-title-line: 0;
+  --vw-dot-size: 0.75rem;
+  --vw-dot-1: #e0e5ec;
+  --vw-dot-2: #e0e5ec;
+  --vw-dot-3: #e0e5ec;
+  --vw-tab-bg: #e0e5ec;
+  --vw-tab-fg: #3f4a5e;
+  --vw-tab-radius: 0.9rem;
+  --vw-bar-bg: transparent;
+  --vw-bar-fg: #2b3441;
+  --vw-bar-line: 0;
+  --vw-bar-pad: 0.5rem 1rem 0.75rem;
+  --vw-btn-bg: #e0e5ec;
+  --vw-btn-fg: #2b3441;
+  --vw-btn-line: 0;
+  --vw-btn-radius: 0.9rem;
+  --vw-btn-shadow: var(--nm-raised-sm);
+  --vw-btn-hover-bg: #e0e5ec;
+  --vw-btn-hover-fg: #2450b8;
+  --vw-btn-hover-shadow: 7px 7px 14px var(--nm-dark), -7px -7px 14px var(--nm-light);
+  --vw-pri-bg: #e0e5ec;
+  --vw-pri-fg: #2450b8;
+  --vw-pri-line: 0;
+  --vw-pri-radius: 1rem;
+  --vw-pri-shadow: var(--nm-raised-sm);
+  --vw-pri-hover-bg: #e0e5ec;
+  --vw-solid-bg: #2450b8;
+  --vw-solid-fg: #ffffff;
+  --vw-solid-line: 0;
+  --vw-solid-radius: 1rem;
+  --vw-solid-shadow: 5px 5px 10px var(--nm-dark), -5px -5px 10px var(--nm-light);
+  --vw-solid-hover-bg: #1e45a0;
+  --vw-addr-bg: #e0e5ec;
+  --vw-addr-fg: #2b3441;
+  --vw-addr-line: 0;
+  --vw-addr-radius: 1rem;
+  --vw-addr-shadow: var(--nm-pressed-sm);
+  --vw-body-bg: #e0e5ec;
+  --vw-paper-shadow: 6px 6px 14px var(--nm-dark), -4px -4px 10px var(--nm-light);
+  --vw-chip-bg: #e0e5ec;
+  --vw-chip-fg: #2b3441;
+  --vw-chip-line: 0;
+  --vw-chip-radius: 0.8rem;
+  --vw-status-bg: transparent;
+  --vw-status-fg: #3f4a5e;
+  --vw-status-line: 0;
+  --vw-focus: #2450b8;
+  --vw-focus-width: 3px;
+  --vw-icon-stroke: 2.25;
+  --vw-card-pad: 1.5rem;
+  font-weight: 500;
+}
+
+[data-viewer-theme="neumorphism"] .vw-dots i {
+  box-shadow: inset 2px 2px 4px var(--nm-dark), inset -2px -2px 4px var(--nm-light);
+}
+[data-viewer-theme="neumorphism"] .vw-titlebar {
+  padding-top: 0.6rem;
+}
+[data-viewer-theme="neumorphism"] .vw-tab {
+  box-shadow: var(--nm-pressed-sm);
+}
+[data-viewer-theme="neumorphism"] .vw-btn:active,
+[data-viewer-theme="neumorphism"] .vw-btn[aria-pressed="true"] {
+  box-shadow: var(--nm-pressed-sm);
+}
+[data-viewer-theme="neumorphism"] .vw-btn:disabled {
+  box-shadow: none;
+  opacity: 0.5;
+}
+[data-viewer-theme="neumorphism"] .vw-pages {
+  margin: 0.25rem 0.875rem 0.5rem;
+  border-radius: 1.25rem;
+  box-shadow: var(--nm-pressed);
+}
+[data-viewer-theme="neumorphism"] .vw-page {
+  margin: 0.25rem 0.875rem 0.5rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: var(--nm-pressed);
+}
+[data-viewer-theme="neumorphism"] .vw-paper {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+[data-viewer-theme="neumorphism"] .vw-card-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+[data-viewer-theme="neumorphism"] .vw-chip {
+  box-shadow: var(--nm-pressed-sm);
+}
+[data-viewer-theme="neumorphism"] .vw-state {
+  background: #e0e5ec;
+}
+[data-viewer-theme="neumorphism"] .vw-status {
+  padding-bottom: 0.875rem;
+}

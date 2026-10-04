@@ -10,8 +10,9 @@ A high-performance, interactive personal portfolio built with a focus on storyte
 - **Many designs, one data store**: All content lives in typed TypeScript (`src/data`); each design is a separate route that only arranges it. A **Designs** panel (bottom-left, with a preview of each look) switches between all **23**: Cinematic, Claymorphism, Cybercore, Neo-brutalism, Scrapbook, Surrealism, Y2K, Pixel art, Synthwave, Glassmorphism, Neumorphism, Bento grid, Editorial, Swiss, Minimalism, Maximalism, Luxury typography, Conceptual sketch, Ethereal, Bohemian, Victorian, Cyberpunk and Wabi-sabi. Switching keeps you on the section you were reading (see [docs/DESIGNS.md](docs/DESIGNS.md)).
 - **Recruiter-first basics**: The first screen states availability ("Open to entry-level roles") and offers View projects / Resume / Contact; featured projects carry concrete evidence (stack, what was built, numbers); the resume opens in-page; the email address can be copied.
 - **Glassmorphic UI**: Beautiful, interactive glass panels with magnetic hover effects, noise textures, and subtle 3D transformations.
-- **Built-in Resume Reader**: The resume opens in an on-page PDF reader (pdf.js, loaded on demand) with zoom, selectable text, clickable links and a Download PDF button, instead of a bare browser PDF tab.
-- **In-page Link Viewer**: Project, profile and experience links open in an on-page panel: repos as a preview card (description, topics, language, stars), live demos in an embedded browser with address bar and reload. GitHub and LinkedIn forbid framing, so they always get the card plus an Open button.
+- **Built-in Resume Reader**: The resume opens in an on-page PDF reader (pdf.js, loaded on demand) with zoom, page count, selectable text, clickable links and a Download PDF button, instead of a bare browser PDF tab.
+- **In-page Link Viewer**: Project, profile and experience links open in an on-page panel: repos as a preview card (description, topics, language, stars), live demos in an embedded browser with tab, address bar, back and reload. GitHub and LinkedIn forbid framing, so they always get the card plus an Open button.
+- **Viewers that belong to each design**: the browser window and the PDF reader are one shared implementation, restyled by all 23 designs: frame, title bar and tab, toolbar, buttons, address bar, type, borders, shadows and entrance are each design's own (a taped sheet in Scrapbook, a HUD in Cybercore, a game menu in Pixel art, a bento tray in Bento grid, and so on). Switching design while a viewer is open restyles it in place. See "Themed viewers" in [docs/DESIGNS.md](docs/DESIGNS.md).
 - **Animated Navigation**: Nav links scroll through the page (eased, interruptible, reduced-motion aware) so the scroll story plays on the way to a section.
 - **Micro-Interactions**: Custom morphing cursors, spring animations, dynamic parallax sections, and smooth transitions powered by Framer Motion.
 - **Easter Eggs**: Secret Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`), and hidden tooltips.
@@ -55,7 +56,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | `npm run typecheck` | `tsc --noEmit` in strict mode |
 | `npm test` | Vitest unit tests: repo filtering/sorting, URL safety, click handlers, content and design-registry integrity, the scaffold script |
 | `npm run build` | Static export to `out/` |
-| `npm run test:e2e` | Playwright smoke tests, the design switcher and the per-design contract against `out/` on a desktop and a phone profile (first run: `npx playwright install chromium`; or set `PW_CHANNEL=chrome` to use installed Chrome) |
+| `npm run test:e2e` | Playwright smoke tests, the design switcher, the per-design contract and the themed viewers (preview card, embedded browser and PDF reader in every design, with axe, fit, tap targets, focus and switching design while open) against `out/` on a desktop and a phone profile (first run: `npx playwright install chromium`; or set `PW_CHANNEL=chrome` to use installed Chrome) |
 | `npm run new-design -- <slug>` | Scaffolds a planned design (component, route, registry status) |
 | `npm run previews` | Regenerates the design-switcher thumbnails in `public/design-previews/` from the built site (`npm run build` first) |
 | `npm run check:links` | Verifies every external link in the built page (also runs weekly in CI: `.github/workflows/link-check.yml`) |
@@ -94,11 +95,15 @@ GitHub Actions (`.github/workflows/ci.yml`) runs all of the above on every push 
 │   │   ├── metadata.ts    # route metadata helper
 │   │   ├── shared/        # usePortfolio() (content + wired-up links), Reveal, SkipLink, useActiveSection
 │   │   ├── cinematic/     # the default design: scroll-driven film intro + glass panels
-│   │   └── <slug>/        # the other 22: index.tsx, styles.module.css, fonts.ts, fonts/ (self-hosted)
+│   │   └── <slug>/        # the other 22: index.tsx, styles.module.css, viewer.css, fonts.ts, fonts/ (self-hosted)
 │   ├── components/        # shared chrome, mounted once in the root layout
-│   │   ├── DesignSwitcher.tsx   # the panel that switches designs
+│   │   ├── DesignSwitcher.tsx   # the panel that switches designs (usable above an open viewer)
 │   │   ├── ResumeViewer.tsx     # built-in PDF reader
 │   │   ├── LinkViewer.tsx       # in-page link preview card + embedded browser
+│   │   ├── viewer/              # what both viewers are built from, themed per design
+│   │   │   ├── ViewerFrame.tsx  #   window, title bar, toolbar slot, focus trap, Esc, entrance
+│   │   │   ├── viewerTheme.tsx  #   <ViewerTheme>: how a design tells the viewers it is active
+│   │   │   └── viewer.css       #   structure + --vw-* tokens; each design's viewer.css overrides them
 │   │   ├── SmoothAnchors.tsx    # animated in-page navigation
 │   │   ├── SiteChrome.tsx, Providers.tsx
 │   ├── lib/               # behaviour any design can reuse
@@ -131,7 +136,8 @@ The portfolio can be shown in many styles from the same content. Everything is d
 - **Content** lives in `src/data`. A design imports `portfolio` and never hard-codes anything.
 - **The plan** lives in `src/designs/registry.ts`: 23 designs, each `live` or `planned`, with a one-line direction and a palette. The **Designs** panel is generated from it.
 - **One hook** (`usePortfolio()` in `src/designs/shared`) gives every design the content, the GitHub projects and ready-made link props, so the resume reader, link viewer and copy-email behave identically everywhere.
-- **Add a design:** `npm run new-design -- <slug>` scaffolds the component and route and marks it live. The Playwright suite then checks the design contract for it automatically: all content present, resume reader works, the nine section anchors exist, no overflow from 320 px up, no console errors, WCAG 2.1 A/AA via axe, nothing looping under reduced motion.
+- **Themed viewers:** the browser window and PDF reader behave identically in every design but look like each one's own. A design renders `<ViewerTheme slug fonts />` and ships a `viewer.css` of `--vw-*` tokens and a few rules; the shared `ViewerFrame` does the rest, and an open viewer restyles the moment the design changes.
+- **Add a design:** `npm run new-design -- <slug>` scaffolds the component, a starter `viewer.css` and the route and marks it live. The Playwright suite then checks the design contract for it automatically: all content present, resume reader works, the nine section anchors exist, no overflow from 320 px up, no console errors, WCAG 2.1 A/AA via axe, nothing looping under reduced motion, and a viewer theme of its own that passes the same checks.
 - **Routes:** the default design is served at `/`; the others at `/designs/<slug>/` with their canonical URL pointing at `/`, so search engines index one page.
 - Fonts are self-hosted per design (a visitor only downloads the fonts of the design they open) and there are no image assets: textures and illustrations are CSS and inline SVG.
 

@@ -7,6 +7,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { dreamSans, dreamSerif } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -50,6 +52,7 @@ export default function SurrealismDesign() {
 
   return (
     <main id="top" data-design="surrealism" className={`${dreamSerif.variable} ${dreamSans.variable} ${styles.page}`}>
+      <ViewerTheme slug="surrealism" fonts={`${dreamSerif.variable} ${dreamSans.variable}`} entrance="drop" />
       <SkipLink />
 
       <header ref={heroRef} className={styles.hero}>

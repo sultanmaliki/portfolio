@@ -7,6 +7,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { swissGrotesk } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -31,6 +33,7 @@ export default function SwissDesign() {
 
   return (
     <main id="top" data-design="swiss" className={`${swissGrotesk.variable} ${styles.page}`}>
+      <ViewerTheme slug="swiss" fonts={`${swissGrotesk.variable}`} entrance="snap" />
       <SkipLink />
 
       {/* Column guides, toggled from the header. Purely visual. */}

@@ -1,0 +1,106 @@
+/* Glassmorphism viewer: frosted layers over colour. The window and every bar are translucent glass with a bright top edge, the
+   scrim is the page's blurred violet, pink and teal light field, and controls are small glass tiles. Text stays white. */
+[data-viewer-theme="glassmorphism"] {
+  --glass: rgba(255, 255, 255, 0.1);
+  --glass-line: rgba(255, 255, 255, 0.26);
+
+  --vw-font: var(--font-glass), system-ui, sans-serif;
+  --vw-font-display: var(--font-glass), system-ui, sans-serif;
+  --vw-scrim: radial-gradient(60vmax 60vmax at 12% 8%, rgba(124, 92, 255, 0.6), transparent 62%), radial-gradient(52vmax 52vmax at 92% 42%, rgba(255, 92, 170, 0.45), transparent 62%), radial-gradient(50vmax 50vmax at 40% 105%, rgba(36, 200, 200, 0.4), transparent 62%), rgba(12, 10, 36, 0.78);
+  --vw-scrim-blur: 14px;
+  --vw-pad: 1.75rem;
+  --vw-pad-sm: 0.5rem;
+  --vw-bg: rgba(22, 18, 62, 0.72);
+  --vw-fg: #ffffff;
+  --vw-soft: rgba(255, 255, 255, 0.92);
+  --vw-muted: rgba(255, 255, 255, 0.78);
+  --vw-accent: #c4b5ff;
+  --vw-accent-fg: #1a1445;
+  --vw-frame: 1px solid rgba(255, 255, 255, 0.28);
+  --vw-radius: 1.75rem;
+  --vw-radius-sm: 1.5rem;
+  --vw-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  --vw-title-display: flex;
+  --vw-title-bg: rgba(255, 255, 255, 0.07);
+  --vw-title-fg: rgba(255, 255, 255, 0.9);
+  --vw-title-line: 1px solid rgba(255, 255, 255, 0.16);
+  --vw-dot-size: 0.6rem;
+  --vw-dot-1: rgba(255, 255, 255, 0.7);
+  --vw-dot-2: rgba(255, 255, 255, 0.45);
+  --vw-dot-3: rgba(255, 255, 255, 0.28);
+  --vw-tab-bg: rgba(255, 255, 255, 0.12);
+  --vw-tab-fg: #ffffff;
+  --vw-tab-line: 1px solid rgba(255, 255, 255, 0.22);
+  --vw-tab-radius: 0.75rem;
+  --vw-bar-bg: rgba(255, 255, 255, 0.06);
+  --vw-bar-fg: #ffffff;
+  --vw-bar-line: 1px solid rgba(255, 255, 255, 0.16);
+  --vw-btn-bg: rgba(255, 255, 255, 0.1);
+  --vw-btn-fg: #ffffff;
+  --vw-btn-line: 1px solid rgba(255, 255, 255, 0.24);
+  --vw-btn-radius: 0.9rem;
+  --vw-btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  --vw-btn-hover-bg: rgba(255, 255, 255, 0.22);
+  --vw-btn-hover-fg: #ffffff;
+  --vw-btn-hover-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 6px 18px rgba(0, 0, 0, 0.25);
+  --vw-pri-bg: rgba(196, 181, 255, 0.2);
+  --vw-pri-fg: #ffffff;
+  --vw-pri-line: 1px solid rgba(196, 181, 255, 0.7);
+  --vw-pri-radius: 0.9rem;
+  --vw-pri-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  --vw-pri-hover-bg: rgba(196, 181, 255, 0.34);
+  --vw-solid-bg: rgba(255, 255, 255, 0.94);
+  --vw-solid-fg: #1a1445;
+  --vw-solid-line: 1px solid #ffffff;
+  --vw-solid-radius: 0.9rem;
+  --vw-solid-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+  --vw-solid-hover-bg: #ffffff;
+  --vw-addr-bg: rgba(0, 0, 0, 0.22);
+  --vw-addr-fg: #ffffff;
+  --vw-addr-line: 1px solid rgba(255, 255, 255, 0.2);
+  --vw-addr-radius: 0.9rem;
+  --vw-body-bg: rgba(255, 255, 255, 0.04);
+  --vw-paper-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.3);
+  --vw-chip-bg: rgba(255, 255, 255, 0.12);
+  --vw-chip-fg: #ffffff;
+  --vw-chip-line: 1px solid rgba(255, 255, 255, 0.24);
+  --vw-chip-radius: 0.7rem;
+  --vw-status-bg: rgba(255, 255, 255, 0.06);
+  --vw-status-fg: rgba(255, 255, 255, 0.82);
+  --vw-status-line: 1px solid rgba(255, 255, 255, 0.16);
+  --vw-focus: #ffffff;
+  --vw-icon-stroke: 1.75;
+  --vw-title-weight: 600;
+}
+
+[data-viewer-theme="glassmorphism"] .vw-window {
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  backdrop-filter: blur(28px) saturate(1.5);
+}
+/* a soft sheen across the top of the glass */
+[data-viewer-theme="glassmorphism"] .vw-window::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.16), transparent 32%);
+  pointer-events: none;
+}
+[data-viewer-theme="glassmorphism"] .vw-inner {
+  position: relative;
+  z-index: 1;
+}
+[data-viewer-theme="glassmorphism"] .vw-state {
+  background: rgba(22, 18, 62, 0.92);
+}
+[data-viewer-theme="glassmorphism"] .vw-card-title {
+  font-size: 1.85rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+@media (max-width: 39.99rem) {
+  [data-viewer-theme="glassmorphism"] {
+    --vw-bg: rgba(22, 18, 62, 0.86);
+  }
+}

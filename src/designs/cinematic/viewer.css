@@ -1,0 +1,55 @@
+/* Cinematic viewer: the dark stage. Glass panels, hairline borders, light type with wide tracking, one blue accent and the
+   pill-shaped controls the design's own calls to action use. A letterbox-style label bar replaces the window dots. */
+[data-viewer-theme="cinematic"] {
+  --vw-scrim: rgba(12, 12, 14, 0.78);
+  --vw-scrim-blur: 10px;
+  --vw-bg: #161616;
+  --vw-frame: 1px solid rgba(255, 255, 255, 0.12);
+  --vw-radius: 1.5rem;
+  --vw-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --vw-title-display: flex;
+  --vw-dots-display: none;
+  --vw-title-bg: rgba(255, 255, 255, 0.03);
+  --vw-label-case: uppercase;
+  --vw-label-track: 0.18em;
+  --vw-tab-fg: rgba(245, 245, 245, 0.7);
+  --vw-bar-bg: rgba(255, 255, 255, 0.05);
+  --vw-btn-radius: 999px;
+  --vw-pri-radius: 999px;
+  --vw-solid-radius: 999px;
+  --vw-addr-radius: 999px;
+  --vw-chip-radius: 999px;
+  --vw-solid-bg: #ffffff;
+  --vw-solid-fg: #000000;
+  --vw-solid-hover-bg: #f5f5f5;
+  --vw-body-bg: #1b1b1b;
+  --vw-title-weight: 500;
+}
+
+[data-viewer-theme="cinematic"] .vw-titlebar {
+  font-weight: 300;
+  justify-content: center;
+  position: relative;
+}
+
+/* a thin lit edge under the label bar, like the glow of a screen */
+[data-viewer-theme="cinematic"] .vw-titlebar::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(110, 168, 255, 0.7), transparent);
+}
+
+[data-viewer-theme="cinematic"] .vw-btn--label,
+[data-viewer-theme="cinematic"] .vw-status {
+  font-weight: 300;
+}
+
+[data-viewer-theme="cinematic"] .vw-card-title {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  font-size: 1.75rem;
+}

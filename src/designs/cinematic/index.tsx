@@ -11,6 +11,8 @@ import SectionContact from "./SectionContact";
 import CustomCursor from "./CustomCursor";
 import NoiseBackground from "./NoiseBackground";
 import KonamiCode from "./KonamiCode";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 /**
  * The original design: a scroll-linked film intro, then glass panels on a dark stage.
@@ -30,6 +32,7 @@ export default function CinematicDesign() {
       >
         Skip intro
       </a>
+      <ViewerTheme slug="cinematic" entrance="rise" />
       <SiteNav />
       <CustomCursor />
       <NoiseBackground />

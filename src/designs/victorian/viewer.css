@@ -1,0 +1,176 @@
+/* Victorian viewer: a parlour display case. Parchment under a burgundy mat and a brass frame, a burgundy title plate with
+   small-caps lettering between brass diamonds, brass-plated buttons with a lit edge, Fell and Garamond type, ruled lines
+   in pairs. Everything is slightly formal and slightly over-decorated, as it should be. */
+[data-viewer-theme="victorian"] {
+  --vc-brass: #c8a96a;
+  --vc-brass-deep: #8a6a2a;
+  --vc-plate: linear-gradient(180deg, #e9d7a6 0%, #c8a96a 100%);
+
+  --vw-font: var(--font-vic-text), Garamond, Georgia, serif;
+  --vw-font-display: var(--font-vic-fell), var(--font-vic-text), Georgia, serif;
+  --vw-scrim: radial-gradient(ellipse at 50% 40%, rgba(74, 28, 38, 0.35), transparent 60%), rgba(42, 26, 20, 0.84);
+  --vw-scrim-blur: 3px;
+  --vw-pad: 2.5rem;
+  --vw-pad-sm: 0.75rem;
+  --vw-bg: #f1e6cf;
+  --vw-fg: #2a1a14;
+  --vw-soft: #3a261c;
+  --vw-muted: #5b4637;
+  --vw-accent: #4a1c26;
+  --vw-accent-fg: #f8f0de;
+  --vw-frame: 2px solid #8a6a2a;
+  --vw-radius: 4px;
+  --vw-radius-sm: 4px;
+  --vw-shadow: 0 0 0 6px #4a1c26, 0 0 0 8px #c8a96a, 0 36px 80px rgba(0, 0, 0, 0.65);
+  --vw-title-display: flex;
+  --vw-title-h: 2.75rem;
+  --vw-title-bg: #4a1c26;
+  --vw-title-fg: #e9d7a6;
+  --vw-title-line: 3px double #c8a96a;
+  --vw-dot-size: 0.7rem;
+  --vw-dot-radius: 50%;
+  --vw-dot-1: #c8a96a;
+  --vw-dot-2: #c8a96a;
+  --vw-dot-3: #c8a96a;
+  --vw-tab-fg: #e9d7a6;
+  --vw-label-track: 0.06em;
+  --vw-bar-bg: #f8f0de;
+  --vw-bar-fg: #2a1a14;
+  --vw-bar-line: 3px double #8a6a2a;
+  --vw-btn-bg: var(--vc-plate);
+  --vw-btn-fg: #2a1a14;
+  --vw-btn-line: 1px solid #8a6a2a;
+  --vw-btn-radius: 3px;
+  --vw-btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(42, 26, 20, 0.35);
+  --vw-btn-hover-bg: linear-gradient(180deg, #f3e6bd 0%, #d8bc7c 100%);
+  --vw-btn-hover-fg: #2a1a14;
+  --vw-pri-bg: #4a1c26;
+  --vw-pri-fg: #f8f0de;
+  --vw-pri-line: 1px solid #c8a96a;
+  --vw-pri-radius: 3px;
+  --vw-pri-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 2px rgba(42, 26, 20, 0.4);
+  --vw-pri-hover-bg: #62242f;
+  --vw-solid-bg: #2a1a14;
+  --vw-solid-fg: #f8f0de;
+  --vw-solid-line: 1px solid #8a6a2a;
+  --vw-solid-radius: 3px;
+  --vw-solid-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 1px 2px rgba(42, 26, 20, 0.4);
+  --vw-solid-hover-bg: #4a1c26;
+  --vw-addr-bg: #f8f0de;
+  --vw-addr-fg: #2a1a14;
+  --vw-addr-line: 1px solid #8a6a2a;
+  --vw-addr-radius: 2px;
+  --vw-addr-shadow: inset 0 2px 4px rgba(42, 26, 20, 0.18);
+  --vw-body-bg: #e3d3ae;
+  --vw-paper-shadow: 0 0 0 1px #8a6a2a, 0 0 0 6px #f8f0de, 0 0 0 7px #8a6a2a, 0 14px 30px rgba(42, 26, 20, 0.5);
+  --vw-chip-bg: transparent;
+  --vw-chip-fg: #3a261c;
+  --vw-chip-line: 1px solid #8a6a2a;
+  --vw-chip-radius: 2px;
+  --vw-status-bg: #4a1c26;
+  --vw-status-fg: #e9d7a6;
+  --vw-status-line: 3px double #c8a96a;
+  --vw-focus: #4a1c26;
+  --vw-focus-width: 3px;
+  --vw-icon-stroke: 1.75;
+  --vw-title-weight: 400;
+  --vw-card-pad: 1.5rem;
+  font-size: 0.9375rem;
+}
+
+[data-viewer-theme="victorian"] .vw-window {
+  background-image: radial-gradient(ellipse at 50% 30%, #f8f0de 0%, #f1e6cf 55%, #e3d3ae 100%);
+}
+[data-viewer-theme="victorian"] .vw-dots i:nth-child(n) {
+  background: radial-gradient(circle at 35% 30%, #f3e6bd, #8a6a2a);
+}
+[data-viewer-theme="victorian"] .vw-titlebar {
+  justify-content: center;
+}
+[data-viewer-theme="victorian"] .vw-dots {
+  position: absolute;
+  left: 0.9rem;
+}
+[data-viewer-theme="victorian"] .vw-titlebar {
+  position: relative;
+}
+[data-viewer-theme="victorian"] .vw-tab {
+  font-family: var(--font-vic-fell), Georgia, serif;
+  font-variant: small-caps;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+}
+[data-viewer-theme="victorian"] .vw-tab::before,
+[data-viewer-theme="victorian"] .vw-tab::after {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  flex-shrink: 0;
+  background: #c8a96a;
+  rotate: 45deg;
+}
+[data-viewer-theme="victorian"] .vw-tab-icon {
+  display: none;
+}
+[data-viewer-theme="victorian"] .vw-btn {
+  font-family: var(--font-vic-fell), Georgia, serif;
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  font-size: 0.9375rem;
+}
+[data-viewer-theme="victorian"] .vw-btn--primary:hover,
+[data-viewer-theme="victorian"] .vw-btn--solid:hover {
+  color: #f8f0de;
+}
+[data-viewer-theme="victorian"] .vw-address,
+[data-viewer-theme="victorian"] .vw-doc {
+  font-style: italic;
+}
+[data-viewer-theme="victorian"] .vw-lock {
+  color: #4a1c26;
+}
+[data-viewer-theme="victorian"] .vw-eyebrow {
+  font-family: var(--font-vic-fell), Georgia, serif;
+  font-variant: small-caps;
+  text-transform: none;
+  letter-spacing: 0.14em;
+  font-size: 0.9375rem;
+}
+[data-viewer-theme="victorian"] .vw-eyebrow svg {
+  color: #8a6a2a;
+}
+[data-viewer-theme="victorian"] .vw-card-title {
+  font-size: 2.1rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: #4a1c26;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px double #8a6a2a;
+}
+[data-viewer-theme="victorian"] .vw-card-text {
+  font-size: 1.0625rem;
+}
+[data-viewer-theme="victorian"] .vw-card-text::first-letter {
+  float: left;
+  margin: 0.06em 0.08em 0 0;
+  color: #4a1c26;
+  font-family: var(--font-vic-fell), Georgia, serif;
+  font-size: 3.4em;
+  line-height: 0.8;
+}
+[data-viewer-theme="victorian"] .vw-chip {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  font-size: 0.875rem;
+}
+[data-viewer-theme="victorian"] .vw-status {
+  font-style: italic;
+}
+[data-viewer-theme="victorian"] .vw-status a {
+  color: #f3e6bd;
+}
+[data-viewer-theme="victorian"] .vw-state {
+  background: #f1e6cf;
+  font-style: italic;
+}

@@ -62,10 +62,10 @@ describe("fill", () => {
 
   it("generates the starter files for real: no placeholders left", () => {
     const vars = { SLUG: "minimalism", NAME: "Minimalism", COMPONENT: componentName("minimalism") };
-    for (const name of ["design.tsx.tpl", "page.tsx.tpl", "styles.module.css.tpl"]) {
+    for (const name of ["design.tsx.tpl", "page.tsx.tpl", "styles.module.css.tpl", "viewer.css.tpl"]) {
       const out = fill(readFileSync(new URL(`./templates/${name}`, import.meta.url), "utf8"), vars);
       expect(out).not.toMatch(/__[A-Z]+__/);
-      expect(out).toContain(name === "styles.module.css.tpl" ? "minimalism" : "MinimalismDesign");
+      expect(out).toContain(name.endsWith(".css.tpl") ? "minimalism" : "MinimalismDesign");
     }
   });
 });

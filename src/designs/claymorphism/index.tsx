@@ -6,6 +6,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { clayDisplay, clayText } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -31,6 +33,7 @@ export default function ClaymorphismDesign() {
 
   return (
     <main id="top" data-design="claymorphism" className={`${clayDisplay.variable} ${clayText.variable} ${styles.page}`}>
+      <ViewerTheme slug="claymorphism" fonts={`${clayDisplay.variable} ${clayText.variable}`} entrance="pop" />
       <SkipLink />
 
       <div aria-hidden className={styles.blobs}>

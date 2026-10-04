@@ -5,6 +5,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { luxurySans, luxurySerif } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -42,6 +44,7 @@ export default function LuxuryTypographyDesign() {
 
   return (
     <main id="top" data-design="luxury-typography" className={`${luxurySerif.variable} ${luxurySans.variable} ${styles.page}`}>
+      <ViewerTheme slug="luxury-typography" fonts={`${luxurySerif.variable} ${luxurySans.variable}`} entrance="fade" />
       <SkipLink />
 
       <header className={styles.hero}>

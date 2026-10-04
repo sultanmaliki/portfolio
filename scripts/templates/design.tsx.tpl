@@ -1,8 +1,10 @@
 "use client";
 
+import ViewerTheme from "@/components/viewer/viewerTheme";
 import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import styles from "./styles.module.css";
+import "./viewer.css";
 
 /**
  * __NAME__ design (STARTER).
@@ -15,6 +17,7 @@ import styles from "./styles.module.css";
  *   - every featured project, job, education entry and skill
  *   - the nine anchors: top, story, skills, experience, education, projects, timeline, curiosity, contact
  *   - no console errors, no horizontal scrolling from 320px up, WCAG AA contrast, calm under reduced motion
+ *   - a viewer theme: <ViewerTheme> below plus viewer.css, so the built-in browser window and PDF reader take on this design
  *
  * Content and links come only from usePortfolio() (never hard-code them). Fonts: self-host with
  * next/font/local in ./fonts.ts. The brief and the conventions are in docs/DESIGNS.md.
@@ -24,6 +27,7 @@ export default function __COMPONENT__() {
 
   return (
     <main id="top" data-design="__SLUG__" className={styles.page}>
+      <ViewerTheme slug="__SLUG__" entrance="rise" />
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.header}>

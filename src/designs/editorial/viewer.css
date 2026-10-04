@@ -1,0 +1,156 @@
+/* Editorial viewer: a broadsheet page. Warm newsprint, black rules (thick over thin, double under the masthead), a serif
+   masthead for the file name, controls set as small-caps text links rather than buttons, a drop cap on the preview text
+   and crimson used once, for the one action that matters. */
+[data-viewer-theme="editorial"] {
+  --ed-rule: #1a1a1a;
+
+  --vw-font: var(--font-ed-text), Georgia, serif;
+  --vw-font-display: var(--font-ed-display), var(--font-ed-text), Georgia, serif;
+  --vw-scrim: rgba(247, 243, 236, 0.9);
+  --vw-scrim-blur: 3px;
+  --vw-pad: 2rem;
+  --vw-pad-sm: 0;
+  --vw-bg: #f7f3ec;
+  --vw-fg: #1a1a1a;
+  --vw-soft: #2f2c27;
+  --vw-muted: #5f5a51;
+  --vw-accent: #b3261e;
+  --vw-accent-fg: #f7f3ec;
+  --vw-frame: 1px solid #1a1a1a;
+  --vw-radius: 0;
+  --vw-radius-sm: 0;
+  --vw-shadow: 0 30px 60px -28px rgba(26, 26, 26, 0.55);
+  --vw-title-display: flex;
+  --vw-title-h: 2.75rem;
+  --vw-title-bg: transparent;
+  --vw-title-fg: #1a1a1a;
+  --vw-title-line: 3px double #1a1a1a;
+  --vw-dots-display: none;
+  --vw-tab-fg: #1a1a1a;
+  --vw-bar-bg: transparent;
+  --vw-bar-fg: #1a1a1a;
+  --vw-bar-line: 1px solid #1a1a1a;
+  --vw-btn-bg: transparent;
+  --vw-btn-fg: #1a1a1a;
+  --vw-btn-line: 1px solid transparent;
+  --vw-btn-radius: 0;
+  --vw-btn-hover-bg: transparent;
+  --vw-btn-hover-fg: #b3261e;
+  --vw-pri-bg: transparent;
+  --vw-pri-fg: #b3261e;
+  --vw-pri-line: 1px solid #b3261e;
+  --vw-pri-radius: 0;
+  --vw-pri-hover-bg: #b3261e;
+  --vw-solid-bg: #1a1a1a;
+  --vw-solid-fg: #f7f3ec;
+  --vw-solid-line: 1px solid #1a1a1a;
+  --vw-solid-radius: 0;
+  --vw-solid-hover-bg: #b3261e;
+  --vw-addr-bg: transparent;
+  --vw-addr-fg: #1a1a1a;
+  --vw-addr-line: 0;
+  --vw-addr-radius: 0;
+  --vw-body-bg: #ebe4d6;
+  --vw-paper-shadow: 0 1px 0 #1a1a1a, 0 18px 30px -20px rgba(26, 26, 26, 0.6);
+  --vw-paper-line: 1px solid #1a1a1a;
+  --vw-chip-bg: transparent;
+  --vw-chip-fg: #2f2c27;
+  --vw-chip-line: 0;
+  --vw-chip-radius: 0;
+  --vw-status-bg: transparent;
+  --vw-status-fg: #5f5a51;
+  --vw-status-line: 1px solid #1a1a1a;
+  --vw-focus: #b3261e;
+  --vw-icon-stroke: 1.5;
+  --vw-title-weight: 800;
+  --vw-card-pad: 1.5rem;
+  font-size: 0.9375rem;
+}
+
+/* thick rule over the masthead, as on a front page */
+[data-viewer-theme="editorial"] .vw-window {
+  border-top: 5px solid #1a1a1a;
+}
+[data-viewer-theme="editorial"] .vw-titlebar {
+  justify-content: center;
+}
+[data-viewer-theme="editorial"] .vw-tab {
+  font-family: var(--font-ed-display), Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0 0.5rem;
+}
+[data-viewer-theme="editorial"] .vw-btn {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  font-size: 0.9375rem;
+}
+[data-viewer-theme="editorial"] .vw-btn:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+[data-viewer-theme="editorial"] .vw-btn--primary:hover {
+  color: #f7f3ec;
+  text-decoration: none;
+}
+[data-viewer-theme="editorial"] .vw-btn--solid:hover {
+  color: #f7f3ec;
+}
+[data-viewer-theme="editorial"] .vw-address,
+[data-viewer-theme="editorial"] .vw-doc {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-bottom: 1px solid #1a1a1a;
+  font-style: italic;
+  font-size: 0.9375rem;
+}
+[data-viewer-theme="editorial"] .vw-lock {
+  color: #b3261e;
+}
+[data-viewer-theme="editorial"] .vw-card-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #1a1a1a;
+}
+[data-viewer-theme="editorial"] .vw-card-text {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+[data-viewer-theme="editorial"] .vw-card-text::first-letter {
+  float: left;
+  margin: 0.08em 0.1em 0 0;
+  color: #b3261e;
+  font-family: var(--font-ed-display), Georgia, serif;
+  font-size: 3.6em;
+  font-weight: 800;
+  line-height: 0.8;
+}
+[data-viewer-theme="editorial"] .vw-eyebrow {
+  letter-spacing: 0.2em;
+  font-variant: small-caps;
+  text-transform: none;
+  font-size: 0.875rem;
+}
+[data-viewer-theme="editorial"] .vw-chips {
+  gap: 0.25rem 1rem;
+}
+[data-viewer-theme="editorial"] .vw-chip {
+  padding: 0;
+  font-style: italic;
+  font-size: 0.9375rem;
+}
+[data-viewer-theme="editorial"] .vw-chip:not(:last-child)::after {
+  content: " /";
+  color: #b3261e;
+}
+[data-viewer-theme="editorial"] .vw-status {
+  font-style: italic;
+}
+[data-viewer-theme="editorial"] .vw-state {
+  background: #f7f3ec;
+  font-style: italic;
+}

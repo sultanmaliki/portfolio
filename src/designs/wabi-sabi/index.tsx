@@ -5,6 +5,8 @@ import SkipLink from "../shared/SkipLink";
 import { monthYear, usePortfolio } from "../shared/usePortfolio";
 import { wabiSerif } from "./fonts";
 import styles from "./styles.module.css";
+import ViewerTheme from "@/components/viewer/viewerTheme";
+import "./viewer.css";
 
 const NAV = [
   ["story", "Story"],
@@ -43,6 +45,7 @@ export default function WabiSabiDesign() {
 
   return (
     <main id="top" data-design="wabi-sabi" className={`${wabiSerif.variable} ${styles.page}`}>
+      <ViewerTheme slug="wabi-sabi" fonts={`${wabiSerif.variable}`} entrance="fade" />
       <SkipLink />
       <div aria-hidden className={styles.grain} />
 
