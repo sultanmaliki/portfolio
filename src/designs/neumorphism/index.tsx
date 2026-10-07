@@ -9,6 +9,7 @@ import { neuRounded } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -39,6 +40,7 @@ export default function NeumorphismDesign() {
   return (
     <main id="top" data-design="neumorphism" className={`${neuRounded.variable} ${styles.page}`}>
       <ViewerTheme slug="neumorphism" fonts={`${neuRounded.variable}`} entrance="rise" />
+      <Egg />
       <SkipLink />
       <div className={styles.layout}>
         <aside className={styles.side}>

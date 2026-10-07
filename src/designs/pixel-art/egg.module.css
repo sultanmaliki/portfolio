@@ -1,0 +1,105 @@
+/* Easter egg: an endless runner on a 320x180 canvas, drawn in the page's own palette. */
+.backdrop {
+  background: rgba(13, 21, 48, 0.88);
+  animation: fade 0.2s steps(3) backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.cabinet {
+  width: min(40rem, 100%);
+  padding: 1rem;
+  border: 4px solid #fff1e8;
+  background: #1d2b53;
+  box-shadow: 8px 8px 0 #000000;
+  color: #fff1e8;
+  font-family: var(--font-px-body), system-ui, sans-serif;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.head h2 {
+  margin: 0;
+  font: 400 1rem/1.4 var(--font-px-display), monospace;
+  color: #ffec27;
+  text-transform: uppercase;
+}
+
+.close,
+.overlay button {
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 4px solid #fff1e8;
+  background: #ff004d;
+  color: #fff1e8;
+  font: 400 0.75rem/1 var(--font-px-display), monospace;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 #000000;
+  cursor: pointer;
+}
+
+.close:active,
+.overlay button:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.close:focus-visible,
+.overlay button:focus-visible {
+  outline: 4px solid #ffec27;
+  outline-offset: 2px;
+}
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  margin: 0.75rem 0;
+  font: 400 0.625rem/1.6 var(--font-px-display), monospace;
+  color: #00e436;
+}
+
+.screen {
+  position: relative;
+  border: 4px solid #000000;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  image-rendering: pixelated;
+  touch-action: none;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1rem;
+  background: rgba(13, 21, 48, 0.72);
+}
+
+.overlay p {
+  margin: 0;
+  font: 400 0.9rem/1.5 var(--font-px-display), monospace;
+  color: #ffec27;
+  text-align: center;
+}
+
+.keys {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: #c2c3c7;
+}

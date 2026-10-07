@@ -9,6 +9,7 @@ import { glassSans } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -32,6 +33,7 @@ export default function GlassmorphismDesign() {
   return (
     <main id="top" data-design="glassmorphism" className={`${glassSans.variable} ${styles.page}`}>
       <ViewerTheme slug="glassmorphism" fonts={`${glassSans.variable}`} entrance="rise" />
+      <Egg />
       <SkipLink />
 
       {/* Colour field the glass refracts. Decorative and fixed, so it never moves with the content. */}

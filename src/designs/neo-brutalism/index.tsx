@@ -6,6 +6,7 @@ import { neoGrotesk, neoMono } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -31,6 +32,7 @@ export default function NeoBrutalismDesign() {
   return (
     <main id="top" data-design="neo-brutalism" className={`${neoGrotesk.variable} ${neoMono.variable} ${styles.page}`}>
       <ViewerTheme slug="neo-brutalism" fonts={`${neoGrotesk.variable} ${neoMono.variable}`} entrance="snap" />
+      <Egg />
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.top}>

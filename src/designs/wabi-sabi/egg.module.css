@@ -1,0 +1,123 @@
+/* Easter egg: mend a broken bowl. Drag the shards into place; the cracks are filled with gold. */
+.backdrop {
+  background: rgba(216, 210, 196, 0.9);
+  animation: fade 0.6s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.panel {
+  width: min(26rem, 100%);
+  padding: 1rem 1.25rem 1.25rem;
+  border: 1px solid rgba(52, 50, 45, 0.4);
+  background: rgba(240, 236, 226, 0.7);
+  color: #34322d;
+  font-family: var(--font-wabi), Georgia, serif;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.top h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.close,
+.actions button {
+  min-height: 2.25rem;
+  padding: 0 0.9rem;
+  border: 1px solid #34322d;
+  background: transparent;
+  color: #34322d;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.close:hover,
+.actions button:hover,
+.close:focus-visible,
+.actions button:focus-visible {
+  background: #34322d;
+  color: #d8d2c4;
+  outline: none;
+}
+
+.picture {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(50dvh, 24rem);
+  margin: 0.5rem auto;
+  touch-action: none;
+  overflow: visible;
+}
+
+.ghost {
+  fill: rgba(52, 50, 45, 0.06);
+  stroke: rgba(52, 50, 45, 0.45);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.shard {
+  cursor: grab;
+  outline: none;
+}
+
+.shard path {
+  stroke: #34322d;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 2px rgba(52, 50, 45, 0.35));
+}
+
+.shard:focus-visible path {
+  stroke: #6b3f27;
+  stroke-width: 3;
+}
+
+.locked {
+  cursor: default;
+}
+
+.locked path {
+  filter: none;
+  stroke: rgba(52, 50, 45, 0.5);
+  stroke-width: 0.8;
+}
+
+.gold path {
+  fill: none;
+  stroke: #b08d3c;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  filter: drop-shadow(0 0 3px rgba(176, 141, 60, 0.8));
+  animation: fill 0.9s ease-in-out backwards;
+}
+
+@keyframes fill {
+  from { stroke-dashoffset: 1; }
+}
+
+.status {
+  min-height: 2.8em;
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.9375rem;
+  font-style: italic;
+}
+
+.actions {
+  display: flex;
+}

@@ -1,0 +1,125 @@
+/* Easter egg: a working terminal that answers questions about me. */
+.backdrop {
+  background: rgba(5, 8, 12, 0.78);
+  animation: fade 0.25s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.terminal {
+  display: flex;
+  flex-direction: column;
+  width: min(42rem, 100%);
+  height: min(32rem, calc(100dvh - 7.5rem));
+  border: 1px solid rgba(124, 247, 228, 0.5);
+  background: #0b0f14;
+  box-shadow: 0 0 40px rgba(124, 247, 228, 0.18);
+  font-family: var(--font-core-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  color: #c3c9d4;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(124, 247, 228, 0.3);
+  background: #151b23;
+  color: #7cf7e4;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.close {
+  min-height: 2rem;
+  padding: 0 0.5rem;
+  border: 1px solid rgba(124, 247, 228, 0.4);
+  background: transparent;
+  color: #7cf7e4;
+  font: inherit;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus-visible {
+  background: #7cf7e4;
+  color: #0b0f14;
+}
+
+.screen {
+  flex: 1;
+  padding: 0.75rem;
+  overflow-y: auto;
+}
+
+.line {
+  margin: 0 0 0.25rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+
+.in { color: #e6ebf2; }
+.ok { color: #7cf7e4; font-weight: 700; }
+.err { color: #ff8a9a; }
+.dim { color: #9aa5b5; }
+
+.prompt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid rgba(124, 247, 228, 0.3);
+}
+
+.prompt label {
+  color: #7cf7e4;
+  white-space: nowrap;
+}
+
+.prompt input {
+  flex: 1;
+  min-width: 0;
+  min-height: 2rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #e6ebf2;
+  font: inherit;
+  /* 16px stops iOS zooming the page when the field is focused */
+  font-size: max(16px, 1em);
+  caret-color: #7cf7e4;
+}
+
+.quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0 0.75rem 0.75rem;
+}
+
+.quick button {
+  min-height: 2rem;
+  padding: 0 0.75rem;
+  border: 1px solid rgba(124, 247, 228, 0.4);
+  background: #101720;
+  color: #7cf7e4;
+  font: inherit;
+  cursor: pointer;
+}
+
+.quick button:hover,
+.quick button:focus-visible {
+  background: #7cf7e4;
+  color: #0b0f14;
+}
+
+.screen:focus-visible {
+  outline: 2px solid #7cf7e4;
+  outline-offset: -4px;
+}

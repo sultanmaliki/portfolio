@@ -1,0 +1,135 @@
+/* Easter egg: a garden. Tap to plant; the stems grow and the flowers open. */
+.stage {
+  background: rgba(248, 237, 217, 0.82);
+  font-family: var(--font-boho-sans), system-ui, sans-serif;
+  color: #3b2a20;
+  animation: fade 0.35s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.garden {
+  position: absolute;
+  inset: 0;
+  cursor: cell;
+  touch-action: manipulation;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+}
+
+.stem {
+  fill: none;
+  stroke: #3f6b4e;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  animation: grow 0.9s ease-out backwards;
+}
+
+@keyframes grow {
+  from { stroke-dashoffset: 1; }
+}
+
+.leaf {
+  animation: appear 0.4s 0.6s backwards;
+}
+
+.head {
+  animation: bloom 0.6s 0.7s cubic-bezier(0.2, 1.5, 0.4, 1) backwards;
+}
+
+@keyframes bloom {
+  from { transform: scale(0); }
+}
+
+@keyframes appear {
+  from { opacity: 0; }
+}
+
+.butterfly {
+  position: absolute;
+  translate: -50% -50%;
+  transition: left 2.2s ease-in-out, top 2.2s ease-in-out;
+  pointer-events: none;
+}
+
+.wings {
+  transform-origin: 20px 15px;
+  animation: flap 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes flap {
+  to { transform: scaleX(0.35); }
+}
+
+.bar {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(rgba(248, 237, 217, 0.96) 75%, rgba(248, 237, 217, 0));
+  cursor: default;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-boho-serif), Georgia, serif;
+  font-size: 1.375rem;
+}
+
+.title span {
+  margin-left: 0.6rem;
+  font: 600 0.8125rem/1 var(--font-boho-sans), system-ui, sans-serif;
+  color: #9e4a2f;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.actions button {
+  min-height: 2.5rem;
+  padding: 0 1.1rem;
+  border: 2px solid #3b2a20;
+  border-radius: 999px 999px 999px 8px;
+  background: #fffaf0;
+  color: #3b2a20;
+  font: 600 0.875rem/1 var(--font-boho-sans), system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.actions button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.actions .close {
+  background: #c2674a;
+  border-color: #9e4a2f;
+  color: #fffaf0;
+}
+
+.actions button:hover:not(:disabled),
+.actions button:focus-visible {
+  background: #e9c46a;
+  color: #3b2a20;
+  outline: none;
+}
+
+.hint {
+  margin: 0;
+  flex-basis: 100%;
+  font-size: 0.8125rem;
+  color: #5d4637;
+}

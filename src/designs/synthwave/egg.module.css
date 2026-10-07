@@ -1,0 +1,133 @@
+/* Easter egg: a neon outrun game on a canvas. */
+.backdrop {
+  background: rgba(20, 7, 42, 0.86);
+  animation: fade 0.25s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.cabinet {
+  width: min(36rem, 100%);
+  padding: 1rem;
+  border: 2px solid #ff2a6d;
+  background: #1a0b2e;
+  box-shadow: 0 0 30px rgba(255, 42, 109, 0.45), inset 0 0 20px rgba(5, 217, 232, 0.12);
+  color: #f5e9ff;
+  font-family: var(--font-synth), system-ui, sans-serif;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.head h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #05d9e8;
+  text-shadow: 0 0 12px rgba(5, 217, 232, 0.8);
+}
+
+.close,
+.overlay button,
+.pad button {
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  border: 2px solid #05d9e8;
+  background: transparent;
+  color: #05d9e8;
+  font: 700 0.875rem/1 var(--font-synth), system-ui, sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(5, 217, 232, 0.4);
+  touch-action: manipulation;
+}
+
+.close:hover,
+.overlay button:hover,
+.pad button:active,
+.close:focus-visible,
+.overlay button:focus-visible,
+.pad button:focus-visible {
+  background: #05d9e8;
+  color: #14072a;
+  outline: none;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.75rem 0;
+  font-size: 0.9375rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ff8fb4;
+}
+
+.screen {
+  position: relative;
+  border: 2px solid #7a1b7d;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  touch-action: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1rem;
+  background: rgba(20, 7, 42, 0.7);
+}
+
+.overlay p {
+  margin: 0;
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ff2a6d;
+  text-shadow: 0 0 14px rgba(255, 42, 109, 0.8);
+}
+
+.pad {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.pad button {
+  min-height: 3rem;
+  border-color: #ff2a6d;
+  color: #ff8fb4;
+  box-shadow: 0 0 12px rgba(255, 42, 109, 0.4);
+}
+
+.pad button:active,
+.pad button:focus-visible {
+  background: #ff2a6d;
+  color: #14072a;
+}
+
+.keys {
+  margin: 0.75rem 0 0;
+  font-size: 0.8125rem;
+  color: #cdb8e6;
+}

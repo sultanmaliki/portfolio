@@ -10,6 +10,7 @@ import { etherealSans, etherealSerif } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -65,6 +66,7 @@ export default function EtherealDesign() {
   return (
     <main id="top" data-design="ethereal" className={`${etherealSans.variable} ${etherealSerif.variable} ${styles.page}`}>
       <ViewerTheme slug="ethereal" fonts={`${etherealSans.variable} ${etherealSerif.variable}`} entrance="rise" />
+      <Egg />
       <SkipLink />
       <Mist />
 

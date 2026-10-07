@@ -116,3 +116,26 @@ describe("viewer themes", () => {
     }
   });
 });
+
+describe("easter eggs", () => {
+  // Every design hides its own surprise (see docs/DESIGNS.md). Each is set off by a secret word, so no two designs may share one.
+  const eggSource = (slug: string) => file(slug === DEFAULT_DESIGN ? "src/designs/cinematic/KonamiCode.tsx" : `src/designs/${slug}/Egg.tsx`);
+
+  it("gives every live design an egg with its own secret word", () => {
+    const words = new Map<string, string>();
+    for (const d of liveDesigns()) {
+      expect(existsSync(eggSource(d.slug)), `${d.slug} has no easter egg`).toBe(true);
+      const source = readFileSync(eggSource(d.slug), "utf8");
+      const word = source.match(/useEasterEgg\(\{[^}]*word: "([a-z]+)"/)?.[1];
+      expect(word, `${d.slug}: no secret word found`).toBeTruthy();
+      expect(word!.length, `${d.slug}: the word "${word}" is too short to type by accident`).toBeGreaterThanOrEqual(3);
+      expect(source, `${d.slug}: slug passed to useEasterEgg does not match`).toContain(`slug: "${d.slug}"`);
+      expect(words.has(word!), `"${word}" is the secret word of both ${words.get(word!)} and ${d.slug}`).toBe(false);
+      words.set(word!, d.slug);
+      if (d.slug !== DEFAULT_DESIGN) {
+        expect(existsSync(file(`src/designs/${d.slug}/egg.module.css`)), `${d.slug} has no egg.module.css`).toBe(true);
+        expect(readFileSync(file(`src/designs/${d.slug}/index.tsx`), "utf8"), `${d.slug} does not render its egg`).toContain("<Egg />");
+      }
+    }
+  });
+});

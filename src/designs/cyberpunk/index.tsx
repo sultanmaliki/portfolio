@@ -7,6 +7,7 @@ import { cyberpunkDisplay, cyberpunkMono } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -32,6 +33,7 @@ export default function CyberpunkDesign() {
   return (
     <main id="top" data-design="cyberpunk" className={`${cyberpunkDisplay.variable} ${cyberpunkMono.variable} ${styles.page}`}>
       <ViewerTheme slug="cyberpunk" fonts={`${cyberpunkDisplay.variable} ${cyberpunkMono.variable}`} entrance="slide" />
+      <Egg />
       <SkipLink />
       <div aria-hidden className={styles.scanlines} />
 

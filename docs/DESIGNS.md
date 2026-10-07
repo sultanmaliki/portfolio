@@ -20,8 +20,8 @@ src/lib/             ← behaviour any design can reuse
 src/designs/         ← one folder per design + the registry (the plan)
   registry.ts          all 23 designs: name, one-line direction, palette, live | planned
   sections.ts          the nine in-page anchor ids every design provides
-  shared/              usePortfolio() (content + wired-up links), Reveal, SkipLink, useActiveSection
-  <slug>/              index.tsx, styles.module.css, viewer.css, fonts.ts, fonts/ (self-hosted woff2 + licences)
+  shared/              usePortfolio() (content + wired-up links), Reveal, SkipLink, useActiveSection, useEasterEgg + EggDialog + eggKit
+  <slug>/              index.tsx, styles.module.css, viewer.css, Egg.tsx + egg.module.css, fonts.ts, fonts/ (self-hosted woff2 + licences)
 src/app/designs/<slug>/page.tsx   ← one tiny route per design (generated)
 src/components/      ← shared chrome mounted once in the root layout
   DesignSwitcher       the panel that switches designs (stays usable above an open viewer)
@@ -71,6 +71,7 @@ Every live design must:
 - leave no infinite animation running when the visitor prefers reduced motion
 - be usable by keyboard (visible focus ring, skip link first) and put the first screen to work for a recruiter: who, what role, available, and where to click next
 
+- hide a game of its own (`Egg.tsx`, see "Easter eggs"), unit- and e2e-tested like everything else
 - render `<ViewerTheme slug="<slug>" fonts={…} />` and ship a `viewer.css` that styles `[data-viewer-theme="<slug>"]` (unit-tested), so the browser window and PDF reader belong to the design. `e2e/viewers.spec.ts` then walks the preview card, embedded browser and PDF reader of every design: axe, fits the screen, tappable controls on a phone, focus kept inside, and a look no other design shares
 
 The design switcher is dark glass on purpose so it stays legible on top of any design; designs do not restyle it. It sits above an open viewer, so you can change design while the PDF or browser window is showing.
@@ -152,6 +153,51 @@ A theme sets tokens (`--vw-bg`, `--vw-frame`, `--vw-radius`, `--vw-shadow`, `--v
 | Wabi-sabi | Plaster and handmade paper: slightly off-square edges, a small rust seal in the title bar, almost no shadow |
 
 ---
+
+## Easter eggs
+
+Every design hides a small game or toy, written in that design's own voice. They are for the curious, never for the recruiter in a hurry: inert until triggered, and always one Esc away from the page.
+
+**Triggers.** Type the design's secret word anywhere on the page (not in a field), or tap the name (the `h1`) five times quickly, which is how it works on a phone. The browser console mentions the word once per page load. Nothing fires while a viewer is open. Cinematic also keeps its original Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`).
+
+**How one is built.** `useEasterEgg({ slug, word, duration: 0 })` (in `src/designs/shared`) owns the trigger and Esc, and marks `main[data-design]` with `data-egg-active` while the egg is open. `<EggDialog>` is the frame: a modal dialog (`role="dialog"`, named, focus moves in and Tab stays inside, Esc or `<EggClose>` leave, focus goes back to where it was) in one of two shapes: `window` (a panel centred over a backdrop) or `stage` (the whole viewport as a play field). The game component mounts only while the egg is open, so every play starts fresh. `eggKit.ts` has the small shared helpers (`useFrame`, `clamp`, `rand`, a best score kept in `localStorage`, guarded). The design supplies `Egg.tsx` and `egg.module.css`, rendered once in `index.tsx` beside `<ViewerTheme>`. Anything with real rules lives in a plain module next to it (`terminal.ts`, `lightsout.ts`, `wordle.ts`, `breach.ts`, ...) so it is unit tested.
+
+**Rules**
+
+- Inert until triggered, and it only *starts* on a user action (a Start button, a first tap, a key) so reduced-motion visitors are never surprised. Nothing loops by itself under reduced motion.
+- Keyboard and touch both work: every control is a real button or field, and anything pointer-only (dragging, scratching, tapping the page) has a keyboard route (arrow keys, Enter, a "Reveal" or "Drop one" button).
+- It fits a 375 px phone and a short desktop window, never scrolls the page sideways, and has a visible Close.
+- Result text goes in a `role="status"` element so it is announced; decorative canvases are `role="img"` with a label.
+- Keep the rules out of React. Physics and scoring that mutate state many times a frame belong in a module-level engine (the React compiler lint rejects mutating refs in render closures, and a plain function is easier to test).
+- No sound, no network, no tracking, no emoji. Text comes from `@/data` where it states facts about the candidate. Pick a lowercase word of three or more letters that no other design uses (unit-tested).
+
+| Design | Secret word | What you play |
+| --- | --- | --- |
+| Cinematic | `action` (or Konami) | A movie trailer for the portfolio, cut from its real content: scenes advance on a tap, with pause and replay, ending on "Book a screening" |
+| Claymorphism | `boing` | A pit of squishy clay balls with faces that blink and gasp. Tap to drop, drag to throw, shake the pit |
+| Cybercore | `sudo` | A working terminal: `help`, `skills`, `projects`, `cat`, `neofetch`, `sudo hire me`, history and tab completion |
+| Neo-brutalism | `bam` | Squash the bugs, spare the features: a 30 second whack-a-mole on a numpad grid (keys 1 to 9) |
+| Scrapbook | `stick` | A sticker sheet: pick one, tap the page to slap it down, drag to rearrange, with labels like "HIRE ME" |
+| Surrealism | `ceci` | Magritte's pipe for the whole page: tap anything and a museum plaque declares "Ceci n'est pas un lien" |
+| Y2K aesthetic | `msn` | An instant-messenger chat with the candidate: ask `asl?`, about skills, hiring, hear a joke, send a nudge that shakes the window |
+| Pixel art | `coin` | An endless pixel runner: jump over spikes and blocks, grab coins, keep your best |
+| Synthwave | `drive` | Outrun: steer a neon car across three lanes of a perspective road, dodge barriers, grab orbs |
+| Glassmorphism | `pop` | A sheet of glass bubble wrap: pop all 40, swipe to pop a row, race your best time |
+| Neumorphism | `press` | Lights Out on soft buttons: every press flips its neighbours. Levels, hints that really solve it |
+| Bento grid | `bento` | A sliding-tile puzzle of the stack's own tiles: rebuild the bento, hold to peek |
+| Editorial design | `extra` | The Daily Word: a newspaper five-letter puzzle in developer vocabulary, a new word every day |
+| Swiss design | `baseline` | The kerning game: space five words the way the typeface intended, scored against the font's own kerning |
+| Minimalism | `less` | Do nothing for twenty seconds. Any movement resets it |
+| Maximalism | `more` | The MORE machine: every press adds shapes and every five unlock a louder layer. There is a "less?" button too |
+| Luxury typography | `gold` | A gold scratch card: scratch the foil to find the prize, then redeem it |
+| Conceptual sketch | `draw` | Connect the dots, 1 to 25: a light bulb appears, line by wobbly pencil line |
+| Ethereal | `wish` | A night sky of wishing lanterns: write a wish and release it, or tap the sky |
+| Bohemian | `bloom` | A garden: tap to plant, stems grow and flowers open, and a butterfly visits once there are four |
+| Victorian | `tea` | Pour tea for five guests, each with their own idea of "a cup", scored on how close you stop |
+| Cyberpunk | `glitch` | Breach protocol: pick codes along the grid, alternating row and column, to upload daemons before the timer runs out |
+| Wabi-sabi | `kintsugi` | Mend a broken bowl: drag the shards together and the cracks fill with gold |
+
+`e2e/eggs.spec.ts` opens every one on a desktop and a phone profile and checks what they must all do: hidden before, a named modal dialog, focus moves in and stays in, Close and Esc work, five taps work, it fits the screen, axe-clean, and nothing running by itself under reduced motion. `e2e/eggs-play.spec.ts` then plays each one (solves the Lights Out, scratches the card, mends the bowl, chats on Y2K, runs a terminal command) and runs axe again on the state after playing. The rules of each game are in `src/designs/eggs.logic.test.ts`.
 
 ## The designs
 

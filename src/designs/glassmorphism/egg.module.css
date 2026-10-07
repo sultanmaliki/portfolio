@@ -1,0 +1,127 @@
+/* Easter egg: a sheet of glass bubble wrap on frosted glass. */
+.backdrop {
+  background: rgba(18, 15, 44, 0.6);
+  backdrop-filter: blur(6px);
+  animation: fade 0.25s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.panel {
+  width: min(34rem, 100%);
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(22px) saturate(1.4);
+  box-shadow: 0 24px 60px rgba(8, 6, 28, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  font-family: var(--font-glass), system-ui, sans-serif;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.head h2 {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 600;
+}
+
+.close,
+.actions button {
+  min-height: 2.5rem;
+  padding: 0 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font: 600 0.875rem/1 var(--font-glass), system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.close:hover,
+.actions button:hover:not(:disabled),
+.close:focus-visible,
+.actions button:focus-visible {
+  background: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+.actions button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.sheet {
+  --cols: 5;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: 0.6rem;
+  padding: 0.75rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+  touch-action: none;
+}
+
+.sheet:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85);
+}
+
+@media (min-width: 520px) {
+  .sheet {
+    --cols: 8;
+  }
+}
+
+.bubble {
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.95) 0 9%, rgba(255, 255, 255, 0) 24%),
+    radial-gradient(circle at 50% 55%, rgba(120, 220, 255, 0.28), rgba(255, 140, 190, 0.3) 70%, rgba(255, 255, 255, 0.5) 100%);
+  box-shadow: 0 6px 12px rgba(8, 6, 28, 0.35), inset 0 -4px 8px rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  touch-action: none;
+  transition: transform 0.1s ease;
+}
+
+.bubble:hover:not(.popped) {
+  transform: scale(1.05);
+}
+
+.popped {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: radial-gradient(circle at 50% 50%, rgba(8, 6, 28, 0.28), rgba(255, 255, 255, 0.06) 75%);
+  box-shadow: inset 0 3px 6px rgba(8, 6, 28, 0.45);
+  cursor: default;
+  animation: pop 0.22s ease-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.22); opacity: 0.6; }
+  100% { transform: scale(1); }
+}
+
+.status {
+  min-height: 1.5em;
+  margin: 1rem 0 0.75rem;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.actions {
+  display: flex;
+  gap: 0.6rem;
+}

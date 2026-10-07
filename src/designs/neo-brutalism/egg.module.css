@@ -1,0 +1,125 @@
+/* Easter egg: a whack-a-mole in the page's own thick borders and hard shadows. */
+.backdrop {
+  background: rgba(17, 17, 17, 0.6);
+  animation: fade 0.2s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.panel {
+  width: min(26rem, 100%);
+  padding: 1rem;
+  border: 3px solid #111111;
+  background: #ffffff;
+  box-shadow: 8px 8px 0 #111111;
+  color: #111111;
+  font-family: var(--font-nb-grotesk), system-ui, sans-serif;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.head h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.close,
+.start {
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 3px solid #111111;
+  background: #ffe156;
+  color: #111111;
+  font: 800 0.875rem/1 var(--font-nb-mono), monospace;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 #111111;
+  cursor: pointer;
+}
+
+.close:active,
+.start:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 #111111;
+}
+
+.close:focus-visible,
+.start:focus-visible,
+.hole:focus-visible {
+  outline: 3px solid #111111;
+  outline-offset: 3px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.75rem 0 0;
+  padding: 0.4rem 0.6rem;
+  border: 3px solid #111111;
+  background: #c6a8ff;
+  font: 800 0.875rem/1 var(--font-nb-mono), monospace;
+  text-transform: uppercase;
+}
+
+.note {
+  min-height: 2.6em;
+  margin: 0.75rem 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+
+.hole {
+  aspect-ratio: 1.2;
+  border: 3px solid #111111;
+  background: #f1ede4;
+  color: #8b8678;
+  font: 800 1rem/1 var(--font-nb-mono), monospace;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.bug {
+  background: #ff6b6b;
+  color: #111111;
+  box-shadow: 4px 4px 0 #111111;
+  animation: pop 0.12s ease-out;
+}
+
+.feature {
+  background: #74c0fc;
+  color: #111111;
+  box-shadow: 4px 4px 0 #111111;
+  font-size: 0.8rem;
+  animation: pop 0.12s ease-out;
+}
+
+@keyframes pop {
+  from { transform: scale(0.6); }
+}
+
+.start {
+  width: 100%;
+  margin-top: 0.9rem;
+  background: #7ee0b0;
+}
+
+.keys {
+  margin: 0.75rem 0 0;
+  font-size: 0.8125rem;
+  color: #333333;
+}

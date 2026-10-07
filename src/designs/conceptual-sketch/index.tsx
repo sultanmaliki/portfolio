@@ -9,6 +9,7 @@ import { sketchBody, sketchHand } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -93,6 +94,7 @@ export default function ConceptualSketchDesign() {
   return (
     <main id="top" data-design="conceptual-sketch" className={`${sketchHand.variable} ${sketchBody.variable} ${styles.page}`}>
       <ViewerTheme slug="conceptual-sketch" fonts={`${sketchHand.variable} ${sketchBody.variable}`} entrance="rise" />
+      <Egg />
       <SkipLink />
 
       {/* Shared pencil-wobble filter used by the sketched borders. Decorative. */}

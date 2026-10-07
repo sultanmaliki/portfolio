@@ -7,6 +7,7 @@ import { bohoSans, bohoSerif } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -42,6 +43,7 @@ export default function BohemianDesign() {
   return (
     <main id="top" data-design="bohemian" className={`${bohoSerif.variable} ${bohoSans.variable} ${styles.page}`}>
       <ViewerTheme slug="bohemian" fonts={`${bohoSerif.variable} ${bohoSans.variable}`} entrance="rise" />
+      <Egg />
       <SkipLink />
       <div className={styles.wrap}>
         <nav aria-label="Sections" className={styles.nav}>

@@ -8,6 +8,7 @@ import { scrapHand, scrapSerif, scrapTypewriter } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -36,6 +37,7 @@ export default function ScrapbookDesign() {
   return (
     <main id="top" data-design="scrapbook" className={`${scrapHand.variable} ${scrapTypewriter.variable} ${scrapSerif.variable} ${styles.page}`}>
       <ViewerTheme slug="scrapbook" fonts={`${scrapHand.variable} ${scrapTypewriter.variable} ${scrapSerif.variable}`} entrance="drop" />
+      <Egg />
       <SkipLink />
       <div className={styles.wrap}>
         <nav aria-label="Sections" className={styles.nav}>

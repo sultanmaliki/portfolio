@@ -1,0 +1,151 @@
+/* Easter egg: a sliding-tile puzzle built from bento tiles. */
+.backdrop {
+  background: rgba(244, 244, 240, 0.85);
+  animation: fade 0.25s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.panel {
+  width: min(24rem, 100%);
+  padding: 1.25rem;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow: 0 30px 70px rgba(17, 17, 17, 0.18);
+  color: #111111;
+  font-family: var(--font-bento), system-ui, sans-serif;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.head h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.close,
+.actions button {
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(17, 17, 17, 0.06);
+  color: #111111;
+  font: 600 0.875rem/1 var(--font-bento), system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.close:hover,
+.actions button:hover {
+  background: rgba(17, 17, 17, 0.12);
+}
+
+.close:focus-visible,
+.actions button:focus-visible,
+.tile:focus-visible {
+  outline: 3px solid #2447d9;
+  outline-offset: 2px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0 0.75rem;
+  font: 500 0.8125rem/1 var(--font-bento-mono), ui-monospace, monospace;
+  color: #55554f;
+}
+
+.board {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 20px;
+  background: #f4f4f0;
+}
+
+.tile {
+  position: absolute;
+  width: 33.3333%;
+  height: 33.3333%;
+  padding: 4px;
+  border: 0;
+  background: none;
+  transition: left 0.18s ease-out, top 0.18s ease-out;
+  cursor: default;
+}
+
+.tile > span {
+  position: relative;
+  display: block;
+}
+
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 18px;
+  background: var(--tone, #e6ecff);
+  box-shadow: 0 1px 0 rgba(17, 17, 17, 0.06);
+  transition: background 0.3s ease;
+}
+
+.tile {
+  display: grid;
+  align-content: end;
+  justify-items: start;
+  padding: 0.9rem 0.9rem;
+  text-align: left;
+  font: 700 0.9375rem/1.1 var(--font-bento), system-ui, sans-serif;
+  color: #111111;
+}
+
+.num {
+  position: absolute !important;
+  top: 0.65rem;
+  left: 0.9rem;
+  font: 500 0.75rem/1 var(--font-bento-mono), ui-monospace, monospace;
+  opacity: 0.6;
+}
+
+.tint { --tone: #e6ecff; }
+.warm { --tone: #ffe9d4; }
+.dark { --tone: #151517; color: #f4f4f0; }
+.accent { --tone: #2447d9; color: #ffffff; }
+
+.movable {
+  cursor: pointer;
+}
+
+.movable:hover::before {
+  filter: brightness(0.96);
+}
+
+.done .tile::before {
+  background: #2447d9;
+}
+
+.done .tile {
+  color: #ffffff;
+}
+
+.status {
+  min-height: 1.5em;
+  margin: 0.75rem 0;
+  font-size: 0.9375rem;
+  color: #55554f;
+}
+
+.actions {
+  display: flex;
+  gap: 0.6rem;
+}

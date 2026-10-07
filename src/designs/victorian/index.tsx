@@ -7,6 +7,7 @@ import { victorianFell, victorianGaramond } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const CONTENTS = [
   ["story", "A Biographical Sketch", "I"],
@@ -35,6 +36,7 @@ export default function VictorianDesign() {
   return (
     <main id="top" data-design="victorian" className={`${victorianFell.variable} ${victorianGaramond.variable} ${styles.page}`}>
       <ViewerTheme slug="victorian" fonts={`${victorianFell.variable} ${victorianGaramond.variable}`} entrance="rise" />
+      <Egg />
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.titlePage}>
