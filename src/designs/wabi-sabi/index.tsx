@@ -7,6 +7,7 @@ import { wabiSerif } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -46,6 +47,7 @@ export default function WabiSabiDesign() {
   return (
     <main id="top" data-design="wabi-sabi" className={`${wabiSerif.variable} ${styles.page}`}>
       <ViewerTheme slug="wabi-sabi" fonts={`${wabiSerif.variable}`} entrance="fade" />
+      <Egg />
       <SkipLink />
       <div aria-hidden className={styles.grain} />
 

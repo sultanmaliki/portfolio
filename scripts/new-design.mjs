@@ -3,6 +3,7 @@
 //   src/designs/<slug>/index.tsx     starter component (renders all content through usePortfolio())
 //   src/designs/<slug>/styles.module.css  starter styles
 //   src/designs/<slug>/viewer.css    starter theme for the browser window and PDF reader
+//   src/designs/<slug>/Egg.tsx + egg.module.css   starter easter egg (type the slug to see it)
 //   src/app/designs/<slug>/page.tsx  route + metadata
 //   src/designs/registry.ts          status flipped from "planned" to "live"
 //
@@ -44,6 +45,11 @@ export function markLive(source, slug) {
   return source.slice(0, statusAt) + 'status: "live"' + source.slice(statusAt + 'status: "planned"'.length);
 }
 
+/** The starter egg's secret word: the slug's letters ("wabi-sabi" -> "wabisabi"), so it cannot clash with another design's. */
+export function secretWord(slug) {
+  return slug.replace(/[^a-z]/g, "").padEnd(3, "x");
+}
+
 export function fill(template, vars) {
   return Object.entries(vars).reduce((out, [key, value]) => out.split(`__${key}__`).join(value), template);
 }
@@ -65,17 +71,21 @@ async function main() {
   const designFile = new URL(`src/designs/${slug}/index.tsx`, ROOT);
   const styleFile = new URL(`src/designs/${slug}/styles.module.css`, ROOT);
   const viewerFile = new URL(`src/designs/${slug}/viewer.css`, ROOT);
+  const eggFile = new URL(`src/designs/${slug}/Egg.tsx`, ROOT);
+  const eggStyleFile = new URL(`src/designs/${slug}/egg.module.css`, ROOT);
   const pageFile = new URL(`src/app/designs/${slug}/page.tsx`, ROOT);
-  if (existsSync(designFile) || existsSync(pageFile) || existsSync(styleFile) || existsSync(viewerFile)) {
+  if (existsSync(designFile) || existsSync(pageFile) || existsSync(styleFile) || existsSync(viewerFile) || existsSync(eggFile)) {
     console.error(`"${slug}" already has files; refusing to overwrite them.`);
     process.exit(1);
   }
 
   const updatedRegistry = markLive(registry, slug);
-  const vars = { SLUG: slug, NAME: entry.name, COMPONENT: componentName(slug) };
+  const vars = { SLUG: slug, NAME: entry.name, COMPONENT: componentName(slug), WORD: secretWord(slug) };
   const component = fill(await readFile(new URL("scripts/templates/design.tsx.tpl", ROOT), "utf8"), vars);
   const page = fill(await readFile(new URL("scripts/templates/page.tsx.tpl", ROOT), "utf8"), vars);
   const styles = fill(await readFile(new URL("scripts/templates/styles.module.css.tpl", ROOT), "utf8"), vars);
+  const egg = fill(await readFile(new URL("scripts/templates/egg.tsx.tpl", ROOT), "utf8"), vars);
+  const eggStyles = fill(await readFile(new URL("scripts/templates/egg.module.css.tpl", ROOT), "utf8"), vars);
   const viewer = fill(await readFile(new URL("scripts/templates/viewer.css.tpl", ROOT), "utf8"), vars);
 
   await mkdir(new URL(`src/designs/${slug}/`, ROOT), { recursive: true });
@@ -83,6 +93,8 @@ async function main() {
   await writeFile(designFile, component);
   await writeFile(styleFile, styles);
   await writeFile(viewerFile, viewer);
+  await writeFile(eggFile, egg);
+  await writeFile(eggStyleFile, eggStyles);
   await writeFile(pageFile, page);
   await writeFile(REGISTRY, updatedRegistry);
 
@@ -90,6 +102,7 @@ async function main() {
   src/designs/${slug}/index.tsx      <- design it here (starter already renders all content)
   src/designs/${slug}/styles.module.css
   src/designs/${slug}/viewer.css     <- how the browser window and PDF reader look in this design
+  src/designs/${slug}/Egg.tsx        <- its easter egg (starter: type "${vars.WORD}"); give it a real one
   src/app/designs/${slug}/page.tsx   <- route, served at /designs/${slug}/
   src/designs/registry.ts            <- status is now "live"
 

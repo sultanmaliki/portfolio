@@ -1,0 +1,171 @@
+/* Easter egg: wishing lanterns drift up a soft night sky. */
+.stage {
+  background: radial-gradient(ellipse at 50% 100%, rgba(120, 100, 210, 0.55), transparent 60%), rgba(34, 36, 78, 0.9);
+  font-family: var(--font-ether-sans), system-ui, sans-serif;
+  color: #f4f1ff;
+  animation: fade 0.5s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.sky::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1.5px 1.5px at 12% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 28% 60%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 44% 12%, #fff, transparent),
+    radial-gradient(1px 1px at 61% 38%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 77% 22%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 54%, #fff, transparent),
+    radial-gradient(1px 1px at 8% 78%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 52% 70%, #fff, transparent);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.lantern {
+  position: absolute;
+  bottom: -9rem;
+  display: grid;
+  justify-items: center;
+  width: 6rem;
+  translate: -50% 0;
+  pointer-events: none;
+  animation: rise 12s ease-out forwards;
+}
+
+@keyframes rise {
+  0% { transform: translate(0, 0); opacity: 0; }
+  8% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translate(var(--drift), calc(-1 * var(--rise) - 12rem)); opacity: 0; }
+}
+
+.body {
+  display: grid;
+  place-items: center;
+  width: 5rem;
+  min-height: 5.5rem;
+  padding: 0.5rem 0.4rem;
+  border-radius: 0.6rem 0.6rem 0.9rem 0.9rem;
+  background: linear-gradient(hsl(var(--hue) 100% 74%), hsl(calc(var(--hue) - 12) 95% 58%));
+  box-shadow: 0 0 2.5rem 0.75rem hsla(var(--hue), 100%, 65%, 0.55), inset 0 -0.8rem 1rem hsla(20, 100%, 50%, 0.4);
+  color: #4a2b12;
+  font: 600 0.6875rem/1.25 var(--font-ether-sans), system-ui, sans-serif;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.flame {
+  order: 2;
+  width: 0.7rem;
+  height: 0.9rem;
+  margin-top: 0.1rem;
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  background: #fff3b0;
+  box-shadow: 0 0 0.9rem 0.3rem rgba(255, 220, 120, 0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* no drifting: the lanterns simply hang in the sky where they would have risen to */
+  .lantern {
+    animation: none;
+    bottom: calc(18vh + var(--rise) * 0.6);
+  }
+}
+
+.bar {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(rgba(34, 36, 78, 0.95) 75%, rgba(34, 36, 78, 0));
+  cursor: default;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-ether-serif), Georgia, serif;
+  font-size: 1.375rem;
+}
+
+.title span {
+  margin-left: 0.6rem;
+  font: 500 0.8125rem/1 var(--font-ether-sans), system-ui, sans-serif;
+  color: #cfc7ff;
+}
+
+.close {
+  margin-left: auto;
+  min-height: 2.25rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  background: transparent;
+  color: #f4f1ff;
+  font: 500 0.875rem/1 var(--font-ether-sans), system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.form {
+  display: flex;
+  flex: 1 1 100%;
+  gap: 0.5rem;
+}
+
+.form input {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font: inherit;
+  font-size: max(16px, 1em);
+}
+
+.form input::placeholder {
+  color: #d6d0ff;
+}
+
+.form button {
+  min-height: 2.5rem;
+  padding: 0 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: #fff3b0;
+  color: #3a2a14;
+  font: 600 0.875rem/1 var(--font-ether-sans), system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus-visible,
+.form input:focus-visible,
+.form button:focus-visible {
+  outline: 3px solid #fff3b0;
+  outline-offset: 2px;
+}
+
+.hint {
+  margin: 0;
+  flex-basis: 100%;
+  font-size: 0.8125rem;
+  color: #cfc7ff;
+}

@@ -1,0 +1,98 @@
+/* Easter egg: the do-nothing challenge. Mostly white space. */
+.backdrop {
+  background: rgba(250, 250, 250, 0.96);
+  animation: fade 0.4s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.panel {
+  width: min(28rem, 100%);
+  padding: 1.5rem 0;
+  color: #111111;
+  font-family: var(--font-minimal), system-ui, sans-serif;
+  text-align: center;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #565d68;
+}
+
+.head p {
+  margin: 0;
+}
+
+.close {
+  min-height: 2.25rem;
+  padding: 0 0.75rem;
+  border: 1px solid #e4e4e7;
+  background: transparent;
+  color: #565d68;
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus-visible {
+  border-color: #111111;
+  color: #111111;
+  outline: none;
+}
+
+.count {
+  margin: 0;
+  font-size: clamp(5rem, 24vw, 9rem);
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.note {
+  min-height: 3.4em;
+  margin: 1.5rem auto;
+  max-width: 24rem;
+  color: #565d68;
+  line-height: 1.7;
+}
+
+.start {
+  min-height: 2.75rem;
+  padding: 0 2rem;
+  border: 1px solid #111111;
+  background: #111111;
+  color: #fafafa;
+  font: inherit;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.start:hover {
+  background: transparent;
+  color: #111111;
+}
+
+.start:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 4px;
+}
+
+.meta {
+  margin: 2rem 0 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #565d68;
+}

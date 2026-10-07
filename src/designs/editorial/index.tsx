@@ -7,6 +7,7 @@ import { editorialDisplay, editorialText } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "The story"],
@@ -31,6 +32,7 @@ export default function EditorialDesign() {
   return (
     <main id="top" data-design="editorial" className={`${editorialDisplay.variable} ${editorialText.variable} ${styles.page}`}>
       <ViewerTheme slug="editorial" fonts={`${editorialDisplay.variable} ${editorialText.variable}`} entrance="fade" />
+      <Egg />
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.cover}>

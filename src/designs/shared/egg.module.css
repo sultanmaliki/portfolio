@@ -1,0 +1,27 @@
+/* The frame shared by every easter egg. Each design adds its own look through the className it passes. */
+.window,
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  outline: none;
+  overscroll-behavior: contain;
+}
+
+/* a centred panel; the bottom padding keeps clear of the floating design switcher. Margin auto centres the panel
+   and, unlike align-items: center, still lets a panel taller than the screen be scrolled to its top. */
+.window {
+  display: flex;
+  padding: 1rem 1rem 5.5rem;
+  overflow: auto;
+}
+
+.window > * {
+  min-width: 0;
+  max-width: 100%;
+  margin: auto;
+}
+
+.stage {
+  overflow: hidden;
+}

@@ -1,0 +1,254 @@
+/* Easter egg: breach protocol, a hacking mini-game in black, yellow, red and cyan. */
+.backdrop {
+  background: rgba(10, 10, 15, 0.9);
+  animation: fade 0.2s steps(4) backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.rig {
+  --cut: 14px;
+  width: min(40rem, 100%);
+  padding: 1rem;
+  border: 2px solid #fcee0a;
+  background: #11111a;
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+  color: #ececf3;
+  font-family: var(--font-cp-mono), "Courier New", monospace;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.title {
+  position: relative;
+  margin: 0;
+  font: 400 1.4rem/1 var(--font-cp-display), Impact, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fcee0a;
+}
+
+.title::before,
+.title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.title::before {
+  color: #ff003c;
+  translate: 2px 0;
+  clip-path: inset(0 0 55% 0);
+  mix-blend-mode: screen;
+  animation: glitch 2.4s steps(1) infinite;
+}
+
+.title::after {
+  color: #00f0ff;
+  translate: -2px 0;
+  clip-path: inset(55% 0 0 0);
+  mix-blend-mode: screen;
+  animation: glitch 2.4s steps(1) 0.4s infinite;
+}
+
+@keyframes glitch {
+  0%, 88% { opacity: 0; }
+  90% { opacity: 1; translate: 4px 1px; }
+  94% { opacity: 1; translate: -4px -1px; }
+  98% { opacity: 0; }
+}
+
+.close,
+.actions button,
+.actions a {
+  display: inline-grid;
+  place-items: center;
+  min-height: 2.25rem;
+  padding: 0 1rem;
+  border: 2px solid #fcee0a;
+  background: transparent;
+  color: #fcee0a;
+  font: 700 0.8125rem/1 var(--font-cp-mono), "Courier New", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.close:hover,
+.actions button:hover,
+.actions a:hover,
+.close:focus-visible,
+.actions button:focus-visible,
+.actions a:focus-visible {
+  background: #fcee0a;
+  color: #0a0a0f;
+  outline: none;
+}
+
+.timer {
+  position: relative;
+  height: 1.5rem;
+  margin: 0.75rem 0;
+  border: 1px solid #00f0ff;
+}
+
+.timer i {
+  display: block;
+  height: 100%;
+  background: #00f0ff;
+  opacity: 0.8;
+}
+
+.timer span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ececf3;
+  mix-blend-mode: difference;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 34rem) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.3rem;
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+}
+
+.cell {
+  min-width: 2.6rem;
+  min-height: 2.6rem;
+  padding: 0;
+  border: 1px solid rgba(252, 238, 10, 0.25);
+  background: transparent;
+  color: #a9a9bd;
+  font: 700 1rem/1 var(--font-cp-mono), "Courier New", monospace;
+  cursor: default;
+  touch-action: manipulation;
+}
+
+.can {
+  border-color: #fcee0a;
+  color: #fcee0a;
+  background: rgba(252, 238, 10, 0.08);
+  cursor: pointer;
+}
+
+.can:hover,
+.can:focus-visible {
+  background: #fcee0a;
+  color: #0a0a0f;
+  outline: none;
+}
+
+.used {
+  border-color: transparent;
+  background: rgba(0, 240, 255, 0.12);
+  color: #3a4a4c;
+  text-decoration: line-through;
+}
+
+.side {
+  min-width: 0;
+}
+
+.label {
+  margin: 0 0 0.35rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #a9a9bd;
+}
+
+.buffer {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.buffer span {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  font-weight: 700;
+}
+
+.daemons {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.daemons li {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.4rem 0.6rem;
+  border-left: 3px solid #fcee0a;
+  background: rgba(252, 238, 10, 0.06);
+  font-size: 0.8125rem;
+}
+
+.daemons span {
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.daemons em {
+  font-style: normal;
+  font-size: 0.6875rem;
+  color: #a9a9bd;
+}
+
+.daemons .ok {
+  border-left-color: #00f0ff;
+  background: rgba(0, 240, 255, 0.12);
+  color: #00f0ff;
+}
+
+.daemons .dead {
+  border-left-color: #ff003c;
+  color: #ff5a7a;
+  text-decoration: line-through;
+}
+
+.status {
+  min-height: 2.6em;
+  margin: 0.75rem 0;
+  font-size: 0.8125rem;
+  color: #ececf3;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}

@@ -1,0 +1,166 @@
+/* Easter egg: connect the dots on graph paper; the picture is a light bulb. */
+.backdrop {
+  background: rgba(43, 43, 43, 0.5);
+  animation: fade 0.25s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.paper {
+  width: min(24rem, 100%);
+  padding: 1rem 1.25rem 1.25rem;
+  border: 2px solid #2b2b2b;
+  border-radius: 6px 10px 5px 9px;
+  background-color: #faf8f1;
+  background-image:
+    linear-gradient(rgba(58, 110, 165, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(58, 110, 165, 0.14) 1px, transparent 1px);
+  background-size: 24px 24px;
+  box-shadow: 6px 8px 0 rgba(43, 43, 43, 0.25);
+  color: #2b2b2b;
+  font-family: var(--font-sketch-hand), "Comic Sans MS", cursive;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.top h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.close,
+.actions button {
+  min-height: 2.25rem;
+  padding: 0 0.9rem;
+  border: 2px solid #2b2b2b;
+  border-radius: 8px 4px 9px 5px;
+  background: #faf8f1;
+  color: #2b2b2b;
+  font: 700 1rem/1 var(--font-sketch-hand), "Comic Sans MS", cursive;
+  cursor: pointer;
+}
+
+.close:hover,
+.actions button:hover,
+.close:focus-visible,
+.actions button:focus-visible {
+  background: #2f5d91;
+  border-color: #2f5d91;
+  color: #ffffff;
+  outline: none;
+}
+
+.drawing {
+  position: relative;
+  width: min(100%, 19rem);
+  aspect-ratio: 100 / 120;
+  margin: 0.75rem auto;
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+}
+
+.pencil {
+  stroke: #2f5d91;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  animation: draw 0.4s ease-out backwards;
+}
+
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+}
+
+.rays path {
+  stroke: #c98a00;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  animation: ray 0.4s ease-out backwards;
+}
+
+@keyframes ray {
+  from { opacity: 0; }
+}
+
+.dot {
+  position: absolute;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1.5px solid #565656;
+  border-radius: 50%;
+  background: #faf8f1;
+  color: #2b2b2b;
+  font: 700 0.75rem/1 var(--font-sketch-hand), "Comic Sans MS", cursive;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.reached {
+  border-color: #2f5d91;
+  background: #2f5d91;
+  color: #ffffff;
+  cursor: default;
+}
+
+.next {
+  border-width: 3px;
+  border-color: #c98a00;
+  box-shadow: 0 0 0 4px rgba(201, 138, 0, 0.25);
+}
+
+.wrong {
+  animation: wobble 0.4s;
+}
+
+@keyframes wobble {
+  25% { translate: calc(-50% - 5px) -50%; }
+  75% { translate: calc(-50% + 5px) -50%; }
+}
+
+.dot:focus-visible {
+  outline: 3px solid #2f5d91;
+  outline-offset: 3px;
+}
+
+.caption {
+  position: absolute;
+  left: 50%;
+  bottom: -0.25rem;
+  translate: -50% 0;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #c98a00;
+  rotate: -4deg;
+  animation: ray 0.5s 1s backwards;
+}
+
+.status {
+  min-height: 2.6em;
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.actions {
+  display: flex;
+  min-height: 2.25rem;
+}

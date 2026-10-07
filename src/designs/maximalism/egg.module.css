@@ -1,0 +1,200 @@
+/* Easter egg: the MORE machine. Every press adds shapes, and every five presses unlock a louder layer. */
+.stage {
+  background: rgba(255, 241, 184, 0.9);
+  font-family: var(--font-max-syne), system-ui, sans-serif;
+  color: #111111;
+}
+
+.world {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.dots,
+.stripes,
+.checks,
+.zigzag {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dots {
+  background: radial-gradient(#111 22%, transparent 24%) 0 0 / 22px 22px, #ffd600;
+  opacity: 0.5;
+}
+
+.stripes {
+  background: repeating-linear-gradient(45deg, #2b86c5 0 16px, #ffd600 16px 32px);
+  opacity: 0.35;
+}
+
+.checks {
+  background: conic-gradient(#111 25%, #ff3cac 0 50%, #111 0 75%, #ff3cac 0) 0 0 / 44px 44px;
+  opacity: 0.25;
+}
+
+.zigzag {
+  background: repeating-linear-gradient(135deg, #6a00f4 0 14px, #00d68f 14px 28px);
+  opacity: 0.25;
+}
+
+.shape {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  font-family: var(--font-max-bowlby), Impact, sans-serif;
+  pointer-events: none;
+  animation: land 0.25s cubic-bezier(0.2, 1.5, 0.4, 1) backwards;
+}
+
+@keyframes land {
+  from { scale: 0; }
+}
+
+.circle {
+  border-radius: 50%;
+  border: 3px solid #111111;
+}
+
+.square {
+  border: 3px solid #111111;
+  box-shadow: 4px 4px 0 #111111;
+}
+
+.blob {
+  border: 3px solid #111111;
+  border-radius: 62% 38% 55% 45% / 45% 60% 40% 55%;
+}
+
+.star,
+.squiggle,
+.word {
+  width: auto;
+  height: auto;
+  white-space: nowrap;
+  -webkit-text-stroke: 2px #111111;
+  paint-order: stroke fill;
+}
+
+.word {
+  font-size: 0.45em;
+  letter-spacing: 0.02em;
+}
+
+.wobble {
+  animation: land 0.25s cubic-bezier(0.2, 1.5, 0.4, 1) backwards, wobble 1.2s ease-in-out 0.3s 3;
+}
+
+@keyframes wobble {
+  50% { translate: 0 -10px; }
+}
+
+.marquee {
+  position: absolute;
+  inset: auto 0 5.5rem;
+  overflow: hidden;
+  border-block: 4px solid #111111;
+  background: #ff3cac;
+  color: #111111;
+  font: 400 1.75rem/1.5 var(--font-max-bowlby), Impact, sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.marquee span {
+  display: inline-block;
+  animation: slide 14s linear infinite;
+}
+
+@keyframes slide {
+  to { translate: -50%; }
+}
+
+.panel {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  translate: -50% -50%;
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
+  width: min(24rem, calc(100% - 2rem));
+  padding: 1rem;
+  border: 4px solid #111111;
+  background: #ffffff;
+  box-shadow: 8px 8px 0 #111111;
+  text-align: center;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.count {
+  margin: 0;
+  font: 400 1.25rem/1 var(--font-max-bowlby), Impact, sans-serif;
+}
+
+.close,
+.less {
+  min-height: 2.25rem;
+  padding: 0 0.9rem;
+  border: 3px solid #111111;
+  background: #ffd600;
+  color: #111111;
+  font: 800 0.8125rem/1 var(--font-max-syne), system-ui, sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.less {
+  min-height: 1.75rem;
+  background: transparent;
+  border-width: 2px;
+  font-size: 0.6875rem;
+}
+
+.more {
+  width: 100%;
+  padding: 1rem;
+  border: 4px solid #111111;
+  background: #ff3cac;
+  color: #111111;
+  font: 400 clamp(2.4rem, 12vw, 3.5rem)/1 var(--font-max-bowlby), Impact, sans-serif;
+  box-shadow: 6px 6px 0 #111111;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.more:active {
+  transform: translate(6px, 6px);
+  box-shadow: none;
+}
+
+.huge {
+  padding-block: 1.75rem;
+  font-size: clamp(2.8rem, 14vw, 4.4rem);
+}
+
+.close:focus-visible,
+.less:focus-visible,
+.more:focus-visible {
+  outline: 4px solid #6a00f4;
+  outline-offset: 3px;
+}
+
+.unlock {
+  min-height: 2.6em;
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}

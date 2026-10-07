@@ -6,6 +6,7 @@ import { minimalSans } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -28,6 +29,7 @@ export default function MinimalismDesign() {
   return (
     <main id="top" data-design="minimalism" className={`${minimalSans.variable} ${styles.page}`}>
       <ViewerTheme slug="minimalism" fonts={`${minimalSans.variable}`} entrance="fade" />
+      <Egg />
       <SkipLink />
       <div className={styles.wrap}>
         <header className={styles.header}>

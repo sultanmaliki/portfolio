@@ -9,6 +9,7 @@ import { cybercoreMono, cybercoreOrbitron } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -60,6 +61,7 @@ export default function CybercoreDesign() {
   return (
     <main id="top" data-design="cybercore" className={`${cybercoreOrbitron.variable} ${cybercoreMono.variable} ${styles.page}`}>
       <ViewerTheme slug="cybercore" fonts={`${cybercoreOrbitron.variable} ${cybercoreMono.variable}`} entrance="slide" />
+      <Egg />
       <SkipLink />
       <div aria-hidden className={styles.gridLines} />
 

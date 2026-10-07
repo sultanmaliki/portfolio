@@ -15,7 +15,7 @@ A high-performance, interactive personal portfolio built with a focus on storyte
 - **Viewers that belong to each design**: the browser window and the PDF reader are one shared implementation, restyled by all 23 designs: frame, title bar and tab, toolbar, buttons, address bar, type, borders, shadows and entrance are each design's own (a taped sheet in Scrapbook, a HUD in Cybercore, a game menu in Pixel art, a bento tray in Bento grid, and so on). Switching design while a viewer is open restyles it in place. See "Themed viewers" in [docs/DESIGNS.md](docs/DESIGNS.md).
 - **Animated Navigation**: Nav links scroll through the page (eased, interruptible, reduced-motion aware) so the scroll story plays on the way to a section.
 - **Micro-Interactions**: Custom morphing cursors, spring animations, dynamic parallax sections, and smooth transitions powered by Framer Motion.
-- **Easter Eggs**: Secret Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`), and hidden tooltips.
+- **A game in every design**: each of the 23 designs hides its own small game or toy, in character: a working terminal, an MSN chat, a Wordle-style Daily Word, Lights Out, a kerning game, a gold scratch card, bubble wrap, a runner, a driving game, a breach-protocol hack, a broken bowl to mend with gold, and more. Type its secret word, or tap the name five times on a touch screen; the console hints at it. Cinematic keeps the Konami code (`↑ ↑ ↓ ↓ ← → ← → B A`). They are modal dialogs with keyboard and touch controls, inert until triggered, and the full list is in [docs/DESIGNS.md](docs/DESIGNS.md).
 - **Secure by default**: A strict Content-Security-Policy plus HSTS, `nosniff`, no-framing and a locked-down Permissions-Policy (see `public/_headers`); external links use `noopener`, embedded demos are sandboxed, and `npm audit` is clean.
 - **Accessible & Responsive**: Section nav, skip link, keyboard-operable cards, visible focus, reduced-motion support, and layouts checked from 320px phones to 1920px desktops.
 - **High Performance**: Object-fit canvas logic, DPR-aware canvas sizing, staged frame preloading, GPU-accelerated transforms, and a custom frame-loader.
@@ -93,9 +93,9 @@ GitHub Actions (`.github/workflows/ci.yml`) runs all of the above on every push 
 │   │   ├── registry.ts    # every design (live and planned): name, direction, palette, status
 │   │   ├── sections.ts    # the nine anchor ids every design provides
 │   │   ├── metadata.ts    # route metadata helper
-│   │   ├── shared/        # usePortfolio() (content + wired-up links), Reveal, SkipLink, useActiveSection
+│   │   ├── shared/        # usePortfolio() (content + wired-up links), Reveal, SkipLink, useActiveSection, useEasterEgg + EggDialog + eggKit
 │   │   ├── cinematic/     # the default design: scroll-driven film intro + glass panels
-│   │   └── <slug>/        # the other 22: index.tsx, styles.module.css, viewer.css, fonts.ts, fonts/ (self-hosted)
+│   │   └── <slug>/        # the other 22: index.tsx, styles.module.css, viewer.css, Egg.tsx + egg.module.css, fonts.ts, fonts/ (self-hosted)
 │   ├── components/        # shared chrome, mounted once in the root layout
 │   │   ├── DesignSwitcher.tsx   # the panel that switches designs (usable above an open viewer)
 │   │   ├── ResumeViewer.tsx     # built-in PDF reader
@@ -137,7 +137,7 @@ The portfolio can be shown in many styles from the same content. Everything is d
 - **The plan** lives in `src/designs/registry.ts`: 23 designs, each `live` or `planned`, with a one-line direction and a palette. The **Designs** panel is generated from it.
 - **One hook** (`usePortfolio()` in `src/designs/shared`) gives every design the content, the GitHub projects and ready-made link props, so the resume reader, link viewer and copy-email behave identically everywhere.
 - **Themed viewers:** the browser window and PDF reader behave identically in every design but look like each one's own. A design renders `<ViewerTheme slug fonts />` and ships a `viewer.css` of `--vw-*` tokens and a few rules; the shared `ViewerFrame` does the rest, and an open viewer restyles the moment the design changes.
-- **Add a design:** `npm run new-design -- <slug>` scaffolds the component, a starter `viewer.css` and the route and marks it live. The Playwright suite then checks the design contract for it automatically: all content present, resume reader works, the nine section anchors exist, no overflow from 320 px up, no console errors, WCAG 2.1 A/AA via axe, nothing looping under reduced motion, and a viewer theme of its own that passes the same checks.
+- **Add a design:** `npm run new-design -- <slug>` scaffolds the component, a starter `viewer.css` and the route and marks it live. The Playwright suite then checks the design contract for it automatically: all content present, resume reader works, the nine section anchors exist, no overflow from 320 px up, no console errors, WCAG 2.1 A/AA via axe, nothing looping under reduced motion, and a viewer theme of its own that passes the same checks, and a game of its own that opens as an accessible dialog and plays.
 - **Routes:** the default design is served at `/`; the others at `/designs/<slug>/` with their canonical URL pointing at `/`, so search engines index one page.
 - Fonts are self-hosted per design (a visitor only downloads the fonts of the design they open) and there are no image assets: textures and illustrations are CSS and inline SVG.
 

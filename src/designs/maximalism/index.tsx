@@ -7,6 +7,7 @@ import { maxAbril, maxBowlby, maxSyne } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -39,6 +40,7 @@ export default function MaximalismDesign() {
   return (
     <main id="top" data-design="maximalism" className={`${maxBowlby.variable} ${maxAbril.variable} ${maxSyne.variable} ${styles.page} ${calm ? styles.calm : ""}`}>
       <ViewerTheme slug="maximalism" fonts={`${maxBowlby.variable} ${maxAbril.variable} ${maxSyne.variable}`} entrance="pop" />
+      <Egg />
       <SkipLink />
 
       <div className={styles.wrap}>

@@ -1,0 +1,139 @@
+/* Easter egg: a gold scratch card in ink black and ivory serif. */
+.backdrop {
+  background: rgba(14, 14, 14, 0.88);
+  animation: fade 0.35s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.card {
+  width: min(26rem, 100%);
+  padding: 1.25rem;
+  border: 1px solid rgba(201, 162, 39, 0.6);
+  outline: 1px solid rgba(201, 162, 39, 0.3);
+  outline-offset: 5px;
+  background: #0e0e0e;
+  color: #f2ebdd;
+  font-family: var(--font-lux-serif), Georgia, serif;
+  text-align: center;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.top p {
+  margin: 0;
+  font-size: 0.8125rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #c9a227;
+}
+
+.close,
+.actions button {
+  min-height: 2.25rem;
+  padding: 0 0.9rem;
+  border: 1px solid rgba(201, 162, 39, 0.6);
+  background: transparent;
+  color: #c9a227;
+  font: 400 0.75rem/1 var(--font-lux-sans), "Helvetica Neue", sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.close:hover,
+.actions button:hover,
+.close:focus-visible,
+.actions button:focus-visible {
+  background: #c9a227;
+  color: #0e0e0e;
+  outline: none;
+}
+
+.prize {
+  position: relative;
+  height: 11.5rem;
+  margin: 1.25rem 0 1rem;
+  border: 1px solid rgba(201, 162, 39, 0.5);
+}
+
+.under {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  gap: 0.4rem;
+  padding: 0 1rem;
+  background: radial-gradient(circle at 50% 40%, #1d1a12, #0e0e0e);
+}
+
+.under p {
+  margin: 0;
+}
+
+.small {
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  color: #bdb6a8;
+}
+
+.big {
+  font-size: clamp(1.5rem, 7vw, 2rem);
+  font-style: italic;
+  color: #e6c453;
+}
+
+.foil {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+  transition: opacity 0.9s ease;
+}
+
+.gone {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.status {
+  min-height: 2.6em;
+  margin: 0 0 0.75rem;
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: #bdb6a8;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.redeem {
+  display: inline-grid;
+  place-items: center;
+  min-height: 2.75rem;
+  padding: 0 1.5rem;
+  background: #c9a227;
+  color: #0e0e0e;
+  font: 500 0.8125rem/1 var(--font-lux-sans), "Helvetica Neue", sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.redeem:hover,
+.redeem:focus-visible {
+  background: #f2ebdd;
+  outline: 2px solid #c9a227;
+  outline-offset: 3px;
+}

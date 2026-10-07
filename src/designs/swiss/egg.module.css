@@ -1,0 +1,177 @@
+/* Easter egg: the kerning game, in the page's own grotesque, black rules and one red. */
+.backdrop {
+  background: rgba(255, 255, 255, 0.94);
+  animation: fade 0.2s backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+.panel {
+  width: min(36rem, 100%);
+  padding: 1.25rem;
+  border-top: 8px solid #e4002b;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #111111;
+  color: #111111;
+  font-family: var(--font-swiss), "Helvetica Neue", Arial, sans-serif;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #111111;
+}
+
+.head h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.close,
+.actions button {
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 2px solid #111111;
+  background: #ffffff;
+  color: #111111;
+  font: 700 0.8125rem/1 var(--font-swiss), "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.close:hover,
+.actions button:hover {
+  background: #111111;
+  color: #ffffff;
+}
+
+.actions .primary,
+.primary {
+  background: #e4002b;
+  border-color: #e4002b;
+  color: #ffffff;
+}
+
+.actions .primary:hover,
+.primary:hover {
+  background: #111111;
+  border-color: #111111;
+}
+
+.close:focus-visible,
+.actions button:focus-visible,
+.letter:focus-visible {
+  outline: 3px solid #111111;
+  outline-offset: 3px;
+}
+
+.round {
+  margin: 0.75rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #595959;
+}
+
+.arena {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 10rem;
+  margin: 0.5rem 0;
+  border-bottom: 1px solid #111111;
+  background: repeating-linear-gradient(to bottom, transparent 0 calc(2rem - 1px), rgba(17, 17, 17, 0.08) calc(2rem - 1px) 2rem);
+  overflow-x: auto;
+  font-size: clamp(3.4rem, 17vw, 6.5rem);
+}
+
+.probe {
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-kerning: normal;
+  line-height: 1;
+}
+
+.word {
+  position: relative;
+  height: 1.1em;
+  margin: 0 auto;
+}
+
+.letter {
+  position: absolute;
+  top: 0;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+}
+
+.fixed {
+  cursor: default;
+  color: #595959;
+}
+
+.bad {
+  color: #e4002b;
+}
+
+.guide {
+  position: absolute;
+  top: 0;
+  bottom: -0.05em;
+  width: 2px;
+  background: #e4002b;
+  opacity: 0.8;
+}
+
+.status {
+  min-height: 2.6em;
+  margin: 0.5rem 0 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.result {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.big {
+  margin: 0;
+  font-size: 4.5rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: #e4002b;
+}
+
+.big span {
+  font-size: 1.5rem;
+  color: #111111;
+  letter-spacing: 0;
+}
+
+.result p {
+  margin: 0;
+}

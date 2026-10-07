@@ -8,6 +8,7 @@ import { y2kDisplay, y2kText } from "./fonts";
 import styles from "./styles.module.css";
 import ViewerTheme from "@/components/viewer/viewerTheme";
 import "./viewer.css";
+import Egg from "./Egg";
 
 const NAV = [
   ["story", "Story"],
@@ -58,6 +59,7 @@ export default function Y2KDesign() {
   return (
     <main id="top" data-design="y2k" className={`${y2kDisplay.variable} ${y2kText.variable} ${styles.page}`}>
       <ViewerTheme slug="y2k" fonts={`${y2kDisplay.variable} ${y2kText.variable}`} entrance="pop" />
+      <Egg />
       <SkipLink />
 
       <div aria-hidden className={styles.sky}>

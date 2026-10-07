@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { componentName, fill, markLive, parseRegistry } from "./new-design.mjs";
+import { componentName, fill, markLive, parseRegistry, secretWord } from "./new-design.mjs";
 
 const registry = readFileSync(new URL("../src/designs/registry.ts", import.meta.url), "utf8");
 
@@ -55,14 +55,21 @@ describe("markLive", () => {
   });
 });
 
+describe("secretWord", () => {
+  it("derives a lowercase word from the slug", () => {
+    expect(secretWord("wabi-sabi")).toBe("wabisabi");
+    expect(secretWord("y2k")).toBe("yk" + "x");
+  });
+});
+
 describe("fill", () => {
   it("replaces every placeholder occurrence", () => {
     expect(fill("__A__ and __A__ and __B__", { A: "x", B: "y" })).toBe("x and x and y");
   });
 
   it("generates the starter files for real: no placeholders left", () => {
-    const vars = { SLUG: "minimalism", NAME: "Minimalism", COMPONENT: componentName("minimalism") };
-    for (const name of ["design.tsx.tpl", "page.tsx.tpl", "styles.module.css.tpl", "viewer.css.tpl"]) {
+    const vars = { SLUG: "minimalism", NAME: "Minimalism", COMPONENT: componentName("minimalism"), WORD: secretWord("minimalism") };
+    for (const name of ["design.tsx.tpl", "page.tsx.tpl", "styles.module.css.tpl", "viewer.css.tpl", "egg.tsx.tpl", "egg.module.css.tpl"]) {
       const out = fill(readFileSync(new URL(`./templates/${name}`, import.meta.url), "utf8"), vars);
       expect(out).not.toMatch(/__[A-Z]+__/);
       expect(out).toContain(name.endsWith(".css.tpl") ? "minimalism" : "MinimalismDesign");

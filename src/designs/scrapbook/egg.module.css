@@ -1,0 +1,148 @@
+/* Easter egg: a sticker sheet. Pick a sticker, tap the page to slap it down, drag to move it. */
+.stage {
+  background: rgba(244, 233, 216, 0.25);
+  font-family: var(--font-scrap-type), "Courier New", monospace;
+  color: #3d405b;
+}
+
+.sheet {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.placed {
+  position: absolute;
+  translate: -50% -50%;
+  width: 5.25rem;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 6px 5px rgba(61, 64, 91, 0.35));
+  animation: slap 0.22s cubic-bezier(0.2, 1.4, 0.4, 1) backwards;
+}
+
+@keyframes slap {
+  from { scale: 1.9; opacity: 0; }
+}
+
+.placed svg,
+.choice svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.placed .tapeArt {
+  width: 7rem;
+  filter: none;
+}
+
+.label {
+  display: block;
+  width: max-content;
+  padding: 0.35rem 0.7rem;
+  border: 2px dashed currentColor;
+  background: #fffdf7;
+  font: 700 0.9rem/1 var(--font-scrap-type), "Courier New", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hire { color: #8a301a; }
+.open { color: #2f6b3b; }
+.ship { color: #3d405b; }
+
+.tray {
+  position: absolute;
+  inset: 0 0 auto;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(#fffdf7 82%, rgba(255, 253, 247, 0));
+  cursor: default;
+}
+
+.title {
+  margin: 0 0 0.5rem;
+  font: 700 1.25rem/1 var(--font-scrap-hand), cursive;
+}
+
+.title span {
+  margin-left: 0.5rem;
+  font: 600 0.8125rem/1 var(--font-scrap-type), "Courier New", monospace;
+  color: #8a301a;
+}
+
+.picker {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.25rem 0.25rem 0.5rem;
+  overflow-x: auto;
+}
+
+.choice {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0.35rem;
+  border: 2px solid transparent;
+  border-radius: 0.4rem;
+  background: #f4e9d8;
+  cursor: pointer;
+}
+
+.choice[aria-pressed="true"] {
+  border-color: #8a301a;
+  background: #ffe08a;
+}
+
+.choice .label {
+  padding: 0.15rem 0.2rem;
+  font-size: 0.5rem;
+  white-space: normal;
+  text-align: center;
+  width: auto;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.actions button {
+  min-height: 2.25rem;
+  padding: 0 0.9rem;
+  border: 2px solid #3d405b;
+  background: #fffdf7;
+  color: #3d405b;
+  font: 700 0.8125rem/1 var(--font-scrap-type), "Courier New", monospace;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #3d405b;
+}
+
+.actions button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.actions .close {
+  margin-left: auto;
+  background: #8a301a;
+  border-color: #8a301a;
+  color: #fffdf7;
+  box-shadow: 2px 2px 0 #3d405b;
+}
+
+.choice:focus-visible,
+.actions button:focus-visible {
+  outline: 3px solid #8a301a;
+  outline-offset: 2px;
+}
+
+.hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+}
