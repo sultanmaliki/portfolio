@@ -54,9 +54,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | --- | --- |
 | `npm run lint` | ESLint (Next.js core-web-vitals + TypeScript rules) |
 | `npm run typecheck` | `tsc --noEmit` in strict mode |
-| `npm test` | Vitest unit tests: repo filtering/sorting, URL safety, click handlers, content and design-registry integrity, the scaffold script |
+| `npm test` | Vitest unit tests: repo filtering/sorting, URL safety, click handlers, content and design-registry integrity, the scaffold script, and the rules of every easter-egg game (terminal, Lights Out, Daily Word, kerning score, breach protocol, physics engines) |
 | `npm run build` | Static export to `out/` |
-| `npm run test:e2e` | Playwright smoke tests, the design switcher, the per-design contract and the themed viewers (preview card, embedded browser and PDF reader in every design, with axe, fit, tap targets, focus and switching design while open) against `out/` on a desktop and a phone profile (first run: `npx playwright install chromium`; or set `PW_CHANNEL=chrome` to use installed Chrome) |
+| `npm run test:e2e` | Playwright smoke tests, the design switcher, the per-design contract, the easter eggs (every one opens as an accessible dialog, then is actually played) and the themed viewers (preview card, embedded browser and PDF reader in every design, with axe, fit, tap targets, focus and switching design while open) against `out/` on a desktop and a phone profile (first run: `npx playwright install chromium`; or set `PW_CHANNEL=chrome` to use installed Chrome) |
 | `npm run new-design -- <slug>` | Scaffolds a planned design (component, route, registry status) |
 | `npm run previews` | Regenerates the design-switcher thumbnails in `public/design-previews/` from the built site (`npm run build` first) |
 | `npm run check:links` | Verifies every external link in the built page (also runs weekly in CI: `.github/workflows/link-check.yml`) |
@@ -116,7 +116,7 @@ GitHub Actions (`.github/workflows/ci.yml`) runs all of the above on every push 
 │       ├── scroll.ts      # useScrollTransform: scroll ranges padded to 0–1
 │       └── timeline.ts    # splits a section's scroll range into named phases
 ├── docs/DESIGNS.md        # how designs work, the contract, and what shipped in each of the 23
-├── e2e/                   # Playwright: site smoke tests, design switcher, design contract
+├── e2e/                   # Playwright: site smoke tests, design switcher, design contract, themed viewers, easter eggs
 ├── scripts/
 │   ├── fetch-repos.mjs    # `prebuild`: snapshots public repos (drops dead homepages)
 │   ├── check-links.mjs    # checks every external link in the built page
