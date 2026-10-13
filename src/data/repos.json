@@ -1,5 +1,29 @@
 [
   {
+    "name": "setbeat",
+    "description": "SetBeat: a gesture-driven gym timer for Android that rides your music. Now-playing companion with a beat-reactive waveform. Kotlin, Jetpack Compose, Media3. No internet, no accounts.",
+    "html_url": "https://github.com/sultanmaliki/setbeat",
+    "homepage": null,
+    "language": "Kotlin",
+    "topics": [
+      "android",
+      "audio-visualizer",
+      "countdown-timer",
+      "gestures",
+      "gym",
+      "jetpack-compose",
+      "kotlin",
+      "media3",
+      "now-playing",
+      "privacy",
+      "setbeat",
+      "stopwatch",
+      "workout-timer"
+    ],
+    "stargazers_count": 1,
+    "pushed_at": "2026-10-13T09:39:51Z"
+  },
+  {
     "name": "Project-Management-Web-App",
     "description": "A project management tool featuring a Python/FastAPI backend and a Next.js frontend. The application includes CRUD operations for projects and tasks , role-based user management , and a bonus AI feature for generating user stories using the GROQ API.",
     "html_url": "https://github.com/sultanmaliki/Project-Management-Web-App",
@@ -69,30 +93,6 @@
     "topics": [],
     "stargazers_count": 2,
     "pushed_at": "2026-09-26T02:48:17Z"
-  },
-  {
-    "name": "setbeat",
-    "description": "SetBeat: a gesture-driven gym timer for Android that rides your music. Now-playing companion with a beat-reactive waveform. Kotlin, Jetpack Compose, Media3. No internet, no accounts.",
-    "html_url": "https://github.com/sultanmaliki/setbeat",
-    "homepage": null,
-    "language": "Kotlin",
-    "topics": [
-      "android",
-      "audio-visualizer",
-      "countdown-timer",
-      "gestures",
-      "gym",
-      "jetpack-compose",
-      "kotlin",
-      "media3",
-      "now-playing",
-      "privacy",
-      "setbeat",
-      "stopwatch",
-      "workout-timer"
-    ],
-    "stargazers_count": 1,
-    "pushed_at": "2026-09-24T05:01:22Z"
   },
   {
     "name": "hospital-management-system",
