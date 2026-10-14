@@ -1,5 +1,49 @@
 [
   {
+    "name": "logsentinel",
+    "description": "journalctl for Android: stream, store, search and get alerted on your phone's logcat over pinned TLS to a hub on your own PC. Kotlin agent + Spring Boot hub + web dashboard. Local only, no cloud.",
+    "html_url": "https://github.com/sultanmaliki/logsentinel",
+    "homepage": null,
+    "language": "Java",
+    "topics": [
+      "android",
+      "crash-reporting",
+      "kotlin",
+      "logcat",
+      "logging",
+      "observability",
+      "self-hosted",
+      "spring-boot",
+      "sqlite",
+      "tls-pinning"
+    ],
+    "stargazers_count": 0,
+    "pushed_at": "2026-10-14T06:19:40Z"
+  },
+  {
+    "name": "personal-rag",
+    "description": "Fully local RAG assistant that indexes all your GitHub repos and your website into a citation-backed chat interface — no API keys, no cloud cost, runs entirely on your machine via Ollama + Chroma.",
+    "html_url": "https://github.com/sultanmaliki/personal-rag",
+    "homepage": null,
+    "language": "Python",
+    "topics": [
+      "chromadb",
+      "fastapi",
+      "github-api",
+      "llm",
+      "local-llm",
+      "ollama",
+      "personal-knowledge-base",
+      "python",
+      "rag",
+      "retrieval-augmented-generation",
+      "semantic-search",
+      "sentence-transformers"
+    ],
+    "stargazers_count": 0,
+    "pushed_at": "2026-10-14T06:19:39Z"
+  },
+  {
     "name": "setbeat",
     "description": "SetBeat: a gesture-driven gym timer for Android that rides your music. Now-playing companion with a beat-reactive waveform. Kotlin, Jetpack Compose, Media3. No internet, no accounts.",
     "html_url": "https://github.com/sultanmaliki/setbeat",
@@ -50,29 +94,6 @@
     ],
     "stargazers_count": 2,
     "pushed_at": "2026-09-30T19:28:04Z"
-  },
-  {
-    "name": "personal-rag",
-    "description": "Fully local RAG assistant that indexes all your GitHub repos and your website into a citation-backed chat interface — no API keys, no cloud cost, runs entirely on your machine via Ollama + Chroma.",
-    "html_url": "https://github.com/sultanmaliki/personal-rag",
-    "homepage": null,
-    "language": "Python",
-    "topics": [
-      "chromadb",
-      "fastapi",
-      "github-api",
-      "llm",
-      "local-llm",
-      "ollama",
-      "personal-knowledge-base",
-      "python",
-      "rag",
-      "retrieval-augmented-generation",
-      "semantic-search",
-      "sentence-transformers"
-    ],
-    "stargazers_count": 0,
-    "pushed_at": "2026-09-30T12:39:50Z"
   },
   {
     "name": "Custom-Language-Translator",
