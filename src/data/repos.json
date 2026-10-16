@@ -1,28 +1,5 @@
 [
   {
-    "name": "personal-rag",
-    "description": "Fully local RAG assistant that indexes all your GitHub repos and your website into a citation-backed chat interface — no API keys, no cloud cost, runs entirely on your machine via Ollama + Chroma.",
-    "html_url": "https://github.com/sultanmaliki/personal-rag",
-    "homepage": null,
-    "language": "Python",
-    "topics": [
-      "chromadb",
-      "fastapi",
-      "github-api",
-      "llm",
-      "local-llm",
-      "ollama",
-      "personal-knowledge-base",
-      "python",
-      "rag",
-      "retrieval-augmented-generation",
-      "semantic-search",
-      "sentence-transformers"
-    ],
-    "stargazers_count": 0,
-    "pushed_at": "2026-10-16T06:33:25Z"
-  },
-  {
     "name": "setbeat",
     "description": "SetBeat: a gesture-driven gym timer for Android that rides your music. Now-playing companion with a beat-reactive waveform. Kotlin, Jetpack Compose, Media3. No internet, no accounts.",
     "html_url": "https://github.com/sultanmaliki/setbeat",
@@ -44,7 +21,30 @@
       "workout-timer"
     ],
     "stargazers_count": 1,
-    "pushed_at": "2026-10-13T09:39:51Z"
+    "pushed_at": "2026-10-16T14:39:43Z"
+  },
+  {
+    "name": "personal-rag",
+    "description": "Fully local RAG assistant that indexes all your GitHub repos and your website into a citation-backed chat interface — no API keys, no cloud cost, runs entirely on your machine via Ollama + Chroma.",
+    "html_url": "https://github.com/sultanmaliki/personal-rag",
+    "homepage": null,
+    "language": "Python",
+    "topics": [
+      "chromadb",
+      "fastapi",
+      "github-api",
+      "llm",
+      "local-llm",
+      "ollama",
+      "personal-knowledge-base",
+      "python",
+      "rag",
+      "retrieval-augmented-generation",
+      "semantic-search",
+      "sentence-transformers"
+    ],
+    "stargazers_count": 0,
+    "pushed_at": "2026-10-16T06:33:25Z"
   },
   {
     "name": "Project-Management-Web-App",
